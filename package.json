@@ -1,0 +1,25 @@
+{
+  "name": "dobbit_hbs",
+  "version": "0.1.0",
+  "description": "Essensbestellung OG2 - Prio 1",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "export DEBUG='app:*' ; nodemon --exec npm run babel-node -- app.js",
+    "babel-node": "babel-node --ignore='node_modules'"
+  },
+  "author": "@rabalyn (Nils Mundhenke)",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.11",
+    "nodemon": "^1.17.3",
+    "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}
