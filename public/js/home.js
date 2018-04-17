@@ -4,6 +4,25 @@ function syncOrder(data) {
     socket.emit('POSTorder', data)
 }
 
+function syncPaied(data) {
+    socket.emit('POSTpaied', data)
+}
+
+function syncClearList() {
+    socket.emit('clearList', {})
+}
+
+socket.on('reload', () => {
+    console.log('reload')
+    location.reload()
+})
+
+socket.on('GETpaied', (data) => {
+    console.log(data)
+    const x = document.getElementById(data.htmlid)
+    x.value = data.paied
+})
+
 socket.on('GETorder', (data) => {
     addRow(data)
 })
@@ -17,6 +36,16 @@ socket.on('initOrders', (orders) => {
 socket.on('initMeta', (metadata) => {
     metadata.forEach(data => {
         updateMetaField(data)
+    })
+})
+
+socket.on('initPaied', (paied) => {
+    console.log(paied)
+    paied.forEach(pay => {
+        console.log(pay, pay.htmlid, pay.paied)
+        const x = document.getElementById(pay.htmlid)
+        console.log(x)
+        x.value = pay.paied
     })
 })
 
@@ -46,25 +75,38 @@ function updateMetaInfo(id) {
 }
 
 function addRow(order) {
-    const table = document.getElementById("orderTable")
+    const table = document.getElementById('orderTable')
 
-    var row = table.insertRow(1)
+    const row = table.insertRow(1)
 
-    var name = row.insertCell(-1)
-    var meal = row.insertCell(-1)
-    var size = row.insertCell(-1)
-    var comment = row.insertCell(-1)
-    var paied = row.insertCell(-1)
+    const id = row.insertCell(-1)
+    const name = row.insertCell(-1)
+    const meal = row.insertCell(-1)
+    const size = row.insertCell(-1)
+    const comment = row.insertCell(-1)
+    const paied = row.insertCell(-1)
 
     // Add some text to the new cells:
+    id.innerHTML = order.tableId
     name.innerHTML = order.name
     meal.innerHTML = order.meal
     size.innerHTML = order.size
     comment.innerHTML = order.comment
-    var x = document.createElement("INPUT");
-    x.setAttribute("type", "text");
-    x.setAttribute("value", "Hello World!");
-    paied.appendChild(x);
+    const htmlid = order.name + order.meal + order.size
+    console.log('htmlid', htmlid)
+    const x = document.createElement('INPUT')
+    x.setAttribute('data-name', order.name)
+    x.setAttribute('id', htmlid)
+    x.setAttribute('type', 'number')
+    x.setAttribute('step', '0.01')
+    x.setAttribute('value', '0,00')
+    paied.appendChild(x)
+
+    document.getElementById(htmlid).addEventListener('focusout', (e) => {
+        e.preventDefault()
+        const paied = document.getElementById(htmlid).value
+        syncPaied({id: id, htmlid: htmlid, paied: paied})
+    })
 }
 
 function initDateValue() {
@@ -72,8 +114,16 @@ function initDateValue() {
     dateControl.value = new Date().toISOString().substr(0, 10)
 }
 
+function initClearListButton() {
+    document.getElementById('clearList').addEventListener('click', (e) => {
+        e.preventDefault()
+        syncClearList()
+    })
+}
+
 $(document).ready(() => {
     initDateValue()
+    initClearListButton()
 
     setSizeLabel('sizeSmall', 'Klein')
     setSizeLabel('sizeBig', 'Groß')
