@@ -98,6 +98,10 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+app.get('/hobbit', (req, res) => {
+  res.render('hobbit')
+})
+
 http.listen(port, () => {
   loginfo('Listening on port %d', port)
 })
