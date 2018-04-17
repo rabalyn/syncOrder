@@ -38,6 +38,7 @@ let meta = JSON.parse(fs.readFileSync(metaFilestorepath, 'utf-8')) || []
 let paied = JSON.parse(fs.readFileSync(paiedFilestorepath, 'utf-8')) || []
 
 function saveState() {
+  logdebug('save state...')
   fs.writeFile(tableIdFilestorepath, tableId.toString(), (err) => {
     if(err) {
       logerror(err)
