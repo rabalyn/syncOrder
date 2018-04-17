@@ -77,7 +77,7 @@ function updateMetaInfo(id) {
 function addRow(order) {
     const table = document.getElementById('orderTable')
 
-    const row = table.insertRow(1)
+    const row = table.insertRow(-1)
 
     const id = row.insertCell(-1)
     const name = row.insertCell(-1)
@@ -140,7 +140,9 @@ $(document).ready(() => {
         const meal = document.getElementById('meal').value
             ? document.getElementById('meal').value
             : null
-        const size = document.getElementById('dropdownMenuButton').innerHTML
+        const size = document.getElementById('dropdownMenuButton').innerHTML === 'Größe'
+            ? document.getElementById('dropdownMenuButton').innerHTML
+            : '--'
         const comment = document.getElementById('comment').value
             ? document.getElementById('comment').value
             : '--'
@@ -158,7 +160,7 @@ $(document).ready(() => {
         }
         console.log(order)
         syncOrder(order)
-        $('#saveOrder').modal('hide')
+        $('#addOrderModal').modal('hide')
     })
 
 })
