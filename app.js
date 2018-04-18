@@ -21,14 +21,14 @@ global.paied = JSON.parse(fs.readFileSync(config.serialization.paiedFilestorepat
 const http = require('http').Server(app)
 const socket = require('./lib/socketConnection')
 socket.hobbitIO(http)
+socket.setConfig(config)
 
 const serializeJson = require('./lib/serializeJson')
 serializeJson.setConfig(config)
 
-function foo() {
+setInterval(function() {
   serializeJson.sync(global.tableId, global.orders, global.meta, global.paied)
-}
-setInterval(foo, config.serialization.interval)
+}, config.serialization.interval)
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
