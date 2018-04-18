@@ -22,6 +22,7 @@ socket.on('GETpaied', (data) => {
 })
 
 socket.on('GETorder', (data) => {
+    $('#addOrderModal').modal('hide')
     addRow(data)
 })
 
@@ -187,7 +188,6 @@ $(document).ready(() => {
         }
 
         syncOrder(order)
-        $('#addOrderModal').modal('hide')
     })
 
 })
