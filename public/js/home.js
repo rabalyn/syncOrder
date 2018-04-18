@@ -13,18 +13,23 @@ function syncClearList() {
 }
 
 socket.on('reload', () => {
-    console.log('reload')
     location.reload()
 })
 
 socket.on('GETpaied', (data) => {
-    console.log(data)
     const x = document.getElementById(data.htmlid)
     x.value = data.paied
 })
 
 socket.on('GETorder', (data) => {
+    $('#saveOrder').removeClass('disabled')
     addRow(data)
+})
+
+socket.on('FAILorder', (data) => {
+    $('#saveOrder').removeClass('disabled')
+    $('#saveOrder').removeAttr('disabled')
+    alert(data.text)
 })
 
 socket.on('initOrders', (orders) => {
@@ -40,11 +45,8 @@ socket.on('initMeta', (metadata) => {
 })
 
 socket.on('initPaied', (paied) => {
-    console.log(paied)
     paied.forEach(pay => {
-        console.log(pay, pay.htmlid, pay.paied)
         const x = document.getElementById(pay.htmlid)
-        console.log(x)
         x.value = pay.paied
     })
 })
@@ -93,12 +95,12 @@ function addRow(order) {
     size.innerHTML = order.size
     comment.innerHTML = order.comment
     const htmlid = order.name + order.meal + order.size
-    console.log('htmlid', htmlid)
+
     const x = document.createElement('INPUT')
     x.setAttribute('data-name', order.name)
     x.setAttribute('id', htmlid)
     x.setAttribute('type', 'number')
-    x.setAttribute('step', '0.01')
+    x.setAttribute('step', '0.10')
     x.setAttribute('value', '0')
     x.setAttribute('min', '0')
     x.setAttribute('max', '100')
@@ -119,13 +121,22 @@ function initDateValue() {
 function initClearListButton() {
     document.getElementById('clearList').addEventListener('click', (e) => {
         e.preventDefault()
+        $('#verifyClearListModal').modal('show')
+    })
+}
+
+function initVerifyClearListButton() {
+    document.getElementById('btnVerifyClearList').addEventListener('click', (e) => {
+        e.preventDefault()
         syncClearList()
+        $('#verifyClearListModal').modal('hide')
     })
 }
 
 $(document).ready(() => {
     initDateValue()
     initClearListButton()
+    initVerifyClearListButton()
 
     setSizeLabel('sizeSmall', 'Klein')
     setSizeLabel('sizeBig', 'Groß')
@@ -135,6 +146,9 @@ $(document).ready(() => {
     updateMetaInfo('inputCollectTime')
 
     document.getElementById('saveOrder').addEventListener('click', (e) => {
+        $('#saveOrder').addClass('disabled')
+        $('#saveOrder').attr('disabled')
+
         e.preventDefault()
         const name = document.getElementById('name').value
             ? document.getElementById('name').value
@@ -149,8 +163,24 @@ $(document).ready(() => {
             ? document.getElementById('comment').value
             : '--'
 
+
+        if(!name) {
+            $('#name').removeClass('is-valid')
+            $('#name').addClass('is-invalid')
+        } else {
+            $('#name').removeClass('is-invalid')
+            $('#name').addClass('is-valid')
+        }
+
+        if(!meal) {
+            $('#meal').removeClass('is-valid')
+            $('#meal').addClass('is-invalid')
+        } else {
+            $('#meal').removeClass('is-invalid')
+            $('#meal').addClass('is-valid')
+        }
+
         if(!name || !meal) {
-            console.log('order incomplete!')
             return
         }
 
@@ -160,9 +190,9 @@ $(document).ready(() => {
             size: size,
             comment: comment
         }
-        console.log(order)
+
         syncOrder(order)
-        $('#addOrderModal').modal('hide')
+        //$('#addOrderModal').modal('hide')
     })
 
 })
