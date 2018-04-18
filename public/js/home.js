@@ -25,6 +25,7 @@ socket.on('GETorder', (data) => {
     $('#addOrderModal').modal('hide')
     document.getElementById('name').value = ''
     document.getElementById('meal').value = ''
+    document.getElementById('dropdownMenuButton').innerHTML = 'Größe'
     addRow(data)
 })
 
