@@ -23,6 +23,8 @@ socket.on('GETpaied', (data) => {
 
 socket.on('GETorder', (data) => {
     $('#addOrderModal').modal('hide')
+    $('#name').removeClass('is-valid')
+    $('#meal').removeClass('is-valid')
     document.getElementById('name').value = ''
     document.getElementById('meal').value = ''
     document.getElementById('dropdownMenuButton').innerHTML = 'Größe'
