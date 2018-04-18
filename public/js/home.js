@@ -22,13 +22,10 @@ socket.on('GETpaied', (data) => {
 })
 
 socket.on('GETorder', (data) => {
-    $('#saveOrder').removeClass('disabled')
     addRow(data)
 })
 
 socket.on('FAILorder', (data) => {
-    $('#saveOrder').removeClass('disabled')
-    $('#saveOrder').removeAttr('disabled')
     alert(data.text)
 })
 
@@ -146,8 +143,6 @@ $(document).ready(() => {
     updateMetaInfo('inputCollectTime')
 
     document.getElementById('saveOrder').addEventListener('click', (e) => {
-        $('#saveOrder').addClass('disabled')
-        $('#saveOrder').attr('disabled')
 
         e.preventDefault()
         const name = document.getElementById('name').value
