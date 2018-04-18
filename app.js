@@ -6,13 +6,29 @@ const logdebug = debug('app:debug')
 import fs from 'fs'
 import path from 'path'
 
+import config from './config'
+
 import express from 'express'
 import exphbs from 'express-handlebars'
 const port = process.env.PORT || 9000
 const app = express()
 
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
+global.tableId = fs.readFileSync(config.serialization.tableIdFilestorepath, 'utf-8') || 1
+global.orders = JSON.parse(fs.readFileSync(config.serialization.ordersFilestorepath, 'utf-8')) || []
+global.meta = JSON.parse(fs.readFileSync(config.serialization.metaFilestorepath, 'utf-8')) || []
+global.paied = JSON.parse(fs.readFileSync(config.serialization.paiedFilestorepath, 'utf-8')) || []
+
+const http = require('http').Server(app)
+const socket = require('./lib/socketConnection')
+socket.hobbitIO(http)
+
+const serializeJson = require('./lib/serializeJson')
+serializeJson.setConfig(config)
+
+function foo() {
+  serializeJson.sync(global.tableId, global.orders, global.meta, global.paied)
+}
+setInterval(foo, config.serialization.interval)
 
 const hbs = exphbs.create({
   defaultLayout: 'main',
@@ -27,79 +43,12 @@ app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
 app.use(express.static(path.join(__dirname, 'public')))
 
-const tableIdFilestorepath = path.join(__dirname, 'data', 'tableId.txt')
-const ordersFilestorepath = path.join(__dirname, 'data', 'orders.json')
-const metaFilestorepath = path.join(__dirname, 'data', 'meta.json')
-const paiedFilestorepath = path.join(__dirname, 'data', 'paied.json')
-
-let tableId = fs.readFileSync(tableIdFilestorepath, 'utf-8') || 1
-let orders = JSON.parse(fs.readFileSync(ordersFilestorepath, 'utf-8')) || []
-let meta = JSON.parse(fs.readFileSync(metaFilestorepath, 'utf-8')) || []
-let paied = JSON.parse(fs.readFileSync(paiedFilestorepath, 'utf-8')) || []
-
-function saveState() {
-  logdebug('save state...')
-  fs.writeFile(tableIdFilestorepath, tableId.toString(), (err) => {
-    if(err) {
-      logerror(err)
-    }
-  })
-
-  saveJsonToFile(ordersFilestorepath, orders)
-  saveJsonToFile(metaFilestorepath, meta)
-  saveJsonToFile(paiedFilestorepath, paied)
-}
-
-function saveJsonToFile(path, data) {
-  fs.writeFile(path, JSON.stringify(data), (err) => {
-    if(err) {
-      logerror(err)
-    }
-  })
-}
-
-setInterval(saveState, 1000 * 60 * 5)
-
-io.on('connection', (socket) => {
-  loginfo('a user connected')
-  socket.emit('initOrders', orders)
-  socket.emit('initMeta', meta)
-  socket.emit('initPaied', paied)
-  socket.on('disconnect', () => {
-    loginfo('user disconnected')
-  })
-  socket.on('clearList', () => {
-    logdebug('clearList')
-    tableId = 1
-    orders = []
-    meta = []
-    paied = []
-    io.sockets.emit('reload', { receivers: 'everyone' })
-  })
-  socket.on('POSTpaied', (data) => {
-    paied.push(data)
-    logdebug(data)
-    io.emit('GETpaied', data)
-  })
-  socket.on('POSTorder', (data) => {
-    data.tableId = tableId++
-    orders.push(data)
-    logdebug(data)
-    io.emit('GETorder', data)
-  })
-  socket.on('syncMeta', (data) => {
-    meta.push(data)
-    logdebug(data)
-    io.emit('pushMeta', data)
-  })
-})
-
 app.get('/', (req, res) => {
   res.render('home')
 })
 
 app.get('/hobbit', (req, res) => {
-  res.render('hobbit')
+  res.sendFile(path.join(__dirname, 'public', 'imgs', 'hobbit.pdf'))
 })
 
 http.listen(port, () => {
