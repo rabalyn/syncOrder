@@ -192,7 +192,7 @@ $(document).ready(() => {
         }
 
         syncOrder(order)
-        //$('#addOrderModal').modal('hide')
+        $('#addOrderModal').modal('hide')
     })
 
 })
