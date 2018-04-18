@@ -99,7 +99,9 @@ function addRow(order) {
     x.setAttribute('id', htmlid)
     x.setAttribute('type', 'number')
     x.setAttribute('step', '0.01')
-    x.setAttribute('value', '0,00')
+    x.setAttribute('value', '0')
+    x.setAttribute('min', '0')
+    x.setAttribute('max', '100')
     paied.appendChild(x)
 
     document.getElementById(htmlid).addEventListener('focusout', (e) => {
