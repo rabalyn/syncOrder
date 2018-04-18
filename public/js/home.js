@@ -23,6 +23,8 @@ socket.on('GETpaied', (data) => {
 
 socket.on('GETorder', (data) => {
     $('#addOrderModal').modal('hide')
+    document.getElementById('name').value = ''
+    document.getElementById('meal').value = ''
     addRow(data)
 })
 
