@@ -2,6 +2,14 @@
     margin-top: 1.2em;
 }
 
+i {
+  margin-right: 10px;
+}
+
+.alertText {
+    min-height: 4em;
+}
+
 .btn-space {
     margin-left: 1em;
 }

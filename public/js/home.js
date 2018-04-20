@@ -36,6 +36,11 @@ socket.on('FAILorder', (data) => {
 })
 
 socket.on('initOrders', (orders) => {
+    var table = document.getElementById('orderTable')   
+    for(let i = table.rows.length - 1; i > 0; i--) {
+        table.deleteRow(i)
+    }
+
     orders.forEach(order => {
         addRow(order)
     })
@@ -157,9 +162,9 @@ $(document).ready(() => {
         const meal = document.getElementById('meal').value
             ? document.getElementById('meal').value
             : null
-        const size = document.getElementById('dropdownMenuButton').innerHTML === 'Größe'
-            ? document.getElementById('dropdownMenuButton').innerHTML
-            : '--'
+        const size = document.getElementById('dropdownMenuButton').innerText.includes('Größe')
+            ? '--'
+            : document.getElementById('dropdownMenuButton').innerHTML
         const comment = document.getElementById('comment').value
             ? document.getElementById('comment').value
             : '--'
