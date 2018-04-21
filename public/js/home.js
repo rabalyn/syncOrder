@@ -97,6 +97,7 @@ function addRow(order) {
     const table = document.getElementById('orderTable')
 
     const row = table.insertRow(-1)
+    row.setAttribute('scope', 'row')
 
     const id = row.insertCell(-1)
     const name = row.insertCell(-1)

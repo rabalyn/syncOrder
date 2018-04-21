@@ -25,6 +25,7 @@ i {
 
 .paied-width{
     min-width: 6.6em;
+    max-width: 8em;
 }
 
 @media print
