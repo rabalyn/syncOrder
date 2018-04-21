@@ -16,6 +16,10 @@ socket.on('reload', () => {
     location.reload()
 })
 
+socket.on('trollProtection', (statusObj) => {
+    $('#trollModal').modal('show')
+})
+
 socket.on('GETpaied', (data) => {
     const x = document.getElementById(data.htmlid)
     x.value = data.paied
@@ -76,12 +80,16 @@ function setSizeLabel(id, text) {
     })
 }
 
+
+function _bindUpdateMetaInfo(e) {
+    const id = e.target.id
+    e.preventDefault()
+    const text = document.getElementById(id).value
+    socket.emit('syncMeta', { id: id, text: text })
+}
 function updateMetaInfo(id) {
-    document.getElementById(id).addEventListener('focusout', (e) => {
-        e.preventDefault()
-        const text = document.getElementById(id).value
-        socket.emit('syncMeta', {id: id, text: text})
-    })
+    document.getElementById(id).addEventListener('keyup', _bindUpdateMetaInfo, false)
+    document.getElementById(id).addEventListener('change', _bindUpdateMetaInfo, false)
 }
 
 function addRow(order) {
@@ -103,21 +111,43 @@ function addRow(order) {
     size.innerHTML = order.size
     comment.innerHTML = order.comment
     const htmlid = order.name + order.meal + order.size
-
-    const x = document.createElement('INPUT')
+    const maxVal = 100
+    /*
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+        </div>
+        <input type="text" class="form-control">
+    </div>
+    */
+    const inputGroup = document.createElement('div')
+    inputGroup.setAttribute('class', 'input-group')
+    const inputPrepend = document.createElement('div')
+    inputPrepend.setAttribute('class', 'input-group-prepend')
+    const currencySpan = document.createElement('span')
+    currencySpan.setAttribute('class', 'input-group-text')
+    currencySpan.innerHTML = '€'
+    inputPrepend.appendChild(currencySpan)
+    
+    const x = document.createElement('input')
     x.setAttribute('data-name', order.name)
     x.setAttribute('id', htmlid)
+    x.setAttribute('class', 'form-control')
     x.setAttribute('type', 'number')
     x.setAttribute('step', '0.10')
     x.setAttribute('value', '0')
     x.setAttribute('min', '0')
-    x.setAttribute('max', '100')
-    paied.appendChild(x)
+    x.setAttribute('max', maxVal)
+    inputGroup.appendChild(inputPrepend)
+    inputGroup.appendChild(x)
+    paied.appendChild(inputGroup)
 
-    document.getElementById(htmlid).addEventListener('focusout', (e) => {
+    document.getElementById(htmlid).addEventListener('keyup', (e) => {
         e.preventDefault()
-        const paied = document.getElementById(htmlid).value
-        syncPaied({id: id, htmlid: htmlid, paied: paied})
+        const inputField = document.getElementById(htmlid)
+        const paied = inputField.value
+
+        syncPaied({ id: id, htmlid: htmlid, paied: paied })
     })
 }
 
@@ -127,35 +157,22 @@ function initDateValue() {
 }
 
 function initClearListButton() {
-    document.getElementById('clearList').addEventListener('click', (e) => {
-        e.preventDefault()
-        $('#verifyClearListModal').modal('show')
+    $('#clearList').on('click', (e) => {
+      e.preventDefault()
+      $('#verifyClearListModal').modal('show')
     })
 }
 
 function initVerifyClearListButton() {
-    document.getElementById('btnVerifyClearList').addEventListener('click', (e) => {
+    $('#btnVerifyClearList').on('click', (e) => {
         e.preventDefault()
         syncClearList()
         $('#verifyClearListModal').modal('hide')
     })
 }
 
-$(document).ready(() => {
-    initDateValue()
-    initClearListButton()
-    initVerifyClearListButton()
-
-    setSizeLabel('sizeSmall', 'Klein')
-    setSizeLabel('sizeBig', 'Groß')
-    setSizeLabel('sizeNo', '--')
-    updateMetaInfo('inputDate')
-    updateMetaInfo('inputName')
-    updateMetaInfo('inputCollector')
-    updateMetaInfo('inputCollectTime')
-
-    document.getElementById('saveOrder').addEventListener('click', (e) => {
-
+function initOrder() {
+    $('#saveOrder').on('click', (e) => {
         e.preventDefault()
         const name = document.getElementById('name').value
             ? document.getElementById('name').value
@@ -171,7 +188,7 @@ $(document).ready(() => {
             : '--'
 
 
-        if(!name) {
+        if (!name) {
             $('#name').removeClass('is-valid')
             $('#name').addClass('is-invalid')
         } else {
@@ -179,7 +196,7 @@ $(document).ready(() => {
             $('#name').addClass('is-valid')
         }
 
-        if(!meal) {
+        if (!meal) {
             $('#meal').removeClass('is-valid')
             $('#meal').addClass('is-invalid')
         } else {
@@ -187,7 +204,7 @@ $(document).ready(() => {
             $('#meal').addClass('is-valid')
         }
 
-        if(!name || !meal) {
+        if (!name || !meal) {
             return
         }
 
@@ -200,5 +217,19 @@ $(document).ready(() => {
 
         syncOrder(order)
     })
+}
 
+$(document).ready(() => {
+    initDateValue()
+    initClearListButton()
+    initVerifyClearListButton()
+    initOrder()
+
+    setSizeLabel('sizeSmall', 'Klein')
+    setSizeLabel('sizeBig', 'Groß')
+    setSizeLabel('sizeNo', '--')
+    updateMetaInfo('inputDate')
+    updateMetaInfo('inputName')
+    updateMetaInfo('inputCollector')
+    updateMetaInfo('inputCollectTime')
 })
