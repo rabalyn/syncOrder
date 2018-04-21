@@ -149,6 +149,7 @@ $(document).ready(() => {
     setSizeLabel('sizeSmall', 'Klein')
     setSizeLabel('sizeBig', 'Groß')
     setSizeLabel('sizeNo', '--')
+    updateMetaInfo('inputDate')
     updateMetaInfo('inputName')
     updateMetaInfo('inputCollector')
     updateMetaInfo('inputCollectTime')
