@@ -15,8 +15,8 @@ i {
     min-height: 4em;
 }
 
-.btn-space {
-    margin-left: 1em;
+.space-right {
+    margin-right: 1em;
 }
 
 .modal-lg {
@@ -29,8 +29,8 @@ i {
 
 @media print
 {    
-    .no-print, .no-print *
-    {
+    .no-print, .no-print * {
         display: none !important;
     }
 }
+
