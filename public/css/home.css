@@ -23,6 +23,10 @@ i {
   max-width: 100% !important;
 }
 
+.paied-width{
+    min-width: 6.6em;
+}
+
 @media print
 {    
     .no-print, .no-print *

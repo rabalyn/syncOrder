@@ -32,6 +32,7 @@ socket.on('GETorder', (data) => {
     document.getElementById('name').value = ''
     document.getElementById('meal').value = ''
     document.getElementById('dropdownMenuButton').innerHTML = 'Größe'
+    document.getElementById('comment').value = ''
     addRow(data)
 })
 
@@ -112,16 +113,9 @@ function addRow(order) {
     comment.innerHTML = order.comment
     const htmlid = order.name + order.meal + order.size
     const maxVal = 100
-    /*
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
-        </div>
-        <input type="text" class="form-control">
-    </div>
-    */
+
     const inputGroup = document.createElement('div')
-    inputGroup.setAttribute('class', 'input-group')
+    inputGroup.setAttribute('class', 'input-group paied-width')
     const inputPrepend = document.createElement('div')
     inputPrepend.setAttribute('class', 'input-group-prepend')
     const currencySpan = document.createElement('span')
@@ -138,6 +132,7 @@ function addRow(order) {
     x.setAttribute('value', '0')
     x.setAttribute('min', '0')
     x.setAttribute('max', maxVal)
+    x.setAttribute('size', '10')
     inputGroup.appendChild(inputPrepend)
     inputGroup.appendChild(x)
     paied.appendChild(inputGroup)

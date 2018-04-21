@@ -19,7 +19,7 @@
         </div>
       </div>
       <div class="row">
-        <dl class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <dl class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             Datum
           </dt>
@@ -33,7 +33,7 @@
             <input type="text" class="form-control" id="inputName" placeholder="Bestellauslöser">
           </dd>
         </dl>
-        <dl class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <dl class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               Abholzeit
           </dt>
@@ -51,20 +51,22 @@
 
       <hr />
 
-      <table id="orderTable" class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Bestellung</th>
-            <th scope="col">Größe</th>
-            <th scope="col">Kommentar</th>
-            <th scope="col">Anzahlung</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      <div class="table-responsive">
+        <table id="orderTable" class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Bestellung</th>
+              <th scope="col">Größe</th>
+              <th scope="col">Kommentar</th>
+              <th scope="col">Anzahlung</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <div class="card-footer text-muted">
