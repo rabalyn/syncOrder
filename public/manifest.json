@@ -1,5 +1,10 @@
 {
  "name": "Essen 2GO",
+ "short_name": "Essen 2GO",
+ "start_url": "/",
+ "background_color": "#95a2ad",
+ "theme_color": "#f8f9fa",
+ "display": "standalone",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
