@@ -145,6 +145,14 @@ function addRow(order) {
 
         syncPaied({ id: id, htmlid: htmlid, paied: paied })
     })
+
+    document.getElementById(htmlid).addEventListener('change', (e) => {
+        e.preventDefault()
+        const inputField = document.getElementById(htmlid)
+        const paied = inputField.value
+
+        syncPaied({ id: id, htmlid: htmlid, paied: paied })
+    })
 }
 
 function initDateValue() {
