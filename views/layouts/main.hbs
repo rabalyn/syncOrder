@@ -40,18 +40,20 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#f8f9fa">
 
     <title>Essen 2GO</title>
     {{> stylesheets}}
     {{> javascripts}}
-    <link rel="icon" href="images/favicon.png">
   </head>
 
   <body>
-    {{> navbar}}
-    <div class="container-fluid justify-content-center">
+    <div class="container justify-content-center">
+      {{> navbar}}
+
       {{{body}}}
+
+      {{> footer}}
     </div>
   </body>
 </html>
