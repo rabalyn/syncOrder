@@ -1,6 +1,6 @@
 {
   "name": "dobbit_hbs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Essensbestellung OG2 - Prio 1",
   "main": "app.js",
   "scripts": {
