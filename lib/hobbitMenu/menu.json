@@ -1,0 +1,893 @@
+{
+  "Pizzen": [
+    {
+      "number": 0.5,
+      "name": "Arwen",
+      "ingredients": [
+        "Tomaten",
+        "Käse"
+      ],
+      "pricesmall": 3.7,
+      "pricebig": 4.9
+    },
+    {
+      "number": 1,
+      "name": "Bilbo",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Peperoniwurst"
+      ],
+      "pricesmall": 4.2,
+      "pricebig": 5.6
+    },
+    {
+      "number": 2,
+      "name": "Sam",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Salami"
+      ],
+      "pricesmall": 4.2,
+      "pricebig": 5.6
+    },
+    {
+      "number": 3,
+      "name": "Gandalf",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken"
+      ],
+      "pricesmall": 4.3,
+      "pricebig": 5.9
+    },
+    {
+      "number": 4,
+      "name": "Fangor",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinkenwürfel"
+      ],
+      "pricesmall": 4.2,
+      "pricebig": 5.6
+    },
+    {
+      "number": 5,
+      "name": "Pippin",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Salami",
+        "Peperoniwurst",
+        "Champignons"
+      ],
+      "pricesmall": 4.5,
+      "pricebig": 5.8
+    },
+    {
+      "number": 6,
+      "name": "Galadriel",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Schinkenwürfel"
+      ],
+      "pricesmall": 4.5,
+      "pricebig": 5.8
+    },
+    {
+      "number": 7,
+      "name": "Frodo",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Paprika",
+        "Champignons",
+        "Mais"
+      ],
+      "pricesmall": 4.5,
+      "pricebig": 5.8
+    },
+    {
+      "number": 8,
+      "name": "Isengart",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "frische Tomaten",
+        "Paprika",
+        "Champignons"
+      ],
+      "pricesmall": 4.5,
+      "pricebig": 5.8
+    },
+    {
+      "number": 9,
+      "name": "Morgul",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Salami",
+        "Peperoniwurst"
+      ],
+      "pricesmall": 4.5,
+      "pricebig": 6.1
+    },
+    {
+      "number": 10,
+      "name": "Theoden",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Peperoniwurst",
+        "Zwiebeln",
+        "Paprika",
+        "Peperoni"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 11,
+      "name": "Hobbit",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Salami",
+        "Peperoniwurst",
+        "Champignons",
+        "Ei"
+      ],
+      "pricesmall": 5.2,
+      "pricebig": 6.6
+    },
+    {
+      "number": 12,
+      "name": "Merry",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Ananas"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 13,
+      "name": "Gimli",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Peperoniwurst",
+        "Paprika",
+        "Schafskäse"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 14,
+      "name": "Ork",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "frische Tomaten",
+        "Paprika",
+        "Schafskäse"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 15,
+      "name": "Faramir",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Schinkenwürfel",
+        "Schafskäse"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 16,
+      "name": "Aragorn",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Thunfisch"
+      ],
+      "pricesmall": 4.7,
+      "pricebig": 6.1
+    },
+    {
+      "number": 17,
+      "name": "Balrog",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Sardellen",
+        "Kapern"
+      ],
+      "pricesmall": 5.2,
+      "pricebig": 6.6
+    },
+    {
+      "number": 18,
+      "name": "Elrond",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Thunfisch",
+        "Calamares"
+      ],
+      "pricesmall": 5.2,
+      "pricebig": 6.6
+    },
+    {
+      "number": 19,
+      "name": "Smeagol",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Thunfisch",
+        "Shrimps"
+      ],
+      "pricesmall": 5.2,
+      "pricebig": 6.6
+    },
+    {
+      "number": 20,
+      "name": "Mordor",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Shrimps",
+        "Calamares",
+        "Ananas"
+      ],
+      "pricesmall": 5.5,
+      "pricebig": 6.9
+    },
+    {
+      "number": 21,
+      "name": "Saruman",
+      "ingredients": [
+        "Sauce Hollandaise",
+        "Schinken",
+        "Spargel",
+        "Käse"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 22,
+      "name": "Smaug",
+      "ingredients": [
+        "Tomaten",
+        "Lasagne",
+        "Käse"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 23,
+      "name": "Legolas",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Spinat",
+        "Ei"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.4
+    },
+    {
+      "number": 24,
+      "name": "Moria",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "frische Tomaten",
+        "Brokkoli",
+        "Mozzarella"
+      ],
+      "pricesmall": 5.5,
+      "pricebig": 6.9
+    },
+    {
+      "number": 25,
+      "name": "Thorin",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "frische Tomaten",
+        "Mozzarella"
+      ],
+      "pricesmall": 5.5,
+      "pricebig": 6.9
+    },
+    {
+      "number": 26,
+      "name": "Bombadil",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Artischocken",
+        "frische Tomaten",
+        "Oliven",
+        "Peperoni"
+      ],
+      "pricesmall": 4.8,
+      "pricebig": 6.2
+    },
+    {
+      "number": 27,
+      "name": "Boromir",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Artischocken",
+        "Oliven"
+      ],
+      "pricesmall": 5.0,
+      "pricebig": 6.3
+    },
+    {
+      "number": 28,
+      "name": "Gollum",
+      "ingredients": [
+        "Currysauce",
+        "Käse",
+        "Hähnchenbruststreifen",
+        "Ananas"
+      ],
+      "pricesmall": 5.2,
+      "pricebig": 6.6
+    },
+    {
+      "number": 29,
+      "name": "Eowyn",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Peperoniwurst",
+        "Lauch",
+        "Knoblauch"
+      ],
+      "pricesmall": 4.8,
+      "pricebig": 6.2
+    },
+    {
+      "number": 30,
+      "name": "Rohan",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Hähnchenbruststreifen",
+        "Kidney Bohnen",
+        "grüne Bohnen",
+        "Mais",
+        "Jalapenos"
+      ],
+      "pricesmall": 5.8,
+      "pricebig": 6.9
+    },
+    {
+      "number": 31,
+      "name": "Auenland",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Zwiebeln",
+        "Kidney Bohnen",
+        "grüne Bohnen",
+        "Mais",
+        "Jalapenos"
+      ],
+      "pricesmall": 4.8,
+      "pricebig": 6.2
+    }
+  ],
+  "Kalizzen": [
+    {
+      "number": 0,
+      "name": "A",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Zwiebeln",
+        "Schinkenwürfel"
+      ],
+      "price": 4.2
+    },
+    {
+      "number": 1,
+      "name": "B",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Peperoniwurst",
+        "Pilze"
+      ],
+      "price": 4.2
+    },
+    {
+      "number": 2,
+      "name": "C",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Thunfisch",
+        "Zwiebeln"
+      ],
+      "price": 4.2
+    },
+    {
+      "number": 3,
+      "name": "D",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schinken",
+        "Brokkoli"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 4,
+      "name": "E",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schinken",
+        "Spargel"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 5,
+      "name": "F",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schafskäse",
+        "Tomaten"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 6,
+      "name": "G",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schinken",
+        "Spinat",
+        "Ei"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 7,
+      "name": "H",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Bolognesesauce"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 8,
+      "name": "I",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schinken",
+        "Lauch"
+      ],
+      "price": 4.6
+    },
+    {
+      "number": 9,
+      "name": "J",
+      "ingredients": [
+        "Kartoffeln",
+        "Käse",
+        "Schinkenwürfel",
+        "grüne Bohnen"
+      ],
+      "price": 4.2
+    }
+  ],
+  "Flammkuchen": [
+    {
+      "number": 0,
+      "name": "F1",
+      "ingredients": [
+        "Zwiebeln",
+        "Schinkenwürfel"
+      ],
+      "price": 4.1
+    },
+    {
+      "number": 1,
+      "name": "F2",
+      "ingredients": [
+        "Schinkenwürfel",
+        "grüne Bohnen"
+      ],
+      "price": 4.1
+    },
+    {
+      "number": 2,
+      "name": "F3",
+      "ingredients": [
+        "Schinken",
+        "Lauch"
+      ],
+      "price": 4.5
+    },
+    {
+      "number": 3,
+      "name": "F4",
+      "ingredients": [
+        "Zwiebeln",
+        "Brokkoli",
+        "Mais"
+      ],
+      "price": 4.5
+    },
+    {
+      "number": 4,
+      "name": "F5",
+      "ingredients": [
+        "Tomaten",
+        "Peperoni",
+        "Oliven"
+      ],
+      "price": 4.5
+    }
+  ],
+  "Pizzabrote": [
+    {
+      "number": 0,
+      "name": "Pizzabrot",
+      "ingredients": [
+        ""
+      ],
+      "price": 2.6
+    },
+    {
+      "number": 1,
+      "name": "Pizzabrot mit Knoblauch",
+      "ingredients": [
+        "Knoblauch"
+      ],
+      "price": 3.1
+    },
+    {
+      "number": 2,
+      "name": "Pizzabrot mit Käse",
+      "ingredients": [
+        "Käse"
+      ],
+      "price": 3.3
+    },
+    {
+      "number": 3,
+      "name": "Pizzabrot mit Käse, Knoblauch",
+      "ingredients": [
+        "Käse",
+        "Knoblauch"
+      ],
+      "price": 3.5
+    },
+    {
+      "number": 4,
+      "name": "Pizzabrot mit Käse, Tomaten",
+      "ingredients": [
+        "Käse",
+        "Tomaten"
+      ],
+      "price": 3.7
+    },
+    {
+      "number": 5,
+      "name": "Pizzabrot mit Käse, Bolognesesauce",
+      "ingredients": [
+        "Käse",
+        "Bolognesesauce"
+      ],
+      "price": 4.0
+    },
+    {
+      "number": 6,
+      "name": "Pizzabrot mit Käse, Bolognesesauce, Jalapenos (scharf)",
+      "ingredients": [
+        "Käse",
+        "Bolognesesauce",
+        "Jalapenos (scharf)"
+      ],
+      "price": 4.3
+    }
+  ],
+  "Extras": [
+    {
+      "number": 0,
+      "name": "Bolognesesauce statt Tomatensauce",
+      "ingredients": [
+        "Bolognesesauce"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 1,
+      "name": "doppelt Käse",
+      "ingredients": [
+        "Käse"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 2,
+      "name": "Schinken",
+      "ingredients": [
+        "Schinken"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 3,
+      "name": "Mozzarella",
+      "ingredients": [
+        "Mozzarella"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 4,
+      "name": "Peperoniwurst",
+      "ingredients": [
+        "Peperoniwurst"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 5,
+      "name": "Calamares",
+      "ingredients": [
+        "Calamares"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 6,
+      "name": "Shrimps",
+      "ingredients": [
+        "Shrimps"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 7,
+      "name": "Sardellen",
+      "ingredients": [
+        "Sardellen"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 8,
+      "name": "Schafskäse",
+      "ingredients": [
+        "Schafskäse"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 9,
+      "name": "Schinkenwürfel",
+      "ingredients": [
+        "Schinkenwürfel"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 10,
+      "name": "Thunfisch",
+      "ingredients": [
+        "Thunfisch"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 11,
+      "name": "Salami",
+      "ingredients": [
+        "Salami"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 12,
+      "name": "Hähnchenbruststreifen",
+      "ingredients": [
+        "Hähnchenbruststreifen"
+      ],
+      "price": 1.2
+    },
+    {
+      "number": 13,
+      "name": "Brokkoli",
+      "ingredients": [
+        "Brokkoli"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 14,
+      "name": "Spargel",
+      "ingredients": [
+        "Spargel"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 15,
+      "name": "Paprika",
+      "ingredients": [
+        "Paprika"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 16,
+      "name": "Ananas",
+      "ingredients": [
+        "Ananas"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 17,
+      "name": "Lauch",
+      "ingredients": [
+        "Lauch"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 18,
+      "name": "Spinat",
+      "ingredients": [
+        "Spinat"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 19,
+      "name": "Artischocken",
+      "ingredients": [
+        "Artischocken"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 20,
+      "name": "frischer Knoblauch",
+      "ingredients": [
+        "frischer Knoblauch"
+      ],
+      "price": 0.9
+    },
+    {
+      "number": 21,
+      "name": "Tomaten",
+      "ingredients": [
+        "Tomaten"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 22,
+      "name": "Pilze",
+      "ingredients": [
+        "Pilze"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 23,
+      "name": "Ei",
+      "ingredients": [
+        "Ei"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 24,
+      "name": "Oliven",
+      "ingredients": [
+        "Oliven"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 25,
+      "name": "Kapern",
+      "ingredients": [
+        "Kapern"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 26,
+      "name": "Mais",
+      "ingredients": [
+        "Mais"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 27,
+      "name": "Peperoni",
+      "ingredients": [
+        "Peperoni"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 28,
+      "name": "Kidney Bohnen",
+      "ingredients": [
+        "Kidney Bohnen"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 29,
+      "name": "Zwiebeln",
+      "ingredients": [
+        "Zwiebeln"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 30,
+      "name": "grüne Bohnen",
+      "ingredients": [
+        "grüne Bohnen"
+      ],
+      "price": 0.7
+    },
+    {
+      "number": 31,
+      "name": "Jalapenos (scharf)",
+      "ingredients": [
+        "Jalapenos (scharf)"
+      ],
+      "price": 0.7
+    }
+  ]
+}

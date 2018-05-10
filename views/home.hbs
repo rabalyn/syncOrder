@@ -21,25 +21,25 @@
       <div class="row">
         <dl class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            Datum
+            <i class="far fa-calendar-alt"></i> Datum
           </dt>
           <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <input type="date" class="form-control" id="inputDate" placeholder="Datum">
           </dd>
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            Bestellauslöser
+            <i class="fas fa-user"></i> <i class="fas fa-phone"></i> Bestellauslöser
           </dt>
           <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <input type="text" class="form-control" id="inputName" placeholder="Bestellauslöser">
           </dd>
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              Abholer
+              <i class="fas fa-people-carry"></i> Abholer
           </dt>
           <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               <input type="text" class="form-control" id="inputCollector" placeholder="Abholer">
           </dd>
           <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              Abholzeit
+              <i class="far fa-clock"></i> Abholzeit
           </dt>
           <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               <input type="text" class="form-control" id="inputCollectTime" placeholder="Abholzeit">
@@ -53,11 +53,11 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Bestellung</th>
-            <th scope="col">Größe</th>
-            <th scope="col">Kommentar</th>
-            <th scope="col">Anzahlung</th>
+            <th scope="col"><i class="fas fa-user"></i> Name</th>
+            <th scope="col"><i class="fas fa-box"></i> Bestellung</th>
+            <th scope="col"><i class="fas fa-search"></i> Größe</th>
+            <th scope="col"><i class="far fa-comment"></i> Kommentar</th>
+            <th scope="col"><i class="fas fa-money-bill-alt"></i> Anzahlung</th>
           </tr>
         </thead>
         <tbody>
@@ -67,13 +67,13 @@
   </div>
   <div class="card-footer text-muted">
     <button type="button" class="btn btn-success no-print" data-toggle="modal" data-target="#addOrderModal">
-      Bestellung hinzufügen
+      <i class="fas fa-cart-plus"></i> Bestellung hinzufügen
     </button>
   </div>
 </div>
 
-<script src="js/home.js"></script>
-
 {{> addOrderModal}}
 {{> verifyClearListModal}}
 {{> trollModal}}
+
+<script src="dist/home.bundle.js"></script>

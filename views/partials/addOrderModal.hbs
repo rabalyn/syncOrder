@@ -9,15 +9,27 @@
       </div>
       <div class="modal-body">
         <dl>
-            <dt>Name</dt>
+            <dt><i class="fas fa-user"></i> Name</dt>
             <dd><input id="name" type="text" class="form-control" placeholder="Name"></dd>
-            <dt>Mahlzeit</dt>
-            <dd><input id="meal" type="text" class="form-control" placeholder="Bestellung"></dd>
-            <dt>Größe</dt>
+            <dt><i class="fas fa-box"></i> Mahlzeit</dt>
+            <dd>
+              <div class="btn-group">
+                <button id="menubutton" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fas fa-box"></i> Mahlzeit
+                </button>
+                <div id="menulist" class="dropdown-menu scrollable-menu">
+                  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                </div>
+              </div>
+              <!--
+                <input id="meal" type="text" class="form-control" placeholder="Bestellung">
+              -->
+            </dd>
+            <dt><i class="fas fa-search"></i> Größe</dt>
             <dd>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                        Größe
+                        <i class="fas fa-search"></i> Größe
                     </button>
                     <div class="dropdown-menu" id="sizeDropdown">
                         <a id="sizeSmall" class="dropdown-item" href="#">Klein</a>
@@ -26,13 +38,15 @@
                     </div>
                 </div>
             </dd>
-            <dt>Anmerkungen</dt>
+            <dt><i class="far fa-comment"></i> Kommentar</dt>
             <dd><input id="comment" type="text" class="form-control" placeholder="Anmerkungen"></dd>
+            <dt><i class="fas fa-money-bill-alt"></i> Kosten</dt>
+            <dd id="pricePreview">0,00€</dd>
         </dl>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>
-        <button id="saveOrder" type="button" class="btn btn-success">Speichern</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i> Schließen</button>
+        <button id="saveOrder" type="button" class="btn btn-success"><i class="fas fa-save"></i> Speichern</button>
       </div>
     </div>
   </div>

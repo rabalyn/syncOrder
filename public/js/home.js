@@ -1,3 +1,13 @@
+import 'bootstrap/dist/css/bootstrap.min.css'
+import fontawesome from '@fortawesome/fontawesome'
+import solid from '@fortawesome/fontawesome-free-solid'
+import regular from '@fortawesome/fontawesome-free-regular'
+
+import 'bootstrap'
+import 'popper.js'
+import $ from 'jquery'
+
+import io from 'socket.io-client'
 const socket = io()
 
 function syncOrder(data) {
@@ -112,14 +122,7 @@ function addRow(order) {
     comment.innerHTML = order.comment
     const htmlid = order.name + order.meal + order.size
     const maxVal = 100
-    /*
-    <div class="input-group mb-3">
-        <div class="input-group-prepend">
-            <span class="input-group-text">$</span>
-        </div>
-        <input type="text" class="form-control">
-    </div>
-    */
+    
     const inputGroup = document.createElement('div')
     inputGroup.setAttribute('class', 'input-group')
     const inputPrepend = document.createElement('div')
@@ -177,8 +180,8 @@ function initOrder() {
         const name = document.getElementById('name').value
             ? document.getElementById('name').value
             : null
-        const meal = document.getElementById('meal').value
-            ? document.getElementById('meal').value
+        const meal = document.getElementById('menubutton').value
+            ? document.getElementById('menubutton').value
             : null
         const size = document.getElementById('dropdownMenuButton').innerText.includes('Größe')
             ? '--'
@@ -219,7 +222,70 @@ function initOrder() {
     })
 }
 
+const loadHobbitMenu = {
+  now: () => {
+    fetch('/getHobbitMenu')
+      .then(res => res.json())
+      .then(menudata => {
+        window.hobbitmenu = menudata
+        const menulist = document.getElementById('menulist')
+        Object.keys(menudata).forEach(menuitem => {
+          if(menuitem === 'Extras') return
+          const listheading = document.createElement('h4')
+          listheading.setAttribute('class', 'dropdown-header')
+          listheading.innerHTML = menuitem
+          menulist.appendChild(listheading)
+
+          hobbitmenu[menuitem].forEach(meal => {
+            const listitem = document.createElement('div')
+            listitem.setAttribute('class', 'dropdown-item tooltip')
+            listitem.dataset.category = menuitem
+            Object.keys(meal).forEach(attr => {
+              listitem.dataset[attr] = meal[attr]
+            })
+
+            function formatPrice(price) {
+              return price.toFixed(2).toLocaleString() + '€'
+            }
+
+            function getPriceString(mealObj) {
+              let returnString = '<small>'
+              if(mealObj.pricesmall) returnString += '  Klein: ' + formatPrice(mealObj.pricesmall)
+              if(mealObj.pricebig) returnString += ' Groß: ' + formatPrice(mealObj.pricebig)
+              if(mealObj.price) returnString += ' Preis: ' + formatPrice(mealObj.price)
+
+              returnString += '</small>'
+              return returnString
+            }
+            
+            listitem.innerHTML += menuitem === 'Pizzen'
+              ? meal.number + ' ' + meal.name
+              : meal.name
+            
+            listitem.innerHTML += getPriceString(meal)
+
+            function formatIngredients(mealObj) {
+              if(meal.ingredients[0] !== '') return 'Zutaten: ' + meal.ingredients.join(', ')
+              return ''
+            }
+
+            const tooltipInfo = document.createElement('span')
+            tooltipInfo.setAttribute('class', 'tooltiptext')
+            tooltipInfo.innerHTML = formatIngredients(meal)
+            listitem.appendChild(tooltipInfo)
+
+            console.log(listitem)
+            menulist.appendChild(listitem)
+          })
+        })
+      })
+      .catch(reason => console.error('could not fetch hobbit menu data: %o', reason))
+  }
+}
+
 $(document).ready(() => {
+    loadHobbitMenu.now()
+
     initDateValue()
     initClearListButton()
     initVerifyClearListButton()
@@ -232,4 +298,17 @@ $(document).ready(() => {
     updateMetaInfo('inputName')
     updateMetaInfo('inputCollector')
     updateMetaInfo('inputCollectTime')
+
+    $("#myInput").on("keyup", function () {
+      var value = $(this).val().toLowerCase();
+      $(".dropdown-menu div").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      })
+    })
+
+    $(".dropdown-menu").on('click', 'div', function () {
+      console.log(this)
+      $("#menubutton:first-child").text($(this).text())
+      $("#menubutton:first-child").val($(this).text())
+    })
 })
