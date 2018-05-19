@@ -1,32 +1,5 @@
-.container-fluid{
-    margin-top: 1.2em;
-}
-
 .card {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-i {
-  margin-right: 10px;
-}
-
-.alertText {
-    min-height: 4em;
-}
-
-.btn-space {
-    margin-left: 1em;
-}
-
-.modal-lg {
-  max-width: 100% !important;
-}
-
-.scrollable-menu {
-    height: auto;
-    max-height: 50em;
-    overflow-x: hidden;
+  margin-top: 2em;
 }
 
 .tooltip {
@@ -68,12 +41,4 @@ i {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
-}
-
-@media print
-{    
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
 }

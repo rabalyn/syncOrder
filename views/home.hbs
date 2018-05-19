@@ -1,75 +1,87 @@
 <link rel="stylesheet" href="css/home.css">
 
-<div class="card text-center">
-  <div class="card-header">
-     <h1>WEB-PANF - v0.1</h1>
-  </div>
-  <div class="card-body">
-    <div class="card-text">
-      <div class="row justify-content-center">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <div class="alert alert-secondary" role="alert">
-            <i class="fas fa-4x fa-fw fa-exclamation-triangle float-left"></i>
-            <div class="alertText">
-              Öffnen Sie ruhig weitere Webseiten von *.übersprung.de in einem separaten Browsertab/-fenster, 
-              während Sie das Formular ausfüllen, oder davor, oder danach, oder wann auch immer, da sich 
-              das Formular auch dann noch abschicken lässt.
+<div class="card">
+  <header class="card-header">
+     <h1 class="title card-header-title">WEB-PANF - v1.0</h1>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <article class="message is-warning">
+        <div class="message-body" role="alert">
+          <div class="alertText">
+            <div class="columns is-mobile">
+              <div class="column is-2">
+                <i class="fas fa-4x fa-fw fa-exclamation-triangle float-left"></i>
+              </div>
+              <div class="column is-10">
+                Öffnen Sie ruhig weitere Webseiten von *.übersprung.de in einem separaten Browsertab/-fenster, 
+                während Sie das Formular ausfüllen, oder davor, oder danach, oder wann auch immer, da sich 
+                das Formular auch dann noch abschicken lässt.
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
-        <dl class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-          <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <i class="far fa-calendar-alt"></i> Datum
-          </dt>
-          <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <input type="date" class="form-control" id="inputDate" placeholder="Datum">
-          </dd>
-          <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <i class="fas fa-user"></i> <i class="fas fa-phone"></i> Bestellauslöser
-          </dt>
-          <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <input type="text" class="form-control" id="inputName" placeholder="Bestellauslöser">
-          </dd>
-          <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <i class="fas fa-people-carry"></i> Abholer
-          </dt>
-          <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <input type="text" class="form-control" id="inputCollector" placeholder="Abholer">
-          </dd>
-          <dt class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <i class="far fa-clock"></i> Abholzeit
-          </dt>
-          <dd class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <input type="text" class="form-control" id="inputCollectTime" placeholder="Abholzeit">
-          </dd>
-        </dl>
-      </div>
-
-      <hr />
-
-      <table id="orderTable" class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col"><i class="fas fa-user"></i> Name</th>
-            <th scope="col"><i class="fas fa-box"></i> Bestellung</th>
-            <th scope="col"><i class="fas fa-search"></i> Größe</th>
-            <th scope="col"><i class="far fa-comment"></i> Kommentar</th>
-            <th scope="col"><i class="fas fa-money-bill-alt"></i> Anzahlung</th>
-          </tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>
+      </article>
     </div>
+
+    <div class="field">
+      <label>
+        <i class="far fa-calendar-alt"></i> Datum
+      </label>
+      <div class="control">
+        <input type="date" class="input" id="inputDate" placeholder="Datum">
+      </div>
+    </div>
+        
+    <div class="field">
+      <label>
+        <i class="fas fa-user"></i> <i class="fas fa-phone"></i> Bestellauslöser
+      </label>
+      <div class="control">
+        <input type="text" class="input" id="inputName" placeholder="Bestellauslöser">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>
+        <i class="fas fa-people-carry"></i> Abholer
+      </label>
+      <div class="control">
+        <input type="text" class="input" id="inputCollector" placeholder="Abholer">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>
+        <i class="far fa-clock"></i> Abholzeit
+      </label>
+      <div class="control">
+        <input type="text" class="input" id="inputCollectTime" placeholder="Abholzeit">
+      </div>
+    </div>
+
+    <hr />
+
+    <table id="orderTable" class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th><i class="fas fa-user"></i> Name</th>
+          <th><i class="fas fa-box"></i> Bestellung</th>
+          <th><i class="fas fa-search"></i> Größe</th>
+          <th><i class="far fa-comment"></i> Kommentar</th>
+          <th><i class="fas fa-money-bill-alt"></i> Anzahlung</th>
+        </tr>
+      </thead>
+      <tbody id="orderTableBody">
+      </tbody>
+    </table>
   </div>
-  <div class="card-footer text-muted">
-    <button type="button" class="btn btn-success no-print" data-toggle="modal" data-target="#addOrderModal">
-      <i class="fas fa-cart-plus"></i> Bestellung hinzufügen
+  <footer class="card-footer">
+    <button type="button" class="button is-success no-print" id="btnOpenAddOrder">
+      <i class="fas fa-cart-plus"></i>&nbsp;Bestellung hinzufügen
     </button>
-  </div>
+  </footer>
 </div>
 
 {{> addOrderModal}}
