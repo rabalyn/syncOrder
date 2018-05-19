@@ -1,24 +1,44 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light">
-  <a class="navbar-brand" href="/">Bestellungen</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar is-dark">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://übersprung.de  ">
+      <i class="fas fa-magic fa-fw"></i> Übersprung
+    </a>
+    <div class="navbar-burger burger is-dark" data-target="navMenu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="/hobbit" target="_blank">Speisekarte Hobbit</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav">
-      <li class="nav-item space-right">
-        <span class="navbar-text">
-          06151 - 714261
-        </span>
-      </li>
-      <li class="nav-item">
-        <button id="clearList" type="button" class="btn btn-danger">Liste löschen</button>
-      </li>
-    </ul>
+  <div id="navMenu" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="#">
+        <i class="far fa-sticky-note fa-fw"></i> Bestellungen
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <i class="fas fa-phone fa-fw"></i>06151 - 714261
+      </div>
+      <div class="navbar-item">
+        <p class="control">
+          <button id="clearList" type="button" class="navbar-item button is-danger">
+            <div>
+              <i class="fas fa-trash-alt fa-fw"></i>Liste löschen
+            </div>
+          </button>
+        </p>
+      </div>
+      <div class="navbar-item">
+        <p class="control">
+          <button id="archiveList" type="button" class="navbar-item button is-warning">
+            <div>
+              <i class="fas fa-archive fa-fw"></i>Liste archivieren
+            </div>
+          </button>
+        </p>
+      </div>
+    </div>
   </div>
 </nav>

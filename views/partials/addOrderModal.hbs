@@ -1,39 +1,99 @@
-<div class="modal fade" id="addOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bestellung aufgeben</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+<div class="modal" id="addOrderModal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <h5 class="modal-card-title">Bestellung aufgeben</h5>
+      <button class="delete" name="closeOrder" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label>
+          <i class="fas fa-user"></i> Name
+        </label>
+        <div class="control">
+          <input id="name" type="text" class="input" placeholder="Name">
+        </div>
       </div>
-      <div class="modal-body">
-        <dl>
-            <dt>Name</dt>
-            <dd><input id="name" type="text" class="form-control" placeholder="Name"></dd>
-            <dt>Mahlzeit</dt>
-            <dd><input id="meal" type="text" class="form-control" placeholder="Bestellung"></dd>
-            <dt>Größe</dt>
-            <dd>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                        Größe
-                    </button>
-                    <div class="dropdown-menu" id="sizeDropdown">
-                        <a id="sizeSmall" class="dropdown-item" href="#">Klein</a>
-                        <a id="sizeBig" class="dropdown-item" href="#">Groß</a>
-                        <a id="sizeNo" class="dropdown-item" href="#">--</a>
-                    </div>
-                </div>
-            </dd>
-            <dt>Anmerkungen</dt>
-            <dd><input id="comment" type="text" class="form-control" placeholder="Anmerkungen"></dd>
-        </dl>
+      <div class="field">
+        <label>
+          <i class="fas fa-box"></i> Mahlzeit
+        </label>
+        <div class="control">
+          <div id="menulistContainer" class="dropdown">
+            <div class="dropdown-trigger">
+              <button id="menulistTrigger" class="button">
+                <span id="chosenMeal">Mahlzeiten</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu scrollable-menu" id="menulist" role="menu">
+              <input class="input" id="mealFilterInput" type="text" placeholder="Filter (Name, Zutat)...">
+              <div class="dropdown-content" id="menulistContent">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Schließen</button>
-        <button id="saveOrder" type="button" class="btn btn-success">Speichern</button>
+      <div class="field">
+        <label>
+          <i class="fas fa-search"></i> Größe
+        </label>
+        <div class="control">
+          <div id="sizelistContainer" class="dropdown">
+            <div class="dropdown-trigger">
+              <button id="sizelistTrigger" class="button">
+                <span id="chosenSize">Normal</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="sizelist" role="menu">
+              <div class="dropdown-content" id="sizelistContent">
+                <a class="dropdown-item" id="sizeNormal">Normal</a>
+                <a class="dropdown-item" id="sizeBig">Groß</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="field">
+        <label>
+          <i class="fas fa-box"></i> Extras, Kommentar
+        </label>
+        <div id="chosenExtras">Extras, Kommentare</div>
+        <div class="control">
+          <div id="extralistContainer" class="dropdown">
+            <div class="dropdown-trigger">
+              <button id="extralistTrigger" class="button">
+                <span id="chosenExtras">Extras, Kommentare</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="extralist" role="menu">
+              <input class="input" id="extraFilterInput" type="text" placeholder="Filter (Zutat)...">
+              <div class="dropdown-content" id="extralistContent">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>
+          <i class="fas fa-money-bill-alt"></i> Kosten
+        </label>
+        <div class="control">
+          <input id="pricePreview" type="text" class="input" value="0.00€" disabled="true">
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-danger" name="closeOrder"><i class="fas fa-times"></i>&nbsp;Schließen</button>
+      <button id="saveOrder" class="button is-success"><i class="fas fa-save"></i>&nbsp;Speichern</button>
+    </footer>
   </div>
 </div>

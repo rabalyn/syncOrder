@@ -7,6 +7,7 @@ import fs from 'fs'
 import path from 'path'
 
 import config from './config'
+import hobbitMenu from './lib/hobbitMenu'
 
 import express from 'express'
 import exphbs from 'express-handlebars'
@@ -47,10 +48,14 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+/**
+ * XHR-Functions
+ */
 app.get('/hobbit', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'imgs', 'hobbit.pdf'))
 })
 
+app.get('/getHobbitMenu', hobbitMenu.getMenu)
 
 http.listen(port, () => {
   loginfo('Listening on port %d', port)

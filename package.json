@@ -5,19 +5,33 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "export DEBUG='app:* serialization:* socketHobbit:*' ; nodemon --ignore 'data' --exec npm run babel-node -- app.js",
-    "babel-node": "babel-node --ignore='node_modules'"
+    "start": "export DEBUG='app:* serialization:* socketHobbit:*' ; nodemon --ignore 'node_modules' --ignore 'public' --ignore 'data' --exec npm run babel-node -- app.js",
+    "babel-node": "babel-node --ignore='node_modules'",
+    "build": "webpack --watch"
   },
   "author": "@rabalyn (Nils Mundhenke)",
   "license": "MIT",
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.7",
+    "@fortawesome/fontawesome-free-regular": "^5.0.12",
+    "@fortawesome/fontawesome-free-solid": "^5.0.12",
+    "babel-loader": "^7.1.4",
+    "bootstrap": "^4.1.1",
+    "bulma": "^0.7.1",
+    "css-loader": "^0.28.11",
     "debug": "^3.1.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "handlebars": "^4.0.11",
+    "jquery": "^3.3.1",
     "moment": "^2.22.1",
     "nodemon": "^1.17.3",
-    "socket.io": "^2.1.0"
+    "popper.js": "^1.14.3",
+    "socket.io": "^2.1.0",
+    "socket.io-client": "^2.1.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.7.0",
+    "webpack-cli": "^2.1.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
