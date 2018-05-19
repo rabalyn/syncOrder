@@ -9,11 +9,9 @@
       <article class="message is-warning">
         <div class="message-body" role="alert">
           <div class="alertText">
-            <div class="columns is-mobile">
-              <div class="column is-2">
-                <i class="fas fa-4x fa-fw fa-exclamation-triangle float-left"></i>
-              </div>
-              <div class="column is-10">
+            <div class="columns is-multiline">
+              <div class="column">
+                <i class="fas fa-3x fa-fw fa-exclamation-triangle float-left"></i>
                 Öffnen Sie ruhig weitere Webseiten von *.übersprung.de in einem separaten Browsertab/-fenster, 
                 während Sie das Formular ausfüllen, oder davor, oder danach, oder wann auch immer, da sich 
                 das Formular auch dann noch abschicken lässt.
@@ -32,7 +30,7 @@
         <input type="date" class="input" id="inputDate" placeholder="Datum">
       </div>
     </div>
-        
+
     <div class="field">
       <label>
         <i class="fas fa-user"></i> <i class="fas fa-phone"></i> Bestellauslöser
@@ -61,8 +59,8 @@
     </div>
 
     <hr />
-
-    <table id="orderTable" class="table">
+    <div class="table-container">
+    <table id="orderTable" class="table is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
           <th>#</th>
@@ -76,11 +74,12 @@
       <tbody id="orderTableBody">
       </tbody>
     </table>
+    </div>
+    <button type="button" class="button is-success no-print" id="btnOpenAddOrder">
+      <i class="fas fa-cart-plus fa-fw"></i>Neue Bestellung
+    </button>
   </div>
   <footer class="card-footer">
-    <button type="button" class="button is-success no-print" id="btnOpenAddOrder">
-      <i class="fas fa-cart-plus"></i>&nbsp;Bestellung hinzufügen
-    </button>
   </footer>
 </div>
 

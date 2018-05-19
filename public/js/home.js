@@ -2,6 +2,7 @@ import 'bulma/css/bulma.min.css'
 import fontawesome from '@fortawesome/fontawesome'
 import solid from '@fortawesome/fontawesome-free-solid'
 import regular from '@fortawesome/fontawesome-free-regular'
+import brands from '@fortawesome/fontawesome-free-brands'
 
 import debug from 'debug'
 const logdebug = debug('home:debug')
