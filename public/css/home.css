@@ -2,6 +2,10 @@
   margin-top: 2em;
 }
 
+.modal-card-body {
+  min-height: 35em;
+}
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -10,7 +14,7 @@
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+  min-width: 120px;
   background-color: #555;
   color: #fff;
   text-align: center;

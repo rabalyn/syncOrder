@@ -411,7 +411,7 @@
   "Kalizzen": [
     {
       "number": 0,
-      "name": "A",
+      "name": "Kalizze A",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -422,7 +422,7 @@
     },
     {
       "number": 1,
-      "name": "B",
+      "name": "Kalizze B",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -433,7 +433,7 @@
     },
     {
       "number": 2,
-      "name": "C",
+      "name": "Kalizze C",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -444,7 +444,7 @@
     },
     {
       "number": 3,
-      "name": "D",
+      "name": "Kalizze D",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -455,7 +455,7 @@
     },
     {
       "number": 4,
-      "name": "E",
+      "name": "Kalizze E",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -466,7 +466,7 @@
     },
     {
       "number": 5,
-      "name": "F",
+      "name": "Kalizze F",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -477,7 +477,7 @@
     },
     {
       "number": 6,
-      "name": "G",
+      "name": "Kalizze G",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -489,7 +489,7 @@
     },
     {
       "number": 7,
-      "name": "H",
+      "name": "Kalizze H",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -499,7 +499,7 @@
     },
     {
       "number": 8,
-      "name": "I",
+      "name": "Kalizze I",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -510,7 +510,7 @@
     },
     {
       "number": 9,
-      "name": "J",
+      "name": "Kalizze J",
       "ingredients": [
         "Kartoffeln",
         "Käse",
@@ -523,7 +523,7 @@
   "Flammkuchen": [
     {
       "number": 0,
-      "name": "F1",
+      "name": "Flammkuchen 1",
       "ingredients": [
         "Zwiebeln",
         "Schinkenwürfel"
@@ -532,7 +532,7 @@
     },
     {
       "number": 1,
-      "name": "F2",
+      "name": "Flammkuchen 2",
       "ingredients": [
         "Schinkenwürfel",
         "grüne Bohnen"
@@ -541,7 +541,7 @@
     },
     {
       "number": 2,
-      "name": "F3",
+      "name": "Flammkuchen 3",
       "ingredients": [
         "Schinken",
         "Lauch"
@@ -550,7 +550,7 @@
     },
     {
       "number": 3,
-      "name": "F4",
+      "name": "Flammkuchen 4",
       "ingredients": [
         "Zwiebeln",
         "Brokkoli",
@@ -560,7 +560,7 @@
     },
     {
       "number": 4,
-      "name": "F5",
+      "name": "Flammkuchen 5",
       "ingredients": [
         "Tomaten",
         "Peperoni",
