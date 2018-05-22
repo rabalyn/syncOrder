@@ -2,6 +2,10 @@
   margin-top: 2em;
 }
 
+.modal-card-body {
+  min-height: 30em;
+}
+
 .tooltip {
   position: relative;
   display: inline-block;
