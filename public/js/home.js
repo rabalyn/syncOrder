@@ -79,7 +79,6 @@ function addRow(order) {
     try {
         const extras = JSON.parse(order.extras)
         extras.forEach((extra) => {
-            logdebug(extra)
             const tag = document.createElement('span')
             parseFloat(extra.price) > 0
                 ? tag.setAttribute('class', 'tag is-success')
@@ -90,7 +89,8 @@ function addRow(order) {
             extraTagList.appendChild(tag)
         })
     } catch (error) {
-        logerror('could not parse extras: %O', error)
+        //no extra specified for this order
+        //logerror('could not parse extras: %O', error)
     }
     logdebug(extraTagList)
     const table = document.getElementById('orderTableBody')
@@ -210,15 +210,13 @@ function initOrder() {
         }
 
         syncOrder(order)
-        $('#addOrderModal').modal('hide')
     })
 }
 
 const resetChosenMeal = () => Object.keys(document.getElementById('chosenMeal').dataset).forEach(attr => delete document.getElementById('chosenMeal').dataset[attr])
-
-function formatPrice(price) {
-  return price.toFixed(2).toLocaleString() + '€'
-}
+const formatPrice = (price) => price.toFixed(2).toLocaleString() + '€'
+const formatIngredients = (meal) => (meal.ingredients[0] !== '') ? ' <span>(' + meal.ingredients.join(', ') + ')</span>' : ''
+const isLunchTime = () => (new Date().getHours() < 17) ? true : false
 
 function getPriceString(mealObj) {
   let returnString = '<span hidden>'
@@ -228,11 +226,6 @@ function getPriceString(mealObj) {
 
   returnString += '</span>'
   return returnString
-}
-
-function formatIngredients(meal) {
-  if(meal.ingredients[0] !== '') return ' <span>(' + meal.ingredients.join(', ') + ')</span>'
-  return ''
 }
 
 const loadHobbitMenu = {
@@ -267,7 +260,7 @@ const loadHobbitMenu = {
 
           hobbitmenu[menuitem].forEach(meal => {
             const listitem = document.createElement('a')
-            listitem.setAttribute('class', 'dropdown-item')
+            listitem.setAttribute('class', 'dropdown-item tooltip')
             listitem.setAttribute('name', 'mealEntry')
             listitem.dataset.category = menuitem
             Object.keys(meal).forEach(attr => {
@@ -300,12 +293,14 @@ const loadHobbitMenu = {
                 document.getElementById('chosenMeal').dataset[attr] = meal.dataset[attr]
               })
             document.getElementById('menulistContainer').classList.remove('is-active')
+            const smallLunchDiscount = isLunchTime() ? 0.5 : 0
+            const normalLunchDiscount = isLunchTime() ? 1.0 : 0
             if(this.dataset.pricesmall) {
-              const size = document.getElementById('chosenSize').value
+              const size = document.getElementById('chosenSize').textContent
               if(size === 'Normal') {
-                setPrice(parseFloat(this.dataset.pricesmall) - 0.5)
+                setPrice(parseFloat(this.dataset.pricesmall) - smallLunchDiscount)
               } else { // size === 'Groß'
-                setPrice(parseFloat(this.dataset.pricebig) - 1)
+                setPrice(parseFloat(this.dataset.pricebig) - normalLunchDiscount)
               }
             } else {
               setPrice(parseFloat(this.dataset.price))
@@ -428,6 +423,9 @@ document.addEventListener('DOMContentLoaded', () => {
   loadHobbitMenu.now()
 
   document.getElementById('btnOpenAddOrder').addEventListener('click', (e) => {
+    setPrice(0)
+    resetChosenMeal()
+    document.getElementById('chosenMeal').textContent = 'Mahlzeiten'
     document.getElementById('addOrderModal').classList.add('is-active')
   })
 
@@ -586,8 +584,29 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             tag.appendChild(deleteMe)
             document.getElementById('extraTags').appendChild(tag)
+        } else {
+          if(document.getElementById('chosenExtras').textContent === 'Extras, Kommentare') {
+            document.getElementById('chosenExtras').innerHTML = '<div class="tags" id="extraTags"></div>'
+          }
+          const tag = document.createElement('span')
+          tag.textContent = input
+          tag.setAttribute('class', 'tag is-light')
+          tag.dataset.name = input
+          tag.dataset.price = '0'
+          const deleteMe = document.createElement('button')
+          deleteMe.setAttribute('class', 'delete is-small')
+          deleteMe.addEventListener('click', function(e) {
+              this.parentNode.parentNode.removeChild(this.parentNode)
+              if(document.getElementById('extraTags').childNodes.length === 0) {
+              document.getElementById('chosenExtras').textContent = 'Extras, Kommentare'
+              }
+          })
+          tag.appendChild(deleteMe)
+          document.getElementById('extraTags').appendChild(tag)
         }
       }
+
+      document.getElementById('extraFilterInput').value = ''
     }
   })
 })
