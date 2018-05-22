@@ -43,6 +43,7 @@ const extralistContent = document.getElementById('extralistContent')
 const extralistContainer = document.getElementById('extralistContainer')
 const mealFilterInput = document.getElementById('mealFilterInput')
 const extraFilterInput = document.getElementById('extraFilterInput')
+const sizeNormal = document.getElementById('sizeNormal')
 const sizeBig = document.getElementById('sizeBig')
 const pricePreview = document.getElementById('pricePreview')
 
@@ -65,14 +66,11 @@ socket.on('GETorder', (data) => {
   resetChosenExtras()
   chosenMeal.textContent = 'Mahlzeiten'
   chosenSize.textContent = 'Normal'
-  chosenSize.textContent = 'Normal'
   addRow(data)
 })
 
 socket.on('initOrders', (orders) => {
-  logdebug('orders: %O', orders)
-  const table = orderTableBody
-  Array.from(table.rows).forEach((row, idx) => table.deleteRow(idx))
+  Array.from(orderTableBody.rows).forEach((row, idx) => table.deleteRow(idx))
   orders.forEach(order => addRow(order))
 })
 
@@ -335,6 +333,8 @@ const loadHobbitMenu = {
         Array.from(extras).forEach(extra => {
           extra.addEventListener('click', function(e) {
             initChosenExtras()
+            extraFilterInput.value = ''
+            filterExtraInput()
             logdebug(extraTags)
             e.preventDefault()
             if(chosenExtras.textContent === 'Extras, Kommentare') {
@@ -471,6 +471,38 @@ function addTag(tagClass, price) {
   extraTags.appendChild(tag)
 }
 
+function choosePizza(size) {
+  chosenSize.textContent = size
+  sizelistContainer.classList.remove('is-active')
+  const price = chosenMeal.dataset.price
+    ? chosenMeal.dataset.price
+    : null
+  const pricesmall = chosenMeal.dataset.pricesmall
+    ? chosenMeal.dataset.pricesmall
+    : null
+  const pricebig = chosenMeal.dataset.pricebig
+    ? chosenMeal.dataset.pricebig
+    : null
+
+  if(price) return setPrice(parseFloat(price))
+  const smallLunchDiscount = isLunchTime() ? smallPizzaDiscount : 0
+  const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
+  if(size === 'Normal' && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
+  if(size === 'Groß' && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
+
+  setPrice(0)
+}
+
+function filterExtraInput() {
+  const searchValue = extraFilterInput.value.toLowerCase()
+  const extras = document.getElementsByName('extraEntry')
+  Array.from(extras).forEach(extra => {
+    extra.style.display = (extra.textContent.toLowerCase().indexOf(searchValue) > -1)
+      ? ''
+      : 'none'
+  })
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar()
   initModalDismissButtons('closeOrder', 'addOrderModal')
@@ -489,17 +521,9 @@ document.addEventListener('DOMContentLoaded', () => {
     addOrderModal.classList.add('is-active')
   })
 
-  menulistTrigger.addEventListener('click', (e) => {
-    menulistContainer.classList.toggle('is-active')
-  })
-
-  sizelistTrigger.addEventListener('click', (e) => {
-    sizelistContainer.classList.toggle('is-active')
-  })
-
-  extralistTrigger.addEventListener('click', (e) => {
-    extralistContainer.classList.toggle('is-active')
-  })
+  menulistTrigger.addEventListener('click', (e) => menulistContainer.classList.toggle('is-active'))
+  sizelistTrigger.addEventListener('click', (e) => sizelistContainer.classList.toggle('is-active'))
+  extralistTrigger.addEventListener('click', (e) => extralistContainer.classList.toggle('is-active'))
 
   updateMetaInfo('inputDate')
   updateMetaInfo('inputName')
@@ -539,67 +563,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setPrice(0)
   })
 
-  extraFilterInput.addEventListener('keyup', (e) => {
-    const searchValue = extraFilterInput.value.toLowerCase()
-    const extras = document.getElementsByName('extraEntry')
-    Array.from(extras).forEach(extra => {
-      extra.style.display = (extra.textContent.toLowerCase().indexOf(searchValue) > -1)
-        ? ''
-        : 'none'
-    })
-  })
+  extraFilterInput.addEventListener('keyup', (e) => filterExtraInput())
 
   // hide menulist if clicked outside menulist
   document.addEventListener('click', (e) => hideOnClickOutside(menulistContainer))
   // hide sizelist if clicked outside sizelist
   document.addEventListener('click', (e) => hideOnClickOutside(sizelistContainer))
-  document.getElementById('sizeNormal').addEventListener('click', (e) => {
-    chosenSize.textContent = 'Normal'
-    chosenSize.textContent = 'Normal'
-    sizelistContainer.classList.remove('is-active')
-    const size = chosenSize.textContent
-    const price = chosenMeal.dataset.price
-      ? chosenMeal.dataset.price
-      : null
-    const pricesmall = chosenMeal.dataset.pricesmall
-      ? chosenMeal.dataset.pricesmall
-      : null
-    const pricebig = chosenMeal.dataset.pricebig
-      ? chosenMeal.dataset.pricebig
-      : null
-
-    if(price) return setPrice(parseFloat(price))
-    const smallLunchDiscount = isLunchTime() ? smallPizzaDiscount : 0
-    const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
-    if(size === 'Normal' && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
-    if(size === 'Groß' && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
-
-    setPrice(0)
-  })
-  sizeBig.addEventListener('click', (e) => {
-    chosenSize.textContent = 'Groß'
-    chosenSize.textContent = 'Groß'
-    sizelistContainer.classList.remove('is-active')
-    const size = chosenSize.textContent
-    const price = chosenMeal.dataset.price
-      ? chosenMeal.dataset.price
-      : null
-    const pricesmall = chosenMeal.dataset.pricesmall
-      ? chosenMeal.dataset.pricesmall
-      : null
-    const pricebig = chosenMeal.dataset.pricebig
-      ? chosenMeal.dataset.pricebig
-      : null
-
-    if(price) return setPrice(parseFloat(price))
-
-    const smallLunchDiscount = isLunchTime() ? smallPizzaDiscount : 0
-    const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
-    if(size === 'Normal' && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
-    if(size === 'Groß' && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
-
-    setPrice(0)
-  })
+  sizeNormal.addEventListener('click', (e) => choosePizza('Normal'))
+  sizeBig.addEventListener('click', (e) => choosePizza('Groß'))
   // hide extralist if clicked outside extralist
   document.addEventListener('click', (e) => hideOnClickOutside(extralistContainer))
 
@@ -637,6 +608,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       extraFilterInput.value = ''
+      filterExtraInput()
     }
   })
 })
