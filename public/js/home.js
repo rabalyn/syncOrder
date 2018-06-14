@@ -13,6 +13,8 @@ localStorage.debug += ' home:* '
 import io from 'socket.io-client'
 const socket = io()
 
+import i18next from './i18next'
+
 loginfo('home, sweet home 👀🙀👻')
 
 const syncOrder = (data) => socket.emit('POSTorder', data)
@@ -22,6 +24,10 @@ const syncClearList = () => socket.emit('clearList', {})
 const smallPizzaDiscount = 0.5
 const bigPizzaDiscount = 1.0
 
+const btnGerman = document.getElementById('btnGerman')
+const btnEnglish = document.getElementById('btnEnglish')
+const languagelistTrigger = document.getElementById('languagelistTrigger')
+const languagelistContainer = document.getElementById('languagelistContainer')
 const addOrderModal = document.getElementById('addOrderModal')
 const trollModal = document.getElementById('trollModal')
 const chosenMeal = document.getElementById('chosenMeal')
@@ -64,8 +70,8 @@ socket.on('GETorder', (data) => {
   nameInput.value = ''
   resetChosenMeal()
   resetChosenExtras()
-  chosenMeal.textContent = 'Mahlzeiten'
-  chosenSize.textContent = 'Normal'
+  chosenMeal.textContent = i18next.t('addOrderModal.meals')
+  chosenSize.textContent = i18next.t('addOrderModal.normalsize')
   addRow(data)
 })
 
@@ -102,7 +108,7 @@ function updateMetaInfo(id) {
 function addRow(order) {
   const extraTagList = document.createElement('div')
   extraTagList.setAttribute('class', 'tags')
-  try {
+  try {    
     const extras = JSON.parse(order.extras)
     extras.forEach((extra) => {
       const tag = document.createElement('span')
@@ -116,7 +122,6 @@ function addRow(order) {
     //no extra specified for this order
     //logerror('could not parse extras: %O', error)
   }
-  logdebug(extraTagList)
 
   const row = tableOrderBody.insertRow(-1)
   row.setAttribute('scope', 'row')
@@ -129,7 +134,6 @@ function addRow(order) {
   const price = row.insertCell(-1)
   const paied = row.insertCell(-1)
 
-  logdebug(order)
   // Add some text to the new cells:
   id.textContent = order.tableId
   name.textContent = order.name
@@ -244,9 +248,9 @@ const isLunchTime = () => (new Date().getHours() < 17) ? true : false
 
 function getPriceString(mealObj) {
   let returnString = '<span hidden>'
-  if(mealObj.pricesmall) returnString += '  Klein: ' + formatPrice(mealObj.pricesmall)
-  if(mealObj.pricebig) returnString += ' Groß: ' + formatPrice(mealObj.pricebig)
-  if(mealObj.price) returnString += ' Preis: ' + formatPrice(mealObj.price)
+  if(mealObj.pricesmall) returnString += '  ' + i18next.t('addOrderModal.normalsize') + ' ' + formatPrice(mealObj.pricesmall)
+  if(mealObj.pricebig) returnString += '  ' + i18next.t('addOrderModal.bigsize') + ' ' + formatPrice(mealObj.pricebig)
+  if(mealObj.price) returnString += ' ' + i18next.t('addOrderModal.price') + ': ' + formatPrice(mealObj.price)
 
   returnString += '</span>'
   return returnString
@@ -319,7 +323,7 @@ const loadHobbitMenu = {
             const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
             if(this.dataset.pricesmall) {
               const size = chosenSize.textContent
-              size === 'Normal'
+              size === i18next.t('addOrderModal.normalsize')
                 ? setPrice(parseFloat(this.dataset.pricesmall) - smallLunchDiscount)
                 : setPrice(parseFloat(this.dataset.pricebig) - normalLunchDiscount)
             } else {
@@ -337,7 +341,7 @@ const loadHobbitMenu = {
             filterExtraInput()
             logdebug(extraTags)
             e.preventDefault()
-            if(chosenExtras.textContent === 'Extras, Kommentare') {
+            if(chosenExtras.textContent === i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')) {
               chosenExtras.innerHTML = '<div class="tags" id="extraTags"></div>'
               const tag = document.createElement('span')
               tag.textContent = this.textContent
@@ -352,7 +356,7 @@ const loadHobbitMenu = {
                   updatePrice(myPrice)
                 this.parentNode.parentNode.removeChild(this.parentNode)
                 if(extraTags.childNodes.length === 0) {
-                  chosenExtras.textContent = 'Extras, Kommentare'
+                  chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
                 }
               })
               tag.appendChild(deleteMe)
@@ -372,7 +376,7 @@ const loadHobbitMenu = {
                 updatePrice(myPrice)
                 this.parentNode.parentNode.removeChild(this.parentNode)
                 if(extraTags.childNodes.length === 0) {
-                  chosenExtras.textContent = 'Extras, Kommentare'
+                  chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
                 }
               })
               tag.appendChild(deleteMe)
@@ -440,7 +444,7 @@ function inputContainsNegativeChar(input) {
 }
 
 function initChosenExtras() {
-  if(chosenExtras.textContent === 'Extras, Kommentare') {
+  if(chosenExtras.textContent === i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')) {
     chosenExtras.innerHTML = '<div class="tags" id="extraTags"></div>'
   }
   extraTags = document.getElementById('extraTags')
@@ -448,7 +452,7 @@ function initChosenExtras() {
 
 function resetChosenExtras() {
   chosenExtras.innerHTML = ''
-  chosenExtras.textContent = 'Extras, Kommentare'
+  chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
 }
 
 function addTag(tagClass, price) {
@@ -464,7 +468,7 @@ function addTag(tagClass, price) {
   deleteMe.addEventListener('click', function(e) {
     this.parentNode.parentNode.removeChild(this.parentNode)
     if(extraTags.childNodes.length === 0) {
-      chosenExtras.textContent = 'Extras, Kommentare'
+      chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
     }
   })
   tag.appendChild(deleteMe)
@@ -487,8 +491,8 @@ function choosePizza(size) {
   if(price) return setPrice(parseFloat(price))
   const smallLunchDiscount = isLunchTime() ? smallPizzaDiscount : 0
   const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
-  if(size === 'Normal' && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
-  if(size === 'Groß' && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
+  if(size === i18next.t('addOrderModal.normalsize') && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
+  if(size === i18next.t('addOrderModal.bigsize') && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
 
   setPrice(0)
 }
@@ -521,6 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addOrderModal.classList.add('is-active')
   })
 
+  languagelistTrigger.addEventListener('click', (e) => languagelistContainer.classList.toggle('is-active'))
   menulistTrigger.addEventListener('click', (e) => menulistContainer.classList.toggle('is-active'))
   sizelistTrigger.addEventListener('click', (e) => sizelistContainer.classList.toggle('is-active'))
   extralistTrigger.addEventListener('click', (e) => extralistContainer.classList.toggle('is-active'))
@@ -557,22 +562,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const smallLunchDiscount = isLunchTime() ? smallPizzaDiscount : 0
     const normalLunchDiscount = isLunchTime() ? bigPizzaDiscount : 0
-    if(size === 'Normal' && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
-    if(size === 'Groß' && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
+    if(size === i18next.t('addOrderModal.normalsize') && pricesmall) return setPrice(parseFloat(pricesmall) - smallLunchDiscount)
+    if(size === i18next.t('addOrderModal.bigsize') && pricebig) return setPrice(parseFloat(pricebig) - normalLunchDiscount)
 
     setPrice(0)
   })
 
   extraFilterInput.addEventListener('keyup', (e) => filterExtraInput())
 
+  // hide languagelist if clicked outside extralist
+  document.addEventListener('click', (e) => hideOnClickOutside(languagelistContainer))
   // hide menulist if clicked outside menulist
   document.addEventListener('click', (e) => hideOnClickOutside(menulistContainer))
   // hide sizelist if clicked outside sizelist
   document.addEventListener('click', (e) => hideOnClickOutside(sizelistContainer))
-  sizeNormal.addEventListener('click', (e) => choosePizza('Normal'))
-  sizeBig.addEventListener('click', (e) => choosePizza('Groß'))
+  sizeNormal.addEventListener('click', (e) => choosePizza(i18next.t('addOrderModal.normalsize')))
+  sizeBig.addEventListener('click', (e) => choosePizza(i18next.t('addOrderModal.bigsize')))
   // hide extralist if clicked outside extralist
   document.addEventListener('click', (e) => hideOnClickOutside(extralistContainer))
+
+  btnGerman.addEventListener('click', (e) => {
+    document.cookie = 'i18next=de'
+    location.reload()
+  })
+
+  btnEnglish.addEventListener('click', (e) => {
+    document.cookie = 'i18next=en'
+    location.reload()
+  })
 
   extraFilterInput.addEventListener('keyup', function(e) {
     if(e.which === 13) { // 13 === return
@@ -594,7 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
           updatePrice(myPrice)
           this.parentNode.parentNode.removeChild(this.parentNode)
           if(extraTags.childNodes.length === 0) {
-            chosenExtras.textContent = 'Extras, Kommentare'
+            chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
           }
         })
         tag.appendChild(deleteMe)
