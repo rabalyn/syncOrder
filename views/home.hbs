@@ -2,7 +2,7 @@
 
 <div class="card">
   <header class="card-header">
-     <h1 class="title card-header-title">WEB-PANF - v1.0</h1>
+     <h1 class="title card-header-title">{{t "home.title"}}</h1>
   </header>
   <div class="card-content">
     <div class="content">
@@ -12,9 +12,7 @@
             <div class="columns is-multiline">
               <div class="column">
                 <i class="fas fa-3x fa-fw fa-exclamation-triangle float-left"></i>
-                Öffnen Sie ruhig weitere Webseiten von *.übersprung.de in einem separaten Browsertab/-fenster, 
-                während Sie das Formular ausfüllen, oder davor, oder danach, oder wann auch immer, da sich 
-                das Formular auch dann noch abschicken lässt.
+                {{t "home.info"}}
               </div>
             </div>
           </div>
@@ -26,38 +24,38 @@
       <div class="column">
         <div class="field">
           <label>
-            <i class="far fa-calendar-alt"></i> Datum
+            <i class="far fa-calendar-alt"></i> {{t "home.date"}}
           </label>
           <div class="control">
-            <input type="date" class="input is-rounded" id="inputDate" placeholder="Datum">
+            <input type="date" class="input is-rounded" id="inputDate" placeholder={{t "home.date"}}>
           </div>
         </div>
 
         <div class="field">
           <label>
-            <i class="fas fa-user"></i> <i class="fas fa-phone"></i> Bestellauslöser
+            <i class="fas fa-user"></i> <i class="fas fa-phone"></i> {{t "home.orderstarter"}}
           </label>
           <div class="control">
-            <input type="text" class="input is-rounded" id="inputName" placeholder="Bestellauslöser">
+            <input type="text" class="input is-rounded" id="inputName" placeholder={{t "home.orderstarter"}}>
           </div>
         </div>
       </div>
       <div class="column">
         <div class="field">
           <label>
-            <i class="far fa-clock"></i> Abholzeit
+            <i class="far fa-clock"></i> {{t "home.pickuptime"}}
           </label>
           <div class="control">
-            <input type="text" class="input is-rounded" id="inputCollectTime" placeholder="Abholzeit">
+            <input type="text" class="input is-rounded" id="inputCollectTime" placeholder={{t "home.pickuptime"}}>
           </div>
         </div>
 
         <div class="field">
           <label>
-            <i class="fas fa-people-carry"></i> Abholer
+            <i class="fas fa-people-carry"></i> {{t "home.collector"}}
           </label>
           <div class="control">
-            <input type="text" class="input is-rounded" id="inputCollector" placeholder="Abholer">
+            <input type="text" class="input is-rounded" id="inputCollector" placeholder={{t "home.collector"}}>
           </div>
         </div>
       </div>
@@ -71,12 +69,12 @@
       <thead>
         <tr>
           <th>#</th>
-          <th><i class="fas fa-user"></i> Name</th>
-          <th><i class="fas fa-box"></i> Bestellung</th>
-          <th><i class="fas fa-search"></i> Größe</th>
-          <th><i class="far fa-comment"></i> Kommentar</th>
-          <th><i class="fas fa-money-bill-alt"></i> Kosten</th>
-          <th><i class="fas fa-money-bill-alt"></i> Anzahlung</th>
+          <th><i class="fas fa-user"></i> {{t "home.orderlist.name"}}</th>
+          <th><i class="fas fa-box"></i> {{t "home.orderlist.order"}}</th>
+          <th><i class="fas fa-search"></i> {{t "home.orderlist.size"}}</th>
+          <th><i class="far fa-comment"></i> {{t "home.orderlist.comment"}}</th>
+          <th><i class="fas fa-money-bill-alt"></i> {{t "home.orderlist.cost"}}</th>
+          <th><i class="fas fa-money-bill-alt"></i> {{t "home.orderlist.prepaid"}}</th>
         </tr>
       </thead>
       <tbody id="orderTableBody">
@@ -84,7 +82,7 @@
     </table>
     </div>
     <button type="button" class="button is-success no-print" id="btnOpenAddOrder">
-      <i class="fas fa-cart-plus fa-fw"></i>Neue Bestellung
+      <i class="fas fa-cart-plus fa-fw"></i>{{t "home.orderlist.neworder"}}
     </button>
   </div>
   <footer class="card-footer">
