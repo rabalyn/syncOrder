@@ -1,0 +1,91 @@
+{
+  "title": "PANF 2GO",
+  "language": "English",
+  "navbar": {
+    "menucard": "Hobbit menu card",
+    "deleteList": "Clear order list"
+  },
+  "home": {
+    "title": "WEB-PANF - v1.0",
+    "info": "You can open other browser tabs or windows at *.übersprung.de, while you edit this form, or before, or afterwards, or whenever you like. It just works.",
+    "date": "Date",
+    "pickuptime": "Pick up time",
+    "orderstarter": "Order actuator",
+    "collector": "Collector",
+    "orderlist": {
+      "name": "Name",
+      "order": "Order",
+      "size": "Size",
+      "comment": "Comment",
+      "cost": "Cost",
+      "prepaid": "Prepaid",
+      "neworder": "New order"
+    }
+  },
+  "menu": {
+    "title": "Hobbit Menu Card",
+    "mealname": "Meal",
+    "ingredients": "Ingredients",
+    "pricesmall": "Price (small)",
+    "pricenormal": "Price (normal)",
+    "pricebig": "Price (big)"
+  },
+  "ingredients": {
+    "Bolognesesauce": "Bolognese sauce",
+    "Käse": "Cheese",
+    "Schinken": "Ham",
+    "Mozzarella": "Mozzarella",
+    "Peperoniwurst": "Pepperoni (sausage)",
+    "Calamares": "(fried) Calamari",
+    "Shrimps": "Shrimps",
+    "Sardellen": "Anchovies",
+    "Schafskäse": "Ewe's Cheese",
+    "Schinkenwürfel": "Ham cubes",
+    "Thunfisch": "Tuna",
+    "Salami": "Salami",
+    "Hähnchenbruststreifen": "Chicken Breast (slices)",
+    "Brokkoli": "Broccoli",
+    "Spargel": "Asparagus",
+    "Paprika": "Paprika",
+    "Ananas": "Pineapple",
+    "Lauch": "Leek",
+    "Spinat": "Spinach",
+    "Artischocken": "Artichokes",
+    "Knoblauch": "Fresh Garlic",
+    "frischer Knoblauch": "Fresh Garlic",
+    "Tomaten": "Tomatoes",
+    "Pilze": "Mushrooms",
+    "Ei": "Egg",
+    "Oliven": "Olivary",
+    "Kapern": "Capers",
+    "Mais": "Corn",
+    "Peperoni": "Bell Peppers",
+    "Kidney Bohnen": "Kidney Beans",
+    "Zwiebeln": "Onions",
+    "grüne Bohnen": "green Beans",
+    "Jalapenos (scharf)": "Jalapenos (spicy)",
+    "Kartoffeln": "Potatoes"
+  },
+  "defaultModal": {
+    "close": "Close",
+    "save": "Save"
+  },
+  "addOrderModal": {
+    "title": "Add New Order",
+    "name": "Name",
+    "meal": "Meal",
+    "meals": "Meals",
+    "menulistFilter": "Filter (name, ingredient)...",
+    "size": "Size",
+    "normalsize": "Small",
+    "bigsize": "Big",
+    "customization": "Wishes",
+    "extras": "Extras",
+    "comments": "Comments",
+    "extraIngredients": "Extra ingredients",
+    "minusIngredients": "Minus ingredients",
+    "ingredientsFilter": "Filter (ingredient)...",
+    "costs": "Cost",
+    "price": "Price"
+  }
+}
