@@ -15,8 +15,8 @@
     <a class="navbar-item" href="https://übersprung.de  ">
       <i class="fas fa-magic fa-fw"></i> Übersprung
     </a>
-     <a class="navbar-item" href="/hobbit" target="_blank">
-       <i class="fas fa-file-alt fa-fw"></i> Hobbit-Speisekarte
+     <a class="navbar-item" href="/hobbit">
+       <i class="fas fa-file-alt fa-fw"></i> {{t "navbar.menucard"}}
      </a>
     </div>
 
@@ -28,10 +28,32 @@
         <p class="control">
           <button id="clearList" type="button" class="navbar-item button is-danger">
             <div>
-              <i class="fas fa-trash-alt fa-fw"></i>Liste löschen
+              <i class="fas fa-trash-alt fa-fw"></i>{{t "navbar.deleteList"}}
             </div>
           </button>
         </p>
+      </div>
+      <div class="navbar-item">
+        <div id="languagelistContainer" class="dropdown">
+          <div class="dropdown-trigger">
+            <button id="languagelistTrigger" class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span>{{t "language"}}</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="language-menu" role="menu">
+            <div class="dropdown-content">
+              <a id="btnGerman" class="dropdown-item">
+                Deutsch
+              </a>
+              <a id="btnEnglish" class="dropdown-item">
+                English
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

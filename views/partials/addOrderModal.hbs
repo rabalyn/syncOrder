@@ -2,34 +2,34 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <h5 class="modal-card-title">Bestellung aufgeben</h5>
+      <h5 class="modal-card-title">{{t "addOrderModal.title"}}</h5>
       <button class="delete" name="closeOrder" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
         <label>
-          <i class="fas fa-user"></i> Name
+          <i class="fas fa-user"></i> {{t "addOrderModal.name"}}
         </label>
         <div class="control">
-          <input id="name" type="text" class="input" placeholder="Name">
+          <input id="name" type="text" class="input" placeholder={{t "addOrderModal.name"}}>
         </div>
       </div>
       <div class="field">
         <label>
-          <i class="fas fa-box"></i> Mahlzeit
+          <i class="fas fa-box"></i> {{t "addOrderModal.meal"}}
         </label>
         <div class="control">
           <div id="menulistContainer" class="dropdown">
             <div class="dropdown-trigger">
               <button id="menulistTrigger" class="button">
-                <span id="chosenMeal">Mahlzeiten</span>
+                <span id="chosenMeal">{{t "addOrderModal.meals"}}</span>
                 <span class="icon is-small">
                   <i class="fas fa-angle-down"></i>
                 </span>
               </button>
             </div>
             <div class="dropdown-menu scrollable-menu" id="menulist" role="menu">
-              <input class="input" id="mealFilterInput" type="text" placeholder="Filter (Name, Zutat)...">
+              <input class="input" id="mealFilterInput" type="text" placeholder={{t "addOrderModal.menulistFilter"}}>
               <div class="dropdown-content" id="menulistContent">
               </div>
             </div>
@@ -38,13 +38,13 @@
       </div>
       <div class="field">
         <label>
-          <i class="fas fa-search"></i> Größe
+          <i class="fas fa-search"></i> {{t "addOrderModal.size"}}
         </label>
         <div class="control">
           <div id="sizelistContainer" class="dropdown">
             <div class="dropdown-trigger">
               <button id="sizelistTrigger" class="button">
-                <span id="chosenSize" value="Normal">Normal</span>
+                <span id="chosenSize" value="Normal">{{t "addOrderModal.normalsize"}}</span>
                 <span class="icon is-small">
                   <i class="fas fa-angle-down"></i>
                 </span>
@@ -52,8 +52,8 @@
             </div>
             <div class="dropdown-menu" id="sizelist" role="menu">
               <div class="dropdown-content" id="sizelistContent">
-                <a class="dropdown-item" id="sizeNormal">Normal</a>
-                <a class="dropdown-item" id="sizeBig">Groß</a>
+                <a class="dropdown-item" id="sizeNormal">{{t "addOrderModal.normalsize"}}</a>
+                <a class="dropdown-item" id="sizeBig">{{t "addOrderModal.bigsize"}}</a>
               </div>
             </div>
           </div>
@@ -61,21 +61,21 @@
       </div>
       <div class="field">
         <label>
-          <i class="fas fa-box"></i> eigene Wünsche
+          <i class="fas fa-box"></i> {{t "addOrderModal.customization"}}
         </label>
-        <div id="chosenExtras">Extras, Kommentare</div>
+        <div id="chosenExtras">{{t "addOrderModal.extras"}}, {{t "addOrderModal.comments"}}</div>
         <div class="control">
           <div id="extralistContainer" class="dropdown">
             <div class="dropdown-trigger">
               <button id="extralistTrigger" class="button">
-                <span>Extrazutaten, Abbestellungen</span>
+                <span>{{t "addOrderModal.extraIngredients"}}, {{t "addOrderModal.minusIngredients"}}</span>
                 <span class="icon is-small">
                   <i class="fas fa-angle-down"></i>
                 </span>
               </button>
             </div>
             <div class="dropdown-menu" id="extralist" role="menu">
-              <input class="input" id="extraFilterInput" type="text" placeholder="Filter (Zutat)...">
+              <input class="input" id="extraFilterInput" type="text" placeholder={{t "addOrderModal.ingredientsFilter"}}>
               <div class="dropdown-content" id="extralistContent">
               </div>
             </div>
@@ -84,7 +84,7 @@
       </div>
       <div class="field">
         <label>
-          <i class="fas fa-money-bill-alt"></i> Kosten
+          <i class="fas fa-money-bill-alt"></i> {{t "addOrderModal.costs"}}
         </label>
         <div class="control">
           <div id="pricePreview" value="0.00€">0.00€</div>
@@ -92,8 +92,8 @@
       </div>
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-danger" name="closeOrder"><i class="fas fa-times"></i>&nbsp;Schließen</button>
-      <button id="saveOrder" class="button is-success"><i class="fas fa-save"></i>&nbsp;Speichern</button>
+      <button class="button is-danger" name="closeOrder"><i class="fas fa-times"></i>&nbsp;{{t "defaultModal.close"}}</button>
+      <button id="saveOrder" class="button is-success"><i class="fas fa-save"></i>&nbsp;{{t "defaultModal.save"}}</button>
     </footer>
   </div>
 </div>

@@ -2,10 +2,13 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: './public/js/home.js',
+  entry: {
+    home: './public/js/home.js',
+    hobbit: './public/js/hobbit.js'
+  },
   output: {
     path: path.resolve(__dirname, 'public', 'dist'),
-    filename: 'home.bundle.js',
+    filename: '[name].bundle.js',
     publicPath: '/dist/'
   },
   module: {

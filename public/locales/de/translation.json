@@ -1,0 +1,91 @@
+{
+  "title": "PANF 2GO",
+  "language": "Deutsch",
+  "navbar": {
+    "menucard": "Hobbit-Speisekarte",
+    "deleteList": "Liste löschen"
+  },
+  "home": {
+    "title": "WEB-PANF - v1.0",
+    "info": "Öffnen Sie ruhig weitere Webseiten von *.übersprung.de in einem separaten Browsertab/-fenster, während Sie das Formular ausfüllen, oder davor, oder danach, oder wann auch immer, da sich das Formular auch dann noch abschicken lässt.",
+    "date": "Datum",
+    "pickuptime": "Abholzeit",
+    "orderstarter": "Bestellauslöser",
+    "collector": "Abholer",
+    "orderlist": {
+      "name": "Name",
+      "order": "Bestellung",
+      "size": "Größe",
+      "comment": "Kommentar",
+      "cost": "Kosten",
+      "prepaid": "Anzahlung",
+      "neworder": "Neue Bestellung"
+    }
+  },
+  "menu": {
+    "title": "Hobbit Speisekarte",
+    "mealname": "Speise",
+    "ingredients": "Zutaten",
+    "pricesmall": "Preis (klein)",
+    "pricenormal": "Preis (normal)",
+    "pricebig": "Preis (groß)"
+  },
+  "ingredients": {
+    "Bolognesesauce": "Bolognesesauce",
+    "Käse": "Käse",
+    "Schinken": "Schinken",
+    "Mozzarella": "Mozzarella",
+    "Peperoniwurst": "Peperoniwurst",
+    "Calamares": "Calamares",
+    "Shrimps": "Shrimps",
+    "Sardellen": "Sardellen",
+    "Schafskäse": "Schafskäse",
+    "Schinkenwürfel": "Schinkenwürfel",
+    "Thunfisch": "Thunfisch",
+    "Salami": "Salami",
+    "Hähnchenbruststreifen": "Hähnchenbruststreifen",
+    "Brokkoli": "Brokkoli",
+    "Spargel": "Spargel",
+    "Paprika": "Paprika",
+    "Ananas": "Ananas",
+    "Lauch": "Lauch",
+    "Spinat": "Spinat",
+    "Artischocken": "Artischocken",
+    "Knoblauch": "frischer Knoblauch",
+    "frischer Knoblauch": "frischer Knoblauch",
+    "Tomaten": "Tomaten",
+    "Pilze": "Pilze",
+    "Ei": "Ei",
+    "Oliven": "Oliven",
+    "Kapern": "Kapern",
+    "Mais": "Mais",
+    "Peperoni": "Peperoni",
+    "Kidney Bohnen": "Kidney Bohnen",
+    "Zwiebeln": "Zwiebeln",
+    "grüne Bohnen": "grüne Bohnen",
+    "Jalapenos (scharf)": "Jalapenos (scharf)",
+    "Kartoffeln": "Kartoffeln"
+  },
+  "defaultModal": {
+    "close": "Schließen",
+    "save": "Speichern"
+  },
+  "addOrderModal": {
+    "title": "Bestellung aufgeben",
+    "name": "Name",
+    "meal": "Mahlzeit",
+    "meals": "Mahlzeiten",
+    "menulistFilter": "Filter (Name, Zutat)...",
+    "size": "Größe",
+    "normalsize": "Klein",
+    "bigsize": "Groß",
+    "customization": "Eigene Wünsche",
+    "extras": "Extras",
+    "comments": "Kommentare",
+    "extraIngredients": "Extrazutaten",
+    "minusIngredients": "Abbestellungen",
+    "ingredientsFilter": "Filter (Zutat)...",
+    "costs": "Kosten",
+    "price": "Preis"
+  }
+}
