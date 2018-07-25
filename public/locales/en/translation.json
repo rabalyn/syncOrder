@@ -19,7 +19,8 @@
       "comment": "Comment",
       "cost": "Cost",
       "prepaid": "Prepaid",
-      "neworder": "New order"
+      "neworder": "New order",
+      "sumtopay": "Sum"
     }
   },
   "menu": {

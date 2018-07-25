@@ -65,19 +65,16 @@ socket.on('GETpaied', (data) => {
 })
 
 socket.on('GETorder', (data) => {
-  addOrderModal.classList.remove('is-active')
-  nameInput.classList.remove('is-valid')
-  nameInput.value = ''
-  resetChosenMeal()
-  resetChosenExtras()
   chosenMeal.textContent = i18next.t('addOrderModal.meals')
   chosenSize.textContent = i18next.t('addOrderModal.normalsize')
   addRow(data)
+  initSumToPay()
 })
 
 socket.on('initOrders', (orders) => {
   Array.from(orderTableBody.rows).forEach((row, idx) => table.deleteRow(idx))
   orders.forEach(order => addRow(order))
+  initSumToPay()
 })
 
 function updateMetaField(data) {
@@ -141,6 +138,7 @@ function addRow(order) {
   size.textContent = order.size
   comment.appendChild(extraTagList)
   price.textContent = order.price
+  price.setAttribute('name', 'mealprice')
   const htmlid = order.name + order.meal + order.size
   const maxVal = 100
   
@@ -237,6 +235,11 @@ function initOrder() {
       price: price
     }
 
+    addOrderModal.classList.remove('is-active')
+    nameInput.classList.remove('is-valid')
+    nameInput.value = ''
+    resetChosenMeal()
+    resetChosenExtras()
     syncOrder(order)
   })
 }
@@ -505,6 +508,13 @@ function filterExtraInput() {
       ? ''
       : 'none'
   })
+}
+
+function initSumToPay() {
+  const sum = Array.from(document.getElementsByName('mealprice')).reduce((prevValue, priceNode) => {
+    return parseFloat(priceNode.textContent) + prevValue
+  }, 0)
+  document.getElementById('sumtopay').textContent = sum + '€'
 }
 
 document.addEventListener('DOMContentLoaded', () => {

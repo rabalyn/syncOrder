@@ -2,8 +2,12 @@
   margin-top: 2em;
 }
 
+.modal-card {
+  overflow: auto;
+}
+
 .modal-card-body {
-  min-height: 35em;
+  min-height: 28em;
 }
 
 .tooltip {
