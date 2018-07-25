@@ -32,6 +32,21 @@ function hideOnClickOutside(element) {
   const removeClickListener = () => document.removeEventListener('click', outsideClickListener)
   document.addEventListener('click', outsideClickListener)
 }
+function initNavbar() {
+  // Get all "navbar-burger" elements
+  const navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0)
+  if(navbarBurgers.length > 0) {
+    navbarBurgers.forEach((el) => {
+      el.addEventListener('click', () => {
+        const target = el.dataset.target
+        const targetNode = document.getElementById(target)
+
+        el.classList.toggle('is-active')
+        targetNode.classList.toggle('is-active')
+      })
+    })
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const btnGerman = document.getElementById('btnGerman')
@@ -40,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const languagelistContainer = document.getElementById('languagelistContainer')
   const menuTableBody = document.getElementById('menuTableBody')
 
+  initNavbar()
   languagelistTrigger.addEventListener('click', (e) => languagelistContainer.classList.toggle('is-active'))
   // hide languagelist if clicked outside extralist
   document.addEventListener('click', (e) => hideOnClickOutside(languagelistContainer))

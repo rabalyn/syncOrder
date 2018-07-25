@@ -32,8 +32,6 @@ i18next
     if(err) logerror('i18next init failed: %O', err)
 
     logdebug('i18next language loaded: %s', i18next.language)
-    logdebug(i18next.t('language'))
-    logdebug(i18next)
   })
 
 module.exports = i18next
