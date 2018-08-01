@@ -69,12 +69,14 @@ socket.on('GETorder', (data) => {
   chosenSize.textContent = i18next.t('addOrderModal.normalsize')
   addRow(data)
   initSumToPay()
+  //initSumPrepaid()
 })
 
 socket.on('initOrders', (orders) => {
   Array.from(orderTableBody.rows).forEach((row, idx) => table.deleteRow(idx))
   orders.forEach(order => addRow(order))
   initSumToPay()
+  //initSumPrepaid()
 })
 
 function updateMetaField(data) {
@@ -515,6 +517,11 @@ function initSumToPay() {
     return parseFloat(priceNode.textContent) + prevValue
   }, 0)
   document.getElementById('sumtopay').textContent = sum + '€'
+}
+
+function initSumPrepaid() {
+  const sum = Array.from(document.querySelectorAll('input[type=number]')).reduce((p, input) => parseFloat(input.value) + p, 0)
+  document.getElementById('sumprepaid').textContent = sum + '€'
 }
 
 document.addEventListener('DOMContentLoaded', () => {
