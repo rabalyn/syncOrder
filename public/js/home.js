@@ -57,11 +57,15 @@ socket.on('reload', () => location.reload())
 socket.on('trollProtection', (statusObj) => trollModal.style.display = '')
 socket.on('FAILorder', (data) => alert(data.text))
 socket.on('initMeta', (metadata) => metadata.forEach(data => updateMetaField(data)))
-socket.on('initPaied', (paied) => paied.forEach(pay => document.getElementById(pay.htmlid).value = pay.paied))
+socket.on('initPaied', (paied) => {
+  paied.forEach(pay => document.getElementById(pay.htmlid).value = pay.paied)
+  initSumPrepaid()
+})
 socket.on('pushMeta', (data) => updateMetaField(data))
 socket.on('GETpaied', (data) => {
   const x = document.getElementById(data.htmlid)
   x.value = data.paied
+  initSumPrepaid()
 })
 
 socket.on('GETorder', (data) => {
@@ -81,13 +85,6 @@ function updateMetaField(data) {
   const id = data.id
   const text = data.text
   document.getElementById(id).value = text
-}
-
-function setSizeLabel(id, text) {
-  document.getElementById(id).addEventListener('click', (e) => {
-    e.preventDefault()
-    dropdownMenuButton.innerHTML = text
-  })
 }
 
 function _bindUpdateMetaInfo(e) {
@@ -514,7 +511,14 @@ function initSumToPay() {
   const sum = Array.from(document.getElementsByName('mealprice')).reduce((prevValue, priceNode) => {
     return parseFloat(priceNode.textContent) + prevValue
   }, 0)
-  document.getElementById('sumtopay').textContent = sum + '€'
+  document.getElementById('sumtopay').textContent = sum.toFixed(2) + '€'
+}
+
+function initSumPrepaid() {
+  const sum = Array.from(document.querySelectorAll('input[type=number]')).reduce((p, input) => {
+    return parseFloat(input.value) + p
+  }, 0)
+  document.getElementById('sumprepaid').textContent = sum.toFixed(2) + '€'
 }
 
 document.addEventListener('DOMContentLoaded', () => {
