@@ -54,7 +54,7 @@ const sizeBig = document.getElementById('sizeBig')
 const pricePreview = document.getElementById('pricePreview')
 
 socket.on('reload', () => location.reload())
-socket.on('trollProtection', (statusObj) => trollModal.style.display = '')
+socket.on('trollProtection', (statusObj) => trollModal.classList.add('is-active'))
 socket.on('FAILorder', (data) => alert(data.text))
 socket.on('initMeta', (metadata) => metadata.forEach(data => updateMetaField(data)))
 socket.on('initPaied', (paied) => {
@@ -183,7 +183,7 @@ function initVerifyClearListButton() {
   document.getElementById('btnVerifyClearList').addEventListener('click', (e) => {
     e.preventDefault()
     syncClearList()
-    document.getElementById('verifyClearListModal').style.display = 'none'
+    document.getElementById('verifyClearListModal').classList.remove('is-active')
   })
 }
 
@@ -525,6 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar()
   initModalDismissButtons('closeOrder', 'addOrderModal')
   initModalDismissButtons('closeClearList', 'verifyClearListModal')
+  initModalDismissButtons('closeTroll', 'trollModal')
   initDateValue()
   initClearListButton()
   initVerifyClearListButton()
