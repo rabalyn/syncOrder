@@ -1,3 +1,3 @@
 node_modules
-public/dist/home.bundle.js
-public/dist/hobbit.bundle.js
+public/dist/*
+config.js
