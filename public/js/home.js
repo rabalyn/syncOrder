@@ -1,8 +1,8 @@
 import 'bulma/css/bulma.min.css'
-import fontawesome from '@fortawesome/fontawesome'
-import solid from '@fortawesome/fontawesome-free-solid'
-import regular from '@fortawesome/fontawesome-free-regular'
-import brands from '@fortawesome/fontawesome-free-brands'
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
 
 import debug from 'debug'
 const logdebug = debug('home:debug')
@@ -16,6 +16,9 @@ const socket = io()
 import i18next from './i18next'
 
 loginfo('home, sweet home 👀🙀👻')
+
+library.add(fas, far, fab)
+dom.watch()
 
 const syncOrder = (data) => socket.emit('POSTorder', data)
 const syncPaied = (data) => socket.emit('POSTpaied', data)
