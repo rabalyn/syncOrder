@@ -3,8 +3,8 @@ const path = require('path')
 module.exports = {
   mode: 'development',
   entry: {
-    home: './public/js/home.js',
-    hobbit: './public/js/hobbit.js'
+    home: './public/js/home',
+    hobbit: './public/js/hobbit'
   },
   output: {
     path: path.resolve(__dirname, 'public', 'dist'),
