@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "export DEBUG='app:* serialization:* socketHobbit:*' ; nodemon --ignore 'node_modules' --ignore 'public' --ignore 'data' --exec npm run babel-node -- app.js",
+    "start": "export DEBUG='app:* serialization:* socketHobbit:*' ; nodemon --ignore 'node_modules' --ignore 'src' --ignore 'public' --ignore 'data' --exec npm run babel-node -- app.js",
     "babel-node": "babel-node --ignore='node_modules'",
     "build": "webpack --watch"
   },
