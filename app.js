@@ -8,6 +8,7 @@ import path from 'path'
 
 import config from './config'
 import hobbitMenu from './lib/hobbitMenu'
+import davinciMenu from './lib/davinciMenu'
 
 import express from 'express'
 import session from 'express-session'
@@ -95,11 +96,13 @@ app.get('*', (req, res, next) => {
  */
 app.get('/', (req, res) => res.render('home'))
 app.get('/hobbit', (req, res) => res.render('hobbit'))
+app.get('/davinci', (req, res) => res.render('davinci'))
 
 /**
  * XHR-Routes
  */
 app.get('/getHobbitMenu', hobbitMenu.getMenu)
+app.get('/getDaVinciMenu', davinciMenu.getMenu)
 
 http.listen(port, () => {
   loginfo('Listening on port %d', port)

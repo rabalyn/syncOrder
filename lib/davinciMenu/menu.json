@@ -1,0 +1,185 @@
+{
+  "Pizzen": [
+    {
+      "number": 1,
+      "name": "Margherita",
+      "ingredients": [
+        "Tomaten",
+        "Käse"
+      ],
+      "price": 6.5
+    },
+    {
+      "number": 2,
+      "name": "Prosciutto",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken"
+      ],
+      "price": 7.0
+    },
+    {
+      "number": 3,
+      "name": "Peperoni",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Peperoniwurst"
+      ],
+      "price": 6.8
+    },
+    {
+      "number": 4,
+      "name": "Salami",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Salami"
+      ],
+      "price": 6.8
+    },
+    {
+      "number": 5,
+      "name": "Hawaii",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Ananas"
+      ],
+      "price": 7.5
+    },
+    {
+      "number": 6,
+      "name": "Mista",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Peperoniwurst",
+        "Salami",
+        "Pilze"
+      ],
+      "price": 7.8
+    },
+    {
+      "number": 7,
+      "name": "Tonno",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Thunfisch",
+        "Zwiebeln"
+      ],
+      "price": 8.0
+    },
+    {
+      "number": 8,
+      "name": "Calzone",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Artischocken",
+        "Paprika",
+        "Pilze"
+      ],
+      "price": 8.0
+    },
+    {
+      "number": 9,
+      "name": "Capricciosa",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Schinken",
+        "Pilze",
+        "Artischocken",
+        "Ei"
+      ],
+      "price": 7.8
+    },
+    {
+      "number": 10,
+      "name": "Quattro Formaggi",
+      "ingredients": [
+        "Tomaten",
+        "vier Käsesorten"
+      ],
+      "price": 8.5
+    },
+    {
+      "number": 11,
+      "name": "Frutti di Mare",
+      "ingredients": [
+        "Tomaten",
+        "Meeresfrüchte",
+        "Knoblauch"
+      ],
+      "price": 9.5
+    },
+    {
+      "number": 12,
+      "name": "Parma",
+      "ingredients": [
+        "Parmaschinken",
+        "Rucola",
+        "Parmesan"
+      ],
+      "price": 9.8
+    }
+  ],
+  "Pizzabrote": [
+    {
+      "number": 1,
+      "name": "Pizzabrot",
+      "ingredients": [
+        ""
+      ],
+      "price": 3.5
+    }
+  ],
+  "Extras": [
+    {
+      "number": 1,
+      "name": "Gorgonzola",
+      "ingredients": [
+        "Gorgonzola"
+      ],
+      "price": 1.5
+    },
+    {
+      "number": 2,
+      "name": "Mozzarella",
+      "ingredients": [
+        "Mozzarella"
+      ],
+      "price": 1.5
+    },
+    {
+      "number": 3,
+      "name": "Rucola",
+      "ingredients": [
+        "Rucola"
+      ],
+      "price": 1.5
+    },
+    {
+      "number": 4,
+      "name": "Parmaschinken",
+      "ingredients": [
+        "Parmaschinken"
+      ],
+      "price": 2.0
+    },
+    {
+      "number": 5,
+      "name": "Extra Zutaten Aufpreis",
+      "ingredients": [
+        "Extra Zutaten Aufpreis"
+      ],
+      "price": 0.5
+    }
+  ]
+}

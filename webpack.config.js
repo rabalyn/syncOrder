@@ -4,6 +4,7 @@ module.exports = {
   mode: 'development',
   entry: {
     home: './src/js/home',
+    davinci: './src/js/davinci',
     hobbit: './src/js/hobbit'
   },
   output: {

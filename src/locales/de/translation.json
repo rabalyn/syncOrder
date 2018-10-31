@@ -3,6 +3,7 @@
   "language": "Deutsch",
   "navbar": {
     "menucard": "Hobbit-Speisekarte",
+    "davincicard": "DaVinci-Speisekarte",
     "deleteList": "Liste löschen"
   },
   "home": {
@@ -30,6 +31,12 @@
     "pricesmall": "Preis (klein)",
     "pricenormal": "Preis (normal)",
     "pricebig": "Preis (groß)"
+  },
+  "davinci": {
+    "title": "DaVinci Speisekarte",
+    "mealname": "Speise",
+    "ingredients": "Zutaten",
+    "pricenormal": "Preis (normal)"
   },
   "ingredients": {
     "Bolognesesauce": "Bolognesesauce",
@@ -73,7 +80,7 @@
     "save": "Speichern"
   },
   "addOrderModal": {
-    "title": "Bestellung aufgeben",
+    "title": "Bestellung aufgeben - DaVinci",
     "name": "Name",
     "meal": "Mahlzeit",
     "meals": "Mahlzeiten",

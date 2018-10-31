@@ -3,6 +3,7 @@
   "language": "English",
   "navbar": {
     "menucard": "Hobbit menu card",
+    "davincicard": "DaVinci menu card",
     "deleteList": "Clear order list"
   },
   "home": {
@@ -30,6 +31,12 @@
     "pricesmall": "Price (small)",
     "pricenormal": "Price (normal)",
     "pricebig": "Price (big)"
+  },
+  "davinci": {
+    "title": "DaVinci Menu Card",
+    "mealname": "Meal",
+    "ingredients": "Ingredients",
+    "pricenormal": "Price (normal)"
   },
   "ingredients": {
     "Bolognesesauce": "Bolognese sauce",
@@ -73,7 +80,7 @@
     "save": "Save"
   },
   "addOrderModal": {
-    "title": "Add New Order",
+    "title": "Add New Order - DaVinci",
     "name": "Name",
     "meal": "Meal",
     "meals": "Meals",
