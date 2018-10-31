@@ -175,9 +175,9 @@
     },
     {
       "number": 5,
-      "name": "Extra Zutaten Aufpreis",
+      "name": "Zwiebeln",
       "ingredients": [
-        "Extra Zutaten Aufpreis"
+        "Zwiebeln"
       ],
       "price": 0.5
     }

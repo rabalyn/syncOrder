@@ -121,13 +121,13 @@ const addorder = {
           addorder.showPrice()
         } else if(filteredList.length === 0) {
           const input = extraFilterInput.value
-          this.inputContainsNegativeChar(input)
-              ? addTag('tag is-danger', 0)
-              : addTag('tag is-light', 0)
+          addorder.inputContainsNegativeChar(input)
+              ? addorder.addTag('tag is-danger', 0)
+              : addorder.addTag('tag is-light', 0)
         }
 
-        this.extraFilterInput.value = ''
-        this.filterExtraInput()
+        addorder.extraFilterInput.value = ''
+        addorder.filterExtraInput()
       }
     })
   },
