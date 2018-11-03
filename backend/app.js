@@ -12,6 +12,7 @@ import davinciMenu from './lib/davinciMenu'
 
 import express from 'express'
 import session from 'express-session'
+const RedisStore = require('connect-redis')(session)
 const i18next = require('i18next')
 const i18nextExpressMiddleware = require('i18next-express-middleware')
 const Backend = require('i18next-node-fs-backend')
@@ -42,6 +43,7 @@ i18next
 const port = process.env.PORT || 9000
 const app = express()
 app.use(session({
+  store: new RedisStore(),
   secret: config.cookie.secret,
   resave: config.cookie.resave,
   saveUninitialized: config.cookie.saveUninitialized
