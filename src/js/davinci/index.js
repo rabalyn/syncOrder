@@ -1,6 +1,15 @@
 import '../globals'
 import '../bulmahelpers'
 
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
+import { faBox } from '@fortawesome/free-solid-svg-icons/faBox'
+import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt'
+
+library.add(faUser, faBox, faMoneyBillAlt)
+dom.watch()
+
 import menuData from '../../../lib/davinciMenu/menu.json'
 
 import debug from 'debug'

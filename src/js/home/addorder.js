@@ -1,7 +1,19 @@
+import { library, dom } from '@fortawesome/fontawesome-svg-core'
+
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
+import { faBox } from '@fortawesome/free-solid-svg-icons/faBox'
+import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons/faAngleDown'
+import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes'
+import { faSave } from '@fortawesome/free-solid-svg-icons/faSave'
+
 import debug from 'debug'
 const logdebug = debug('addorder:debug')
 const loginfo = debug('addorder:info')
 localStorage.debug += ' addorder:* '
+
+library.add(faUser, faBox, faMoneyBillAlt, faAngleDown, faTimes, faSave)
+dom.watch()
 
 const syncOrder = (data) => socket.emit('POSTorder', data)
 
@@ -157,6 +169,7 @@ const addorder = {
   initOrder: function() {
     document.getElementById('saveOrder').addEventListener('click', function(e) {
       e.preventDefault()
+      logdebug(addorder)
       const name = addorder.nameInput.value
           ? addorder.nameInput.value
           : null
@@ -366,8 +379,12 @@ const addorder = {
     this.extraTags = document.getElementById('extraTags')
   },
   resetChosenExtras: function() {
+    this.extraprice = 0.00
     this.chosenExtras.innerHTML = ''
     this.chosenExtras.textContent = i18next.t('addOrderModal.extras') + ', ' + i18next.t('addOrderModal.comments')
+  },
+  resetInputName: function() {
+    this.nameInput.value = ''
   },
   addTag: function(tagClass, price) {
     this.initChosenExtras()

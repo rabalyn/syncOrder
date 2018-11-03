@@ -73,7 +73,13 @@
     "grüne Bohnen": "green Beans",
     "Jalapenos (scharf)": "Jalapenos (spicy)",
     "Kartoffeln": "Potatoes",
-    "Champignons": "Mushrooms"
+    "Champignons": "Mushrooms",
+    "vier Käsesorten": "four Cheeses",
+    "Meeresfrüchte": "Seafood",
+    "Parmaschinken": "Parma Ham",
+    "Rucola": "Rucola",
+    "Parmesan": "Parmesan",
+    "Gorgonzola": "Gorgonzola"
   },
   "defaultModal": {
     "close": "Close",
