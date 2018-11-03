@@ -1,8 +1,8 @@
 import i18next from 'i18next'
 import LngDetector from 'i18next-browser-languagedetector'
 
-import deBundle from '../locales/de/translation.json'
-import enBundle from '../locales/en/translation.json'
+import deBundle from '../../../locales/de/translation.json'
+import enBundle from '../../../locales/en/translation.json'
 
 import debug from 'debug'
 const logdebug = debug('i18n:debug')

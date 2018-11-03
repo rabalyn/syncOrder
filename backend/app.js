@@ -22,8 +22,8 @@ i18next
   .use(i18nextExpressMiddleware.LanguageDetector)
   .init({
     backend: {
-      loadPath: __dirname + '/src/locales/{{lng}}/translation.json',
-      addPath: __dirname + '/src/locales/{{lng}}/translation.missing.json'
+      loadPath: __dirname + '/../locales/{{lng}}/translation.json',
+      addPath: __dirname + '/../locales/{{lng}}/translation.missing.json'
     },
     fallbackLng: 'de',
     preload: ['en', 'de'],
@@ -85,7 +85,7 @@ let renderT = i18next.t
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', path.join(__dirname, 'views'))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')))
 
 app.get('*', (req, res, next) => {
   renderT = req.t

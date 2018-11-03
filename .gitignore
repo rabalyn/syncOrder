@@ -1,3 +1,7 @@
-node_modules
-public/dist/*
-config.js
+data/
+
+backend/node_modules
+backend/config.js
+
+frontend/node_modules
+frontend/public/dist/*

@@ -1,24 +1,15 @@
 import '../globals'
 import '../bulmahelpers'
 
-import { library, dom } from '@fortawesome/fontawesome-svg-core'
-
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser'
-import { faBox } from '@fortawesome/free-solid-svg-icons/faBox'
-import { faMoneyBillAlt } from '@fortawesome/free-solid-svg-icons/faMoneyBillAlt'
-
-library.add(faUser, faBox, faMoneyBillAlt)
-dom.watch()
-
-import menuData from '../../../lib/davinciMenu/menu.json'
+import menuData from '../../../../backend/lib/davinciMenu/menu.json'
 
 import debug from 'debug'
-const logdebug = debug('davinci:debug')
-const logerror = debug('davinci:error')
-const loginfo = debug('davinci:info')
-localStorage.debug += ' davinci:* '
+const logdebug = debug('hobbit:debug')
+const logerror = debug('hobbit:error')
+const loginfo = debug('hobbit:info')
+localStorage.debug += ' hobbit:* '
 
-loginfo('davinci, sweet davinci 👀🙀👻')
+loginfo('hobbit, sweet hobbit 👀🙀👻')
 
 document.addEventListener('DOMContentLoaded', () => {
   const menuTableBody = document.getElementById('menuTableBody')
