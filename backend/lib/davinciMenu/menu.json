@@ -7,7 +7,7 @@
         "Tomaten",
         "Käse"
       ],
-      "price": 6.5
+      "price": 7.0
     },
     {
       "number": 2,
@@ -17,7 +17,7 @@
         "Käse",
         "Schinken"
       ],
-      "price": 7.0
+      "price": 7.5
     },
     {
       "number": 3,
@@ -27,7 +27,7 @@
         "Käse",
         "Peperoniwurst"
       ],
-      "price": 6.8
+      "price": 7.5
     },
     {
       "number": 4,
@@ -37,7 +37,7 @@
         "Käse",
         "Salami"
       ],
-      "price": 6.8
+      "price": 7.5
     },
     {
       "number": 5,
@@ -48,7 +48,7 @@
         "Schinken",
         "Ananas"
       ],
-      "price": 7.5
+      "price": 8.0
     },
     {
       "number": 6,
@@ -61,7 +61,7 @@
         "Salami",
         "Pilze"
       ],
-      "price": 7.8
+      "price": 8.5
     },
     {
       "number": 7,
@@ -72,7 +72,7 @@
         "Thunfisch",
         "Zwiebeln"
       ],
-      "price": 8.0
+      "price": 8.5
     },
     {
       "number": 8,
@@ -85,7 +85,7 @@
         "Paprika",
         "Pilze"
       ],
-      "price": 8.0
+      "price": 8.5
     },
     {
       "number": 9,
@@ -98,7 +98,7 @@
         "Artischocken",
         "Ei"
       ],
-      "price": 7.8
+      "price": 8.5
     },
     {
       "number": 10,
@@ -107,7 +107,7 @@
         "Tomaten",
         "vier Käsesorten"
       ],
-      "price": 8.5
+      "price": 9.0
     },
     {
       "number": 11,
@@ -117,7 +117,7 @@
         "Meeresfrüchte",
         "Knoblauch"
       ],
-      "price": 9.5
+      "price": 9.8
     },
     {
       "number": 12,
@@ -127,7 +127,78 @@
         "Rucola",
         "Parmesan"
       ],
-      "price": 9.8
+      "price": 11.5
+    },
+    {
+      "number": 13,
+      "name": "Ortolana",
+      "ingredients": [
+        "Käse",
+        "Paprika",
+        "Auberginen",
+        "Zucchini",
+        "frische Tomaten"
+      ],
+      "price": 8.5
+    },
+    {
+      "number": 14,
+      "name": "della Casa",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Thunfisch",
+        "Pilze",
+        "Oliven",
+        "Paprika"
+      ],
+      "price": 8.5
+    },
+    {
+      "number": 15,
+      "name": "Primo Amore",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Mozzarella",
+        "Basilikum"
+      ],
+      "price": 8.5
+    },
+    {
+      "number": 16,
+      "name": "Eli",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Gorgonzola",
+        "Salami",
+        "Peperoni",
+        "Zwiebeln"
+      ],
+      "price": 8.8
+    },
+    {
+      "number": 17,
+      "name": "da Vinci",
+      "ingredients": [
+        "Mista",
+        "Hackfleischsauce"
+      ],
+      "price": 8.8
+    },
+    {
+      "number": 18,
+      "name": "Gustosa",
+      "ingredients": [
+        "Tomaten",
+        "Käse",
+        "Steinpilze",
+        "Cocktailtomaten",
+        "Parmesan",
+        "Trüffelöl"
+      ],
+      "price": 9.3
     }
   ],
   "Pizzabrote": [
@@ -138,6 +209,166 @@
         ""
       ],
       "price": 3.5
+    }
+  ],
+  "Pasta": [
+    {
+      "number": 1,
+      "name": "Pomodoro",
+      "ingredients": [
+        "Tomatensauce"
+      ],
+      "price": 7.5
+    },
+    {
+      "number": 2,
+      "name": "Aglio, Olio e Peperoncino",
+      "ingredients": [
+        "Knoblauch",
+        "Öl",
+        "Peperoncino"
+      ],
+      "price": 8.0
+    },
+    {
+      "number": 3,
+      "name": "Bolognese",
+      "ingredients": [
+        "Hackfleischsauce"
+      ],
+      "price": 8.0
+    },
+    {
+      "number": 4,
+      "name": "Pesto",
+      "ingredients": [
+        "Basilikumsauce"
+      ],
+      "price": 8.0
+    },
+    {
+      "number": 5,
+      "name": "Ortolana",
+      "ingredients": [
+        "Gemüse"
+      ],
+      "price": 9.0
+    },
+    {
+      "number": 6,
+      "name": "Panna e Prosciutto",
+      "ingredients": [
+        "Schinken",
+        "Sahne-Sauce"
+      ],
+      "price": 9.0
+    },
+    {
+      "number": 7,
+      "name": "Amatriciana",
+      "ingredients": [
+        "Speck",
+        "Zwiebeln",
+        "pikant"
+      ],
+      "price": 9.0
+    },
+    {
+      "number": 8,
+      "name": "Gorgonzola",
+      "ingredients": [
+        "Gorgonzola Käsesauce"
+      ],
+      "price": 9.0
+    },
+    {
+      "number": 9,
+      "name": "Tonno",
+      "ingredients": [
+        "Thunfisch",
+        "Zwiebeln"
+      ],
+      "price": 9.0
+    },
+    {
+      "number": 10,
+      "name": "Frutti di Mare",
+      "ingredients": [
+        "Meeresfrüchte"
+      ],
+      "price": 9.8
+    },
+    {
+      "number": 11,
+      "name": "Salmone",
+      "ingredients": [
+        "Lachs"
+      ],
+      "price": 9.5
+    }
+  ],
+  "Salate": [
+    {
+      "number": 1,
+      "name": "Beilagensalat",
+      "ingredients": [
+        "Salat",
+        "Gurke",
+        "Paprika",
+        "Tomaten",
+        "Karotten"
+      ],
+      "price": 4.8
+    },
+    {
+      "number": 2,
+      "name": "Italia",
+      "ingredients": [
+        "Salat",
+        "Gurke",
+        "Tomaten",
+        "Karotten",
+        "Thunfisch",
+        "Ei",
+        "Schinken",
+        "Käse"
+      ],
+      "price": 9.5
+    },
+    {
+      "number": 3,
+      "name": "Moira",
+      "ingredients": [
+        "Salat",
+        "Tomaten",
+        "Paprika",
+        "Shrimps",
+        "Mozzarella"
+      ],
+      "price": 10.5
+    },
+    {
+      "number": 4,
+      "name": "Tricolore",
+      "ingredients": [
+        "Salat",
+        "Rucola",
+        "Mozzarella",
+        "Tomatenscheiben"
+      ],
+      "price": 8.8
+    },
+    {
+      "number": 5,
+      "name": "Della Casa",
+      "ingredients": [
+        "Rucola",
+        "Tomaten",
+        "frische Champignons",
+        "Hähnchenfleisch",
+        "Parmesan"
+      ],
+      "price": 10.8
     }
   ],
   "Extras": [
@@ -178,6 +409,54 @@
       "name": "Zwiebeln",
       "ingredients": [
         "Zwiebeln"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 6,
+      "name": "Paprika",
+      "ingredients": [
+        "Paprika"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 7,
+      "name": "Käse",
+      "ingredients": [
+        "Käse"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 8,
+      "name": "Schinken",
+      "ingredients": [
+        "Schinken"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 9,
+      "name": "Salami",
+      "ingredients": [
+        "Salami"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 10,
+      "name": "Peperoniwurst",
+      "ingredients": [
+        "Peperoniwurst"
+      ],
+      "price": 0.5
+    },
+    {
+      "number": 11,
+      "name": "Ananas",
+      "ingredients": [
+        "Ananas"
       ],
       "price": 0.5
     }
