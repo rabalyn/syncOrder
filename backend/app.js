@@ -11,6 +11,7 @@ import hobbitMenu from './lib/hobbitMenu'
 import davinciMenu from './lib/davinciMenu'
 
 import express from 'express'
+const helmet = require('helmet')
 import session from 'express-session'
 const RedisStore = require('connect-redis')(session)
 const i18next = require('i18next')
@@ -42,6 +43,9 @@ i18next
 
 const port = process.env.PORT || 9000
 const app = express()
+app.use(helmet({
+  hsts: false
+}))
 app.use(session({
   store: new RedisStore(),
   secret: config.cookie.secret,
