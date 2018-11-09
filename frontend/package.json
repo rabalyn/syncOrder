@@ -27,7 +27,7 @@
     "moment": "^2.22.2",
     "socket.io-client": "^2.1.1",
     "style-loader": "^0.21.0",
-    "webpack": "^4.20.2",
+    "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
   }
 }
