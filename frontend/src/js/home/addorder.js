@@ -169,16 +169,19 @@ const addorder = {
   initOrder: function() {
     document.getElementById('saveOrder').addEventListener('click', function(e) {
       e.preventDefault()
-      logdebug(addorder)
+
       const name = addorder.nameInput.value
           ? addorder.nameInput.value
           : null
       const meal = addorder.chosenMeal.dataset
           ? addorder.chosenMeal.dataset
           : null
-      const size = addorder.chosenSize.textContent
+      let size = null
+      if(addorder.chosenSize.offsetParent !== null) { // if true, its visible, so populate value
+        size = addorder.chosenSize.textContent
           ? addorder.chosenSize.textContent
           : null
+      }
       const extrasContainer = addorder.extraTags
           ? addorder.extraTags
           : null

@@ -37,7 +37,11 @@ const orderlist = {
     id.textContent = order.tableId
     name.textContent = order.name
     meal.textContent = order.meal
-    size.textContent = order.size
+    if(order.size) {
+      size.textContent = order.size
+    } else {
+      size.textContent = ''
+    }
     comment.appendChild(extraTagList)
     price.textContent = order.price
     price.setAttribute('name', 'mealprice')
