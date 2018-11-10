@@ -1,5 +1,7 @@
 data/
 
+gitCLOC.sh
+
 backend/node_modules
 backend/config.js
 
