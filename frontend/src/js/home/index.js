@@ -84,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   addorder.initialize()
   addorder.initOrder()
-  addorder.loadHobbitMenu()
+  // '/hobbit/getHobbitMenu'
+  addorder.loadMenu('/davinci/getDaVinciMenu')
 
   btnOpenAddOrder.addEventListener('click', (e) => {
     addorder.setMealprice(0)

@@ -1,7 +1,7 @@
 import '../globals'
 import '../bulmahelpers'
 
-import menuData from '../../../../backend/lib/davinciMenu/menu.json'
+import menuData from '../../../../backend/lib/hobbitMenu/menu.json'
 
 import debug from 'debug'
 const logdebug = debug('hobbit:debug')

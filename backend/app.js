@@ -7,8 +7,6 @@ import fs from 'fs'
 import path from 'path'
 
 import config from './config'
-import hobbitMenu from './lib/hobbitMenu'
-import davinciMenu from './lib/davinciMenu'
 
 import express from 'express'
 const helmet = require('helmet')
@@ -97,18 +95,12 @@ app.get('*', (req, res, next) => {
   renderT = req.t
   next()
 })
-/**
- * Path-Routes
- */
-app.get('/', (req, res) => res.render('home'))
-app.get('/hobbit', (req, res) => res.render('hobbit'))
-app.get('/davinci', (req, res) => res.render('davinci'))
 
-/**
- * XHR-Routes
- */
-app.get('/getHobbitMenu', hobbitMenu.getMenu)
-app.get('/getDaVinciMenu', davinciMenu.getMenu)
+const router = require('./routes')
+app.use(router)
+app.get('/', (req, res) => res.redirect('/home'))
+
+
 
 http.listen(port, () => {
   loginfo('Listening on port %d', port)

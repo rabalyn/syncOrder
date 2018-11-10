@@ -220,9 +220,8 @@ const addorder = {
       syncOrder(order)
     })
   },
-  loadHobbitMenu: function() {
-    //fetch('/getHobbitMenu')
-    fetch('getDaVinciMenu')
+  loadMenu: function(url) {
+    fetch(url)
       .then(res => res.json())
       .then(menudata => {
         window.hobbitmenu = menudata
