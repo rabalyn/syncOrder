@@ -1,5 +1,6 @@
 .card {
-  margin-top: 2em;
+  margin-top: 4em;
+  min-height: 50em;
 }
 
 .modal-card {
@@ -49,4 +50,13 @@
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.table-container {
+  margin-top: 1em;
+}
+
+.footer {
+  margin-top: 1em;
+  padding: 1em;
 }
