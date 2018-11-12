@@ -3,11 +3,11 @@
   min-height: 50em;
 }
 
-.modal-card {
+/* .modal-card {
   overflow: auto;
-}
+} */
 
-.modal-card-body {
+#addOrderModalCardBody {
   min-height: 28em;
 }
 

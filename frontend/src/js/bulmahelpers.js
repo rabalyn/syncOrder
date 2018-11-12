@@ -19,6 +19,8 @@ window.initModalDismissButtons = function(elemName, modalId) {
   Array.from(closeModalButtons).forEach(elem => {
     elem.addEventListener('click', (e) => {
       document.getElementById(modalId).classList.remove('is-active')
+      const html = document.querySelector('html')
+      html.classList.remove('is-clipped')
     })
   })
 }

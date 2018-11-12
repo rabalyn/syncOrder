@@ -95,6 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addorder.showPrice()
     chosenMeal.textContent = i18next.t('addOrderModal.meals')
     addOrderModal.classList.add('is-active')
+    const html = document.querySelector('html')
+    html.classList.add('is-clipped')
   })
 
   const lazyloadElemes = document.getElementsByClassName('lazyload')

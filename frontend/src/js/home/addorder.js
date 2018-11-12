@@ -215,6 +215,8 @@ const addorder = {
         price: price
       }
   
+      const html = document.querySelector('html')
+      html.classList.remove('is-clipped')
       addOrderModal.classList.remove('is-active')
       addorder.nameInput.classList.remove('is-valid')
       addorder.nameInput.value = ''
