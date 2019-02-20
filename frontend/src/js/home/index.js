@@ -25,6 +25,12 @@ import { faComment } from '@fortawesome/free-regular-svg-icons/faComment'
 
 import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub'
 
+import Vue from 'vue'
+
+var vm = new Vue({
+  // options
+})
+
 library.add(faExclamationTriangle, faUser, faCalendarAlt, faClock, faGithub, faPhone, faPeopleCarry, faBox, faSearch, faMoneyBillAlt, faComment, faCartPlus, faAngleDown)
 dom.watch()
 

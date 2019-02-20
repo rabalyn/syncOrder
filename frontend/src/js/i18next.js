@@ -34,4 +34,4 @@ i18next
     logdebug('i18next language loaded: %s', i18next.language)
   })
 
-module.exports = i18next
+export default i18next
