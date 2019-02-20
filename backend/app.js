@@ -2,6 +2,8 @@ import debug from 'debug'
 const loginfo = debug('app:info')
 const logerror = debug('app:error')
 const logdebug = debug('app:debug')
+loginfo.log = console.log.bind(console)
+logdebug.log = console.log.bind(console)
 
 import fs from 'fs'
 import path from 'path'
@@ -39,7 +41,7 @@ i18next
     }
   })
 
-const port = process.env.PORT || 9000
+const port = process.env.PORT || config.app.port || 9000
 const app = express()
 app.use(helmet({
   hsts: false

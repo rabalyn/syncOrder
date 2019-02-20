@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
-      name: 'panf',
+      name: 'panf-dev',
       script: './app.js',
       watch: ['lib', 'app.js', 'routes', 'src/locales', 'ecosystem.config.js'],
       interpreter: 'babel-node',

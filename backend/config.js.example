@@ -2,7 +2,8 @@ import path from 'path'
 
 let config = {
   app: {
-    domain: ''
+    domain: '',
+    port: 1337
   },
   cookie: {
     secret: '',

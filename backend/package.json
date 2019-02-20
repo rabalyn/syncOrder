@@ -11,18 +11,18 @@
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "connect-redis": "^3.4.0",
-    "debug": "^3.2.5",
+    "debug": "^4.1.1",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "helmet": "^3.15.0",
-    "i18next": "^11.9.0",
-    "i18next-browser-languagedetector": "^2.2.3",
+    "i18next": "^15.0.4",
+    "i18next-browser-languagedetector": "^3.0.1",
     "i18next-express-middleware": "^1.5.0",
-    "i18next-node-fs-backend": "^1.2.1",
+    "i18next-node-fs-backend": "^2.1.1",
     "moment": "^2.22.2",
     "socket.io": "^2.1.1"
   }
