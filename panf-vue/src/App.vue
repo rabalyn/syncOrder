@@ -1,0 +1,53 @@
+<template>
+  <div>
+    <ConfirmDeleteOrderListModal></ConfirmDeleteOrderListModal>
+
+    <b-container id="app">
+      <b-navbar id="nav" toggleable="lg" type="dark" variant="dark">
+        <b-navbar-brand to="/panf" exact>
+          🍕PANF
+        </b-navbar-brand>
+
+        <b-navbar-toggle target="nav-collapse-routes"></b-navbar-toggle>
+
+        <b-collapse id="nav-collapse-routes" is-nav>
+          <b-navbar-nav>
+            <b-nav-item to="/davinci-menu" exact><font-awesome-icon icon="file-alt"/> Da-Vinci</b-nav-item>
+          </b-navbar-nav>
+          <!-- Right aligned nav items -->
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item @click="copyToClipboard"><font-awesome-icon icon="phone"/> <span ref="phone">06151 29 28 27</span></b-nav-item>
+            <b-nav-item><b-button v-b-modal.confirmDeleteOrderList variant="danger" size="sm"><font-awesome-icon icon="trash"/> Liste Löschen</b-button></b-nav-item>
+            <b-nav-item-dropdown text="Deutsch" right>
+              <b-dropdown-item href="#">Deutsch</b-dropdown-item>
+              <b-dropdown-item href="#">English</b-dropdown-item>
+            </b-nav-item-dropdown>
+          </b-navbar-nav>
+        </b-collapse>
+      </b-navbar>
+      <router-view />
+    </b-container>
+  </div>
+</template>
+
+<script>
+import ConfirmDeleteOrderListModal from '@/components/ConfirmDeleteOrderListModal.vue'
+export default {
+  components: {
+    ConfirmDeleteOrderListModal
+  },
+  methods: {
+    copyToClipboard () {
+      var range = document.createRange()
+      range.selectNode(this.$refs.phone)
+      window.getSelection().removeAllRanges()
+      window.getSelection().addRange(range)
+      document.execCommand('copy')
+      window.getSelection().removeAllRanges()
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

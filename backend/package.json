@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "export DEBUG='app:* serialization:* socketHobbit:*' ; pm2 start ecosystem.config.js"
+    "start": "export DEBUG='app:* serialization:* socketHobbit:* routes:*' ; pm2 start ecosystem.config.js"
   },
   "author": "@rabalyn (Nils Mundhenke)",
   "license": "MIT",

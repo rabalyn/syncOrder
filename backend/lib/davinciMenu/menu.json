@@ -1,5 +1,5 @@
 {
-  "Pizzen": [
+  "pizza": [
     {
       "number": 1,
       "name": "Margherita",
@@ -201,7 +201,7 @@
       "price": 9.3
     }
   ],
-  "Pizzabrote": [
+  "pizzabread": [
     {
       "number": 1,
       "name": "Pizzabrot",
@@ -211,7 +211,7 @@
       "price": 3.5
     }
   ],
-  "Pasta": [
+  "pasta": [
     {
       "number": 1,
       "name": "Pomodoro",
@@ -358,7 +358,7 @@
       "price": 8.8
     }
   ],
-  "Variationen": [
+  "variations": [
     {
       "number": 1,
       "name": "Tortellini al Pomodoro",
@@ -432,7 +432,7 @@
       "price": 8.5
     }
   ],
-  "Antipasti": [
+  "antipasti": [
     {
       "number": 1,
       "name": "Caprese",
@@ -465,12 +465,11 @@
     {
       "number": 4,
       "name": "Antipasto Italiano",
-      "ingredients": [
-      ],
+      "ingredients": [],
       "price": 18.5
     }
   ],
-  "Suppen": [
+  "soup": [
     {
       "number": 1,
       "name": "Pomodoro",
@@ -497,7 +496,7 @@
       "price": 4.8
     }
   ],
-  "Salate": [
+  "salad": [
     {
       "number": 1,
       "name": "Beilagensalat",
@@ -561,7 +560,7 @@
       "price": 10.8
     }
   ],
-  "Fisch": [
+  "fish": [
     {
       "number": 1,
       "name": "Calamari Fritti",
@@ -592,7 +591,7 @@
       "price": 28.5
     }
   ],
-  "Schweinefleisch": [
+  "pork": [
     {
       "number": 1,
       "name": "Impanata",
@@ -621,7 +620,7 @@
       "price": 15.5
     }
   ],
-  "Kalbfleisch": [
+  "veal": [
     {
       "number": 1,
       "name": "Impanata Milanese",
@@ -669,7 +668,7 @@
       "price": 17.5
     }
   ],
-  "Rindfleisch": [
+  "beef": [
     {
       "number": 1,
       "name": "Bistecca alla Griglia",
@@ -697,7 +696,7 @@
       "price": 19.5
     }
   ],
-  "Extras": [
+  "extras": [
     {
       "number": 1,
       "name": "Gorgonzola",

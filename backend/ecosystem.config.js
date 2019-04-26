@@ -6,9 +6,11 @@ module.exports = {
       interpreter: 'babel-node',
       env: {
         NODE_ENV: 'development',
+        DEBUG: 'panf:*'
       },
       env_production: {
         NODE_ENV: 'production',
+        DEBUG: 'panf:*'
       }
     }]
   }
