@@ -1,5 +1,6 @@
 module.exports = {
-    apps : [{
+  apps: [
+    {
       name: 'panf-dev',
       script: './app.js',
       watch: ['lib', 'app.js', 'routes', 'src/locales', 'ecosystem.config.js'],
@@ -12,5 +13,6 @@ module.exports = {
         NODE_ENV: 'production',
         DEBUG: 'panf:*'
       }
-    }]
-  }
+    }
+  ]
+}

@@ -17,11 +17,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 // eslint-disable-next-line
 import { library } from './icons'
 
+import config from './config.js'
+const connectionString = config.server.baseUrl
+
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(new VueSocketIO({
   debug: false,
-  connection: 'https://panf-dev.xn--bersprung-p9a.de'
+  connection: connectionString
 }))
 
 Vue.use(BootstrapVue)
@@ -35,7 +38,7 @@ new Vue({
   render: h => h(App),
   sockets: {
     connect: function () {
-      console.log('socket connected')
+      console.info('socket connected')
     }
   }
 }).$mount('#app')

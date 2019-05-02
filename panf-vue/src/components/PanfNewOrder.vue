@@ -1,136 +1,110 @@
 <template>
-  <div>
-    <b-modal
-      id="newOrderModal"
-      :title="title"
-      size="lg"
-      centered
-      header-bg-variant="light"
-      header-text-variant="dark"
-      body-bg-variant="light"
-      body-text-variant="dark"
-      footer-bg-variant="dark"
-      footer-text-variant="light"
-    >
-      <b-container id="orderContent" fluid>
-        <b-input-group class="mt-3">
-          <b-input-group-text slot="prepend"><font-awesome-icon icon="user" /></b-input-group-text>
-          <b-form-input v-model="name" :required="true" placeholder="Name"></b-form-input>
-        </b-input-group>
+  <b-container id="orderContent" fluid>
+    <b-input-group class="mt-3">
+      <b-input-group-text slot="prepend"><font-awesome-icon icon="user" /></b-input-group-text>
+      <b-form-input v-model="name" :required="true" placeholder="Name"></b-form-input>
+    </b-input-group>
 
-        <b-input-group class="mt-3">
-          <template slot="prepend">
-            <div  class="input-group-text">
-              <font-awesome-icon icon="box"></font-awesome-icon>
-            </div>
-          </template>
-          <b-form-input
-            v-model="showOrder"
-            plaintext
-            required
-            placeholder="Mahlzeit"
-            class="form-control"
-          ></b-form-input>
-          <b-dropdown
-            id="mealDropdown"
-            text="Mahlzeiten"
-            variant="outline-secondary"
-            boundary="viewport"
-            dropleft
-            @shown="menulistDropdownClicked"
-          >
-            <template slot="button-content">
-              Mahlzeiten
-            </template>
-
-            <b-input-group id="menulistFilterContainer">
-              <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
-              <b-form-input
-                ref="menulistFilterInput"
-                v-model="menulistFilter"
-                placeholder="Name oder Zutat filtern..."
-              ></b-form-input>
-            </b-input-group>
-
-            <div v-bind:key="category" v-for="(categoryMealList, category) in filteredMenulist">
-              <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-header> {{ category }} </b-dropdown-header>
-              <b-dropdown-item @click="choseMeal(meal)" v-bind:key="idx" v-for="(meal, idx) in categoryMealList">
-                {{ `${meal.name} ${formatPrice(meal.price)}€` }}
-                <small>{{ `(${meal.ingredients.join(', ')})` }}</small>
-              </b-dropdown-item>
-            </div>
-          </b-dropdown>
-        </b-input-group>
-
-        <b-input-group class="mt-3">
-          <template slot="prepend">
-            <div  class="input-group-text">
-              <font-awesome-icon icon="comment"></font-awesome-icon>
-            </div>
-          </template>
-
-          <b-form-input
-            v-html="showExtras"
-            plaintext
-            placeholder="Extras, Abbestellungen"
-            class="form-control"
-          ></b-form-input>
-          <b-dropdown
-            id="extraDropdown"
-            text="Extras"
-            variant="outline-secondary"
-            boundary="viewport"
-            dropleft
-            @shown="extrasDropdownClicked"
-          >
-            <template slot="button-content">
-              Extras
-            </template>
-
-            <b-input-group id="extralistFilterContainer" class="listFilterInput">
-              <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
-              <b-form-input
-                ref="extralistFilterInput"
-                v-model="extralistFilter"
-                @keyup="manualEnterIngredient"
-                placeholder="Extrazutat filtern..."
-              ></b-form-input>
-            </b-input-group>
-
-            <b-dropdown-item @click="choseExtra(extra)" v-bind:key="extraIndex" v-for="(extra, extraIndex) in filteredExtralist">
-              <small>{{ `${extra.name} ${formatPrice(extra.price)}€` }}</small>
-            </b-dropdown-item>
-          </b-dropdown>
-        </b-input-group>
-
-        <b-input-group class="mt-3">
-          <b-input-group-text slot="prepend"><font-awesome-icon icon="money-bill-alt" /></b-input-group-text>
-          <b-form-input v-model="sumPrice"></b-form-input>
-        </b-input-group>
-      </b-container>
-
-      <template slot="modal-footer" slot-scope="{ ok, cancel }">
-        <b-button size="sm" variant="secondary" @click="cancel()">
-          Schließen
-        </b-button>
-        <b-button size="sm" variant="success" @click="placeOrder">
-          Bestellen
-        </b-button>
+    <b-input-group class="mt-3">
+      <template slot="prepend">
+        <div  class="input-group-text">
+          <font-awesome-icon icon="box"></font-awesome-icon>
+        </div>
       </template>
-    </b-modal>
+      <b-form-input
+        v-model="showOrder"
+        plaintext
+        required
+        placeholder="Mahlzeit"
+        class="form-control"
+      ></b-form-input>
+      <b-dropdown
+        id="mealDropdown"
+        text="Mahlzeiten"
+        variant="outline-secondary"
+        boundary="viewport"
+        dropleft
+        @shown="menulistDropdownClicked"
+      >
+        <template slot="button-content">
+          Mahlzeiten
+        </template>
 
-    <b-button
-      v-b-modal="'newOrderModal'"
-      size="lg"
-      variant="success"
-    >
-      <font-awesome-icon icon="cart-plus"/> Neue Bestellung
+        <b-input-group id="menulistFilterContainer">
+          <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
+          <b-form-input
+            ref="menulistFilterInput"
+            v-model="menulistFilter"
+            placeholder="Name oder Zutat filtern..."
+          ></b-form-input>
+        </b-input-group>
+
+        <div v-bind:key="category" v-for="(categoryMealList, category) in filteredMenulist">
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-header> {{ category }} </b-dropdown-header>
+          <b-dropdown-item @click="choseMeal(meal)" v-bind:key="idx" v-for="(meal, idx) in categoryMealList">
+            {{ `${meal.name} ${formatPrice(meal.price)}€` }}
+            <small>{{ `(${meal.ingredients.join(', ')})` }}</small>
+          </b-dropdown-item>
+        </div>
+      </b-dropdown>
+    </b-input-group>
+
+    <b-input-group class="mt-3">
+      <template slot="prepend">
+        <div  class="input-group-text">
+          <font-awesome-icon icon="comment"></font-awesome-icon>
+        </div>
+      </template>
+
+      <b-form-input
+        v-html="showExtras"
+        plaintext
+        placeholder="Extras, Abbestellungen"
+        class="form-control"
+      ></b-form-input>
+      <b-dropdown
+        id="extraDropdown"
+        text="Extras"
+        variant="outline-secondary"
+        boundary="viewport"
+        dropleft
+        @shown="extrasDropdownClicked"
+      >
+        <template slot="button-content">
+          Extras
+        </template>
+
+        <b-input-group id="extralistFilterContainer" class="listFilterInput">
+          <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
+          <b-form-input
+            ref="extralistFilterInput"
+            v-model="extralistFilter"
+            @keyup="manualEnterIngredient"
+            placeholder="Extrazutat filtern..."
+          ></b-form-input>
+        </b-input-group>
+
+        <b-dropdown-item @click="choseExtra(extra)" v-bind:key="extraIndex" v-for="(extra, extraIndex) in filteredExtralist">
+          <small>{{ `${extra.name} ${formatPrice(extra.price)}€` }}</small>
+        </b-dropdown-item>
+      </b-dropdown>
+    </b-input-group>
+
+    <b-input-group class="mt-3">
+      <b-input-group-text slot="prepend"><font-awesome-icon icon="money-bill-alt" /></b-input-group-text>
+      <b-form-input v-model="sumPrice"></b-form-input>
+    </b-input-group>
+
+    <b-button class="mt-3" size="sm" variant="success" @click="placeOrder">
+      Bestellen
     </b-button>
-  </div>
+  </b-container>
 </template>
 
 <script>
+import config from '../config.js'
+
 export default {
   name: 'PanfNewOrder',
   props: {
@@ -280,7 +254,7 @@ export default {
   },
   mounted: function () {
     this.$http
-      .get('/api/davinci/getDaVinciMenu')
+      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`)
       .then((res) => {
         this.extralist = res.data.extras
         delete res.data.extras
@@ -311,11 +285,7 @@ export default {
 
 #mealDropdown >>> .dropdown-menu {
   max-width: 100%;
-  /*
   overflow: hidden;
-  transform: translate3d(33px, -2512px, 0px);
-  will-change: transform;
-  */
   position: absolute;
   top: 0px;
   left: 0px;

@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import config from '../config.js'
+
 export default {
   name: 'PanfOrderTable',
   props: {
@@ -94,7 +96,7 @@ export default {
     },
     loadOrders () {
       this.$http
-        .get('/api/order/getAllOrderList')
+        .get(`${config.server.apiUrl}/order/getAllOrderlist`)
         .then((res) => {
           this.orders = res.data
         })

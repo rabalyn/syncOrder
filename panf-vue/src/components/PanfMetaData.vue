@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <b-container>
     <b-row>
       <b-col>
         <b-input-group class="mt-3">
@@ -36,7 +36,7 @@
         </b-input-group>
       </b-col>
     </b-row>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -114,11 +114,11 @@ export default {
 
     this.sockets.subscribe('trollProtection', () => {
       this.$bvToast.toast('Wir bestellen gerade! Das Löschen der Liste ist solange blockiert.', {
-          title: 'Bestellung aktiv',
-          variant: 'danger',
-          solid: true,
-          autoHideDelay: 7500
-        })
+        title: 'Bestellung aktiv',
+        variant: 'danger',
+        solid: true,
+        autoHideDelay: 7500
+      })
     })
   }
 }

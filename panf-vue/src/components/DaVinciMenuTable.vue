@@ -172,6 +172,8 @@
 </template>
 
 <script>
+import config from '../config.js'
+
 export default {
   name: 'DaVinciMenuTable',
   data: function () {
@@ -225,7 +227,7 @@ export default {
   },
   mounted: function () {
     this.$http
-      .get('/api/davinci/getDaVinciMenu')
+      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`)
       .then((res) => {
         this.menu = res.data
       })

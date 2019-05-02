@@ -1,9 +1,21 @@
 <template>
   <div>
     <PanfFormInfo />
-    <PanfMetaData />
+    <b-row>
+      <b-col cols="12">
+        <PanfMetaData />
+      </b-col>
+    </b-row>
+
     <hr />
-    <PanfNewOrder />
+
+    <b-row>
+      <b-col cols="6"></b-col>
+      <b-col cols="6">
+        <PanfNewOrder />
+      </b-col>
+    </b-row>
+    <hr />
     <br />
     <PanfOrderTable />
   </div>
