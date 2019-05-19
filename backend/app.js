@@ -7,9 +7,9 @@ import config from './config'
 import express from 'express'
 import session from 'express-session'
 
-const loginfo = debug('panf:app:info')
+const log = debug('panf:app:info')
 const logdebug = debug('panf:app:debug')
-loginfo.log = console.log.bind(console)
+log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
 const helmet = require('helmet')
@@ -23,6 +23,8 @@ app.use(
     hsts: false
   })
 )
+
+app.set('trust proxy', 1)
 
 app.use(
   session({
@@ -69,5 +71,5 @@ const router = require('./routes')
 app.use(router)
 
 http.listen(port, () => {
-  loginfo('Listening on port %d', port)
+  log('Listening on port %d', port)
 })

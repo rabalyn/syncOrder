@@ -1,36 +1,37 @@
 <template>
   <b-container>
+    <h4>Allgemeine Bestellinformationen</h4>
     <b-row>
-      <b-col>
+      <b-col sm="12" lg="6">
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
-            <font-awesome-icon icon="calendar-alt"/>&nbsp;Datum
+            <font-awesome-icon icon="calendar-alt"/>&nbsp;
           </b-input-group-text>
           <b-form-input @update="syncDateString" v-model="dateString" type="date"></b-form-input>
         </b-input-group>
       </b-col>
-      <b-col>
+      <b-col sm="12" lg="6">
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
-            <font-awesome-icon icon="clock"/>&nbsp;Abholzeit
+            <font-awesome-icon icon="clock"/>&nbsp;
           </b-input-group-text>
           <b-form-input @update="syncCollectTime" v-model="collectTime" type="time"></b-form-input>
         </b-input-group>
       </b-col>
     </b-row>
     <b-row>
-      <b-col>
+      <b-col sm="12" lg="6">
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
-            <font-awesome-icon icon="user"/>&nbsp;<font-awesome-icon icon="phone"/>&nbsp;Bestellauslöser
+            <font-awesome-icon icon="user"/>&nbsp;<font-awesome-icon icon="phone"/>&nbsp;
           </b-input-group-text>
           <b-form-input @update="syncCaller" v-model="caller" value="foo"></b-form-input>
         </b-input-group>
       </b-col>
-      <b-col>
+      <b-col sm="12" lg="6">
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
-            <font-awesome-icon icon="people-carry"/>&nbsp;Abholer
+            <font-awesome-icon icon="people-carry"/>&nbsp;
           </b-input-group-text>
           <b-form-input @update="syncCollector" v-model="collector"></b-form-input>
         </b-input-group>
@@ -126,7 +127,7 @@ export default {
 
 <style scoped>
 .input-group-prepend {
-  width : 37%; /*adjust as needed*/
+  width : 15%; /*adjust as needed*/
 }
 
 .input-group-text {

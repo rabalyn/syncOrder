@@ -1,24 +1,16 @@
 <template>
-  <div>
+  <b-container>
     <PanfFormInfo />
-    <b-row>
-      <b-col cols="12">
-        <PanfMetaData />
-      </b-col>
-    </b-row>
+    <PanfMetaData />
 
     <hr />
 
-    <b-row>
-      <b-col cols="6"></b-col>
-      <b-col cols="6">
-        <PanfNewOrder />
-      </b-col>
-    </b-row>
+    <PanfNewOrder />
+
     <hr />
-    <br />
+
     <PanfOrderTable />
-  </div>
+  </b-container>
 </template>
 
 <script>

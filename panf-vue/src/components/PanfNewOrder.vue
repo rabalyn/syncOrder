@@ -1,5 +1,6 @@
 <template>
   <b-container id="orderContent" fluid>
+    <h4>Bestellung</h4>
     <b-input-group class="mt-3">
       <b-input-group-text slot="prepend"><font-awesome-icon icon="user" /></b-input-group-text>
       <b-form-input v-model="name" :required="true" placeholder="Name"></b-form-input>
@@ -23,7 +24,7 @@
         text="Mahlzeiten"
         variant="outline-secondary"
         boundary="viewport"
-        dropleft
+        dropright
         @shown="menulistDropdownClicked"
       >
         <template slot="button-content">
@@ -68,7 +69,7 @@
         text="Extras"
         variant="outline-secondary"
         boundary="viewport"
-        dropleft
+        dropright
         @shown="extrasDropdownClicked"
       >
         <template slot="button-content">
@@ -256,6 +257,7 @@ export default {
     this.$http
       .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`)
       .then((res) => {
+        console.log(res)
         this.extralist = res.data.extras
         delete res.data.extras
         this.menulist = res.data
@@ -283,12 +285,13 @@ export default {
   padding-right: 1em;
 }
 
-#mealDropdown >>> .dropdown-menu {
+#mealDropdown >>> ul {
   max-width: 100%;
   overflow: hidden;
-  position: absolute;
-  top: 0px;
-  left: 0px;
+  transform: none;
+  -webkit-transform: none;
+  will-change: unset;
+  background-color: red;
 }
 
 #menulistFilterContainer {

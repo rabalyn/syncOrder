@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <b-container>
+    <h4>Bestellungen</h4>
     <b-table
       show-empty
       responsive
@@ -50,7 +51,7 @@
         {{ `${formatPrice(row.value)} €` }}
       </template>
     </b-table>
-  </div>
+  </b-container>
 </template>
 
 <script>

@@ -1,7 +1,7 @@
-import moment from 'moment'
+import Moment from 'moment'
 import debug from 'debug'
+
 const loginfo = debug('panf:socketHobbit:info')
-const logerror = debug('panf:socketHobbit:error')
 const logdebug = debug('panf:socketHobbit:debug')
 loginfo.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
@@ -15,7 +15,7 @@ module.exports.panfIO = function (http, config) {
   const io = require('socket.io')(http)
   io.on('connection', (socket) => {
     loginfo('a user connected')
-    
+
     socket.on('disconnect', () => {
       loginfo('user disconnected')
     })
@@ -62,9 +62,9 @@ module.exports.panfIO = function (http, config) {
 
     socket.on('clearList', () => {
       const format = 'HH:mm'
-      const before = new moment('10:00', format)
-      const after = new moment('13:30', format)
-      const now = new moment()
+      const before = new Moment('10:00', format)
+      const after = new Moment('13:30', format)
+      const now = new Moment()
       const listClearable = !now.isBetween(before, after)
       logdebug('clearList @%s', now.format(format))
       if (listClearable) {
@@ -77,7 +77,7 @@ module.exports.panfIO = function (http, config) {
         io.sockets.emit('reload', { receivers: 'everyone' })
       } else {
         logdebug('we are in order process...')
-        socket.emit('trollProtection', {task: 'clearList', reason: 'invalid time'})
+        socket.emit('trollProtection', { task: 'clearList', reason: 'invalid time' })
       }
     })
 
