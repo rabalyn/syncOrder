@@ -1,111 +1,151 @@
 <template>
   <b-container id="orderContent" fluid>
     <h4>Bestellung</h4>
-    <b-input-group class="mt-3">
-      <b-input-group-text slot="prepend"><font-awesome-icon icon="user" /></b-input-group-text>
-      <b-form-input v-model="name" :required="true" placeholder="Name"></b-form-input>
-    </b-input-group>
-
-    <b-input-group class="mt-3">
-      <template slot="prepend">
-        <div class="input-group-text">
-          <font-awesome-icon icon="box"></font-awesome-icon>
-        </div>
-      </template>
-      <b-form-input
-        v-model="showOrder"
-        plaintext
-        required
-        placeholder="Mahlzeit"
-        class="form-control"
-      ></b-form-input>
-      <b-dropdown
-        id="mealDropdown"
-        text="Mahlzeiten"
-        variant="outline-secondary"
-        boundary="window"
-        dropright
-        @shown="menulistDropdownClicked"
-      >
-        <template slot="button-content">
-          Mahlzeiten
-        </template>
-
-        <b-input-group id="menulistFilterContainer" class="listFilterInput">
-          <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
-          <b-form-input
-            ref="menulistFilterInput"
-            v-model="menulistFilter"
-            placeholder="Name oder Zutat filtern..."
-          ></b-form-input>
+    <b-row>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-input-group class="mt-3">
+          <b-input-group-text slot="prepend"><font-awesome-icon icon="user" /></b-input-group-text>
+          <b-form-input v-model="name" :required="true" placeholder="Name"></b-form-input>
         </b-input-group>
+      </b-col>
+    </b-row>
 
-        <div v-bind:key="category" v-for="(categoryMealList, category) in filteredMenulist">
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-header> {{ category }} </b-dropdown-header>
-          <b-dropdown-item @click="choseMeal(meal)" v-bind:key="idx" v-for="(meal, idx) in categoryMealList">
-            {{ `${meal.name} ${formatPrice(meal.price)}€` }}
-            <small>{{ `(${meal.ingredients.join(', ')})` }}</small>
-          </b-dropdown-item>
-        </div>
-      </b-dropdown>
-    </b-input-group>
+    <b-row>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-input-group class="mt-3">
+          <template slot="prepend">
+            <div class="input-group-text">
+              <font-awesome-icon icon="box"></font-awesome-icon>
+            </div>
+          </template>
+          <b-dropdown
+            id="mealDropdown"
+            text="Mahlzeiten"
+            variant="outline-secondary"
+            boundary="window"
+            dropright
+            @shown="menulistDropdownClicked"
+          >
+            <template slot="button-content">
+              Mahlzeiten
+            </template>
 
-    <b-input-group class="mt-3">
-      <template slot="prepend">
-        <div  class="input-group-text">
-          <font-awesome-icon icon="comment"></font-awesome-icon>
-        </div>
-      </template>
+            <b-input-group id="menulistFilterContainer" class="listFilterInput">
+              <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
+              <b-form-input
+                ref="menulistFilterInput"
+                v-model="menulistFilter"
+                placeholder="Name oder Zutat filtern..."
+              ></b-form-input>
+            </b-input-group>
 
-      <b-form-input
-        v-model="showExtras"
-        v-html="showExtras"
-        plaintext
-        placeholder="Extras, Abbestellungen"
-        class="form-control"
-      ></b-form-input>
-      <b-dropdown
-        id="extraDropdown"
-        text="Extras"
-        variant="outline-secondary"
-        dropright
-        @shown="extrasDropdownClicked"
-      >
-        <template slot="button-content">
-          Extras
-        </template>
-
-        <b-input-group id="extralistFilterContainer" class="listFilterInput">
-          <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
-          <b-form-input
-            ref="extralistFilterInput"
-            v-model="extralistFilter"
-            @keyup="manualEnterIngredient"
-            placeholder="Extrazutat filtern..."
-          ></b-form-input>
+            <div v-bind:key="category" v-for="(categoryMealList, category) in filteredMenulist">
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-header> {{ category }} </b-dropdown-header>
+              <b-dropdown-item @click="choseMeal(meal)" v-bind:key="idx" v-for="(meal, idx) in categoryMealList">
+                {{ `${meal.name} ${formatPrice(meal.price)}€` }}
+                <small>{{ `(${meal.ingredients.join(', ')})` }}</small>
+              </b-dropdown-item>
+            </div>
+          </b-dropdown>
         </b-input-group>
+      </b-col>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-badge
+          v-if="meal"
+          variant="light"
+        >
+          {{ meal }} {{ formatPrice(mealPrice) }}€ <small>( {{ mealIngredients.join(', ') }})</small>
+        </b-badge>
 
-        <b-dropdown-item @click="choseExtra(extra)" v-bind:key="extraIndex" v-for="(extra, extraIndex) in filteredExtralist">
-          <small>{{ `${extra.name} ${formatPrice(extra.price)}€` }}</small>
-        </b-dropdown-item>
-      </b-dropdown>
-    </b-input-group>
+        <span v-else>
+          &nbsp;
+        </span>
+      </b-col>
+    </b-row>
 
-    <b-input-group class="mt-3">
-      <b-input-group-text slot="prepend"><font-awesome-icon icon="money-bill-alt" /></b-input-group-text>
-      <b-form-input v-model="sumPrice"></b-form-input>
-    </b-input-group>
+    <b-row>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-input-group class="mt-3">
+          <template slot="prepend">
+            <div  class="input-group-text">
+              <font-awesome-icon icon="comment"></font-awesome-icon>
+            </div>
+          </template>
 
-    <b-button class="mt-3" size="sm" variant="success" @click="placeOrder">
-      Bestellen
-    </b-button>
+          <b-dropdown
+            id="extraDropdown"
+            text="Extras"
+            variant="outline-secondary"
+            dropright
+            @shown="extrasDropdownClicked"
+          >
+            <template slot="button-content">
+              Extras
+            </template>
 
-    &nbsp;&nbsp;
+            <b-input-group id="extralistFilterContainer" class="listFilterInput">
+              <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
+              <b-form-input
+                ref="extralistFilterInput"
+                v-model="extralistFilter"
+                @keyup="manualEnterIngredient"
+                placeholder="Extrazutat filtern..."
+              ></b-form-input>
+            </b-input-group>
 
-    <b-button class="mt-3" size="sm" variant="danger" @click="resetOrder">
-      Auswahl zurücksetzen
-    </b-button>
+            <b-dropdown-item @click="choseExtra(extra)" v-bind:key="extraIndex" v-for="(extra, extraIndex) in filteredExtralist">
+              <small>{{ `${extra.name} ${formatPrice(extra.price)}€` }}</small>
+            </b-dropdown-item>
+          </b-dropdown>
+        </b-input-group>
+      </b-col>
+
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <span v-bind:key="idx" v-for="(extra, idx) in extrasChosen">
+          <b-badge
+            v-if="extra.name.match(/ohne|Ohne|kein|Kein^-|^ -/)"
+            variant="danger"
+          >
+            {{ extra.name }} <font-awesome-icon icon="times" @click="removeExtra(idx, extra)"></font-awesome-icon>
+          </b-badge>
+
+          <b-badge
+            v-else
+            variant="success"
+          >
+            +{{ extra.name }} ({{ formatPrice(extra.price) }}€) <font-awesome-icon icon="times" @click="removeExtra(idx, extra)"></font-awesome-icon>
+          </b-badge>
+          &nbsp;
+        </span>
+        <span v-if="extrasChosen.length === 0">
+          &nbsp;
+        </span>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-input-group class="mt-3">
+          <b-input-group-text slot="prepend"><font-awesome-icon icon="money-bill-alt" /></b-input-group-text>
+          <b-form-input disabled v-model="sumPrice"></b-form-input>
+        </b-input-group>
+      </b-col>
+    </b-row>
+
+    <b-row>
+      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+        <b-button class="mt-3" size="sm" variant="success" @click="placeOrder">
+          Bestellen
+        </b-button>
+
+        &nbsp;&nbsp;
+
+        <b-button class="mt-3" size="sm" variant="danger" @click="resetOrder">
+          Auswahl zurücksetzen
+        </b-button>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
@@ -171,21 +211,6 @@ export default {
         return filteredExtraList
       }
     },
-    showOrder () {
-      if (this.meal) {
-        return `${this.meal} ${this.formatPrice(this.mealPrice)}€ (${this.mealIngredients.join(', ')})`
-      } else {
-        return ``
-      }
-    },
-    showExtras () {
-      if (this.extrasChosen.length > 0) {
-        // return `<b-badge variant="success">Success</b-badge>`
-        return `${this.extrasChosen.map(extra => `${extra.name} (${this.formatPrice(extra.price)}€)`).join(', ')}`
-      } else {
-        return ``
-      }
-    },
     sumPrice () {
       return `${this.formatPrice(this.mealPrice + this.extrasPrice)}€`
     }
@@ -197,7 +222,7 @@ export default {
     },
     getExtra (extraName) {
       const searchedExtra = this.extralist.filter(item => item.name.toLowerCase().includes(extraName.toLowerCase()))
-      console.log(searchedExtra)
+      log(searchedExtra)
 
       return searchedExtra.length === 1 ? searchedExtra[0] : null
     },
@@ -213,11 +238,16 @@ export default {
       this.extrasChosen.push(extra)
       this.extrasPrice += extra.price
     },
+    removeExtra (idx, extra) {
+      this.extrasChosen.splice(idx, 1)
+      this.extrasPrice -= extra.price
+    },
     manualEnterIngredient (e) {
       if (e.keyCode === 13) { // Enter was released
         const inputValue = e.target.value
-        if (inputValue.includes('ohne') || inputValue.includes('-')) {
-          e.target.value = ''
+        if (inputValue.toLowerCase().includes('ohne') || inputValue.includes('-')) {
+          this.extralistFilter = ''
+          log(e.target)
           this.extrasChosen.push({
             name: inputValue,
             price: '',
@@ -227,7 +257,7 @@ export default {
           const chosenExtra = this.getExtra(inputValue)
           if (chosenExtra !== null) {
             this.choseExtra(chosenExtra)
-            e.target.value = ''
+            this.extralistFilter = ''
           }
         }
       }
@@ -257,11 +287,13 @@ export default {
           extrasPrice: this.extrasPrice
         })
 
-        this.resetOrder()
+        this.resetOrder(e)
       }
     },
     resetOrder (e) {
-      e.preventDefault()
+      if (e) {
+        e.preventDefault()
+      }
 
       this.name = null
       this.meal = null
