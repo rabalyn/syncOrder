@@ -8,7 +8,7 @@
 
     <b-input-group class="mt-3">
       <template slot="prepend">
-        <div  class="input-group-text">
+        <div class="input-group-text">
           <font-awesome-icon icon="box"></font-awesome-icon>
         </div>
       </template>
@@ -23,7 +23,7 @@
         id="mealDropdown"
         text="Mahlzeiten"
         variant="outline-secondary"
-        boundary="viewport"
+        boundary="window"
         dropright
         @shown="menulistDropdownClicked"
       >
@@ -31,7 +31,7 @@
           Mahlzeiten
         </template>
 
-        <b-input-group id="menulistFilterContainer">
+        <b-input-group id="menulistFilterContainer" class="listFilterInput">
           <b-input-group-text slot="prepend"><font-awesome-icon icon="search" /></b-input-group-text>
           <b-form-input
             ref="menulistFilterInput"
@@ -59,6 +59,7 @@
       </template>
 
       <b-form-input
+        v-model="showExtras"
         v-html="showExtras"
         plaintext
         placeholder="Extras, Abbestellungen"
@@ -68,7 +69,6 @@
         id="extraDropdown"
         text="Extras"
         variant="outline-secondary"
-        boundary="viewport"
         dropright
         @shown="extrasDropdownClicked"
       >
@@ -100,11 +100,21 @@
     <b-button class="mt-3" size="sm" variant="success" @click="placeOrder">
       Bestellen
     </b-button>
+
+    &nbsp;&nbsp;
+
+    <b-button class="mt-3" size="sm" variant="danger" @click="resetOrder">
+      Auswahl zurücksetzen
+    </b-button>
   </b-container>
 </template>
 
 <script>
 import config from '../config.js'
+
+import debug from 'debug'
+const log = debug('panf:newOrder:info')
+localStorage.debug += ' panf:newOrder:* '
 
 export default {
   name: 'PanfNewOrder',
@@ -163,15 +173,15 @@ export default {
     },
     showOrder () {
       if (this.meal) {
-        return `${this.meal} ${this.formatPrice(this.mealPrice)}€ <small>(${this.mealIngredients.join(', ')})</small>`
+        return `${this.meal} ${this.formatPrice(this.mealPrice)}€ (${this.mealIngredients.join(', ')})`
       } else {
         return ``
       }
     },
     showExtras () {
       if (this.extrasChosen.length > 0) {
-        return `<b-badge variant="success">Success</b-badge>`
-        // return `${this.extrasChosen.map(extra => `${extra.name} (${this.formatPrice(extra.price)}€)`).join(', ')}`
+        // return `<b-badge variant="success">Success</b-badge>`
+        return `${this.extrasChosen.map(extra => `${extra.name} (${this.formatPrice(extra.price)}€)`).join(', ')}`
       } else {
         return ``
       }
@@ -246,7 +256,18 @@ export default {
           extras: this.extrasChosen,
           extrasPrice: this.extrasPrice
         })
+
+        this.resetOrder()
       }
+    },
+    resetOrder (e) {
+      e.preventDefault()
+
+      this.name = null
+      this.meal = null
+      this.mealPrice = 0
+      this.extrasChosen = []
+      this.extrasPrice = 0
     }
   },
   watch: {
@@ -254,8 +275,9 @@ export default {
   created: function () {
   },
   mounted: function () {
+    log('session id: %s', this.$session.id())
     this.$http
-      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`)
+      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`, { credentials: true })
       .then((res) => {
         console.log(res)
         this.extralist = res.data.extras
@@ -285,18 +307,8 @@ export default {
   padding-right: 1em;
 }
 
-#mealDropdown >>> ul {
-  max-width: 100%;
-  overflow: hidden;
-  transform: none;
-  -webkit-transform: none;
-  will-change: unset;
-  background-color: red;
-}
-
-#menulistFilterContainer {
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+#extralistFilterContainer {
+  min-width: 13em;
 }
 
 </style>

@@ -10,6 +10,7 @@ logdebug.log = console.log.bind(console)
 
 router.get('/getAllOrderList', (req, res) => {
   logdebug('/getAllOrderList - sending: %o', global.panf.orders)
+  logdebug(req.session.id)
   res.json(global.panf.orders)
 })
 

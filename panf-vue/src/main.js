@@ -12,6 +12,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import VueSocketIO from 'vue-socket.io'
 
+import VueSession from 'vue-session'
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // eslint-disable-next-line
@@ -21,6 +23,8 @@ import config from './config.js'
 const connectionString = config.server.baseUrl
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.use(VueSession)
 
 Vue.use(new VueSocketIO({
   debug: false,
