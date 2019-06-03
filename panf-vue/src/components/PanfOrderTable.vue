@@ -6,7 +6,7 @@
       responsive
       striped
       hover
-      :items="showOrders"
+      :items="showOrderList"
       :empty-text="noOrdersText"
     >
       <template slot="HEAD_id">
@@ -34,21 +34,49 @@
         <font-awesome-icon icon="comment"/> Kommentar
       </template>
       <template slot="extras" slot-scope="row">
-        {{ row.value.map(extra => extra.name).join(', ') }}
+        <span v-bind:key="idx" v-for="(extra, idx) in row.item.extras">
+          <b-badge
+            v-if="extra.type === 'remove'"
+            variant="danger"
+          >
+            {{ extra.name }}
+          </b-badge>
+
+          <b-badge
+            v-else
+            variant="success"
+          >
+            +{{ extra.name }} ({{ formatPrice(extra.price) }}€)
+          </b-badge>
+          &nbsp;
+        </span>
       </template>
 
       <template slot="HEAD_price">
         <font-awesome-icon icon="money-bill-alt"/> Kosten
       </template>
       <template slot="price" slot-scope="row">
-        {{ `${formatPrice(row.value)} €` }}
+        <span v-if="row.value">
+          {{ `${formatPrice(row.value)} €` }}
+        </span>
+        <span v-else>
+          Gesamt:
+        </span>
       </template>
 
       <template slot="HEAD_prepaid">
         <font-awesome-icon icon="money-bill-alt"/> Anzahlung
       </template>
       <template slot="prepaid" slot-scope="row">
-        {{ `${formatPrice(row.value)} €` }}
+        <b-form-input
+          v-if="row.item.id"
+          type="number"
+          step="0.1"
+          v-model="row.item.prepaid"
+          @change="updatePrepaid()"
+        ></b-form-input>
+
+        <b-form-input v-else disabled v-model="formatPrepaidSum"></b-form-input>
       </template>
     </b-table>
   </b-container>
@@ -63,6 +91,7 @@ export default {
   },
   data: function () {
     return {
+      showOrderList: [],
       fields: [
         'id',
         'name',
@@ -72,12 +101,18 @@ export default {
         'prepaid'
       ],
       orders: [],
+      prepaidSum: 0,
       noOrdersText: 'Noch keine Bestellung vorhanden.'
     }
   },
   computed: {
+    formatPrepaidSum: function () {
+      return `${this.formatPrice(this.prepaidSum)}€`
+    }
+  },
+  methods: {
     showOrders () {
-      const showOrderList = this.orders.map(order => {
+      this.showOrderList = this.orders.map(order => {
         return {
           id: order.tableId,
           name: order.name,
@@ -87,19 +122,30 @@ export default {
           prepaid: 0
         }
       })
-      return showOrderList
-    }
-  },
-  methods: {
+
+      this.showOrderList.push({ })
+    },
     formatPrice (value) {
       const val = (value / 1).toFixed(2).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+    updatePrepaid () {
+      this.prepaidSum = this.showOrderList.reduce((prev, curr) => {
+        if(curr.prepaid) {
+          return prev + parseFloat(curr.prepaid)
+        } else {
+          return prev
+        }
+      }, 0.00)
+
+      this.$socket.emit('syncPrepaid', this.showOrderList)
     },
     loadOrders () {
       this.$http
         .get(`${config.server.apiUrl}/order/getAllOrderlist`)
         .then((res) => {
           this.orders = res.data
+          this.showOrders()
         })
     },
     makeToast (opts) {
@@ -140,6 +186,18 @@ export default {
 
     this.sockets.subscribe('reload', () => {
       this.loadOrders()
+    })
+
+    this.sockets.subscribe('updatePrepaid', (tableList) => {
+      this.showOrderList = tableList
+
+      this.prepaidSum = this.showOrderList.reduce((prev, curr) => {
+        if(curr.prepaid) {
+          return prev + parseFloat(curr.prepaid)
+        } else {
+          return prev
+        }
+      }, 0.00)
     })
   }
 }

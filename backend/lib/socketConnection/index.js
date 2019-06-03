@@ -60,6 +60,11 @@ module.exports.panfIO = function (http, config) {
         // META DATA
     */
 
+    socket.on('syncPrepaid', (tableList) => {
+      logdebug(global.panf.orders, tableList)
+      io.emit('updatePrepaid', tableList)
+    })
+
     socket.on('clearList', () => {
       const format = 'HH:mm'
       const before = new Moment('10:00', format)
