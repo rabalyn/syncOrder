@@ -73,7 +73,7 @@
           type="number"
           step="0.1"
           v-model="row.item.prepaid"
-          @change="updatePrepaid()"
+          @change="updatePrepaidSum()"
         ></b-form-input>
 
         <b-form-input v-else disabled v-model="formatPrepaidSum"></b-form-input>
@@ -129,9 +129,9 @@ export default {
       const val = (value / 1).toFixed(2).replace('.', ',')
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
-    updatePrepaid () {
+    updatePrepaidSum () {
       this.prepaidSum = this.showOrderList.reduce((prev, curr) => {
-        if(curr.prepaid) {
+        if (curr.prepaid) {
           return prev + parseFloat(curr.prepaid)
         } else {
           return prev
@@ -188,11 +188,23 @@ export default {
       this.loadOrders()
     })
 
-    this.sockets.subscribe('updatePrepaid', (tableList) => {
-      this.showOrderList = tableList
+    this.sockets.subscribe('initPaied', (paiedList) => {
+      for (let i = 0; i < this.showOrderList.length; i++) {
+        if (paiedList[i] !== null) {
+          this.showOrderList[i].prepaid = parseFloat(paiedList[i])
+        }
+      }
+    })
+
+    this.sockets.subscribe('updatePrepaid', (paiedList) => {
+      for (let i = 0; i < this.showOrderList.length; i++) {
+        if (paiedList[i] !== null) {
+          this.showOrderList[i].prepaid = parseFloat(paiedList[i])
+        }
+      }
 
       this.prepaidSum = this.showOrderList.reduce((prev, curr) => {
-        if(curr.prepaid) {
+        if (curr.prepaid) {
           return prev + parseFloat(curr.prepaid)
         } else {
           return prev

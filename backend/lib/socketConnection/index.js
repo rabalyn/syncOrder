@@ -61,8 +61,8 @@ module.exports.panfIO = function (http, config) {
     */
 
     socket.on('syncPrepaid', (tableList) => {
-      logdebug(global.panf.orders, tableList)
-      io.emit('updatePrepaid', tableList)
+      global.panf.paied = tableList.map(x => x.prepaid)
+      io.emit('updatePrepaid', global.panf.paied)
     })
 
     socket.on('clearList', () => {
