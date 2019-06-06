@@ -20,7 +20,10 @@ module.exports.panfIO = function (http, config) {
       loginfo('user disconnected')
     })
 
+    loginfo('initOrders to new user: %O', global.panf.orders)
     socket.emit('initOrders', global.panf.orders)
+
+    loginfo('initPaied to new user: %O', global.panf.paied)
     socket.emit('initPaied', global.panf.paied)
 
     /*
@@ -29,30 +32,25 @@ module.exports.panfIO = function (http, config) {
     socket.emit('initMeta', global.panf.meta)
 
     socket.on('loadMeta', () => {
-      logdebug('loadMeta - sendMeta: %o', global.panf.meta)
       socket.emit('sendMeta', global.panf.meta)
     })
 
     socket.on('syncDate', (dateString) => {
-      logdebug('syncDate - pushDate: %s', dateString)
       global.panf.meta.dateString = dateString
       socket.broadcast.emit('pushDate', dateString)
     })
 
     socket.on('syncCollectTime', (collectTime) => {
-      logdebug('syncCollectTime - pushCollectTime: %s', collectTime)
       global.panf.meta.collectTime = collectTime
       socket.broadcast.emit('pushCollectTime', collectTime)
     })
 
     socket.on('syncCaller', (caller) => {
-      logdebug('syncCaller - pushCaller: %s', caller)
       global.panf.meta.caller = caller
       socket.broadcast.emit('pushCaller', caller)
     })
 
     socket.on('syncCollector', (collector) => {
-      logdebug('syncCollector - pushCollector: %s', collector)
       global.panf.meta.collector = collector
       socket.broadcast.emit('pushCollector', collector)
     })
@@ -71,7 +69,6 @@ module.exports.panfIO = function (http, config) {
       const after = new Moment('13:30', format)
       const now = new Moment()
       const listClearable = !now.isBetween(before, after)
-      logdebug('clearList @%s', now.format(format))
       if (listClearable) {
         logdebug('resetting state...')
         global.panf.tableId = 1
@@ -87,13 +84,11 @@ module.exports.panfIO = function (http, config) {
     })
 
     socket.on('POSTpaied', (data) => {
-      logdebug('POSTpaied - GETpaied: %o', data)
       global.panf.paied.push(data)
       io.emit('GETpaied', data)
     })
 
     socket.on('POSTorder', (data) => {
-      logdebug('POSTorder got data: %o', data)
       for (let idx = 0; idx < global.panf.orders.length; idx++) {
         const order = global.panf.orders[idx]
         if (order.name === data.name) {
@@ -106,6 +101,7 @@ module.exports.panfIO = function (http, config) {
       data.tableId = global.panf.tableId++
       global.panf.orders.push(data)
       io.emit('GETorder', data)
+      io.sockets.emit('reload', { receivers: 'everyone' })
     })
   })
 }

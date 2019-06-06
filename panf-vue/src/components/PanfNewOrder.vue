@@ -11,7 +11,7 @@
     </b-row>
 
     <b-row>
-      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+      <b-col cols="12">
         <b-input-group class="mt-3">
           <template slot="prepend">
             <div class="input-group-text">
@@ -50,7 +50,7 @@
           </b-dropdown>
         </b-input-group>
       </b-col>
-      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+      <b-col cols="12">
         <b-badge
           v-if="meal"
           variant="light"
@@ -65,7 +65,7 @@
     </b-row>
 
     <b-row>
-      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+      <b-col cols="12">
         <b-input-group class="mt-3">
           <template slot="prepend">
             <div  class="input-group-text">
@@ -101,7 +101,7 @@
         </b-input-group>
       </b-col>
 
-      <b-col xs="12" sm="12" md="12" lg="6" xl="6">
+      <b-col cols="12">
         <span v-bind:key="idx" v-for="(extra, idx) in extrasChosen">
           <b-badge
             v-if="extra.name.match(/ohne|Ohne|kein|Kein^-|^ -/)"
