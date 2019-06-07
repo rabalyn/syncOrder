@@ -11,3 +11,4 @@ frontend/public/dist/*
 panf-vue/node_modules
 node_modules
 
+.vscode
