@@ -1,8 +1,8 @@
 import Moment from 'moment'
 import debug from 'debug'
 
-const loginfo = debug('panf:socketHobbit:info')
-const logdebug = debug('panf:socketHobbit:debug')
+const loginfo = debug('panf:lib:socket:info')
+const logdebug = debug('panf:lib:socket:debug')
 loginfo.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
@@ -13,7 +13,7 @@ module.exports.panfIO = function (http, config) {
   serializer = new serializeJson.Serialize(config)
 
   const io = require('socket.io')(http)
-  io.on('connection', (socket) => {
+  io.on('connection', socket => {
     loginfo('a user connected')
 
     socket.on('disconnect', () => {
@@ -35,22 +35,22 @@ module.exports.panfIO = function (http, config) {
       socket.emit('sendMeta', global.panf.meta)
     })
 
-    socket.on('syncDate', (dateString) => {
+    socket.on('syncDate', dateString => {
       global.panf.meta.dateString = dateString
       socket.broadcast.emit('pushDate', dateString)
     })
 
-    socket.on('syncCollectTime', (collectTime) => {
+    socket.on('syncCollectTime', collectTime => {
       global.panf.meta.collectTime = collectTime
       socket.broadcast.emit('pushCollectTime', collectTime)
     })
 
-    socket.on('syncCaller', (caller) => {
+    socket.on('syncCaller', caller => {
       global.panf.meta.caller = caller
       socket.broadcast.emit('pushCaller', caller)
     })
 
-    socket.on('syncCollector', (collector) => {
+    socket.on('syncCollector', collector => {
       global.panf.meta.collector = collector
       socket.broadcast.emit('pushCollector', collector)
     })
@@ -58,7 +58,7 @@ module.exports.panfIO = function (http, config) {
         // META DATA
     */
 
-    socket.on('syncPrepaid', (tableList) => {
+    socket.on('syncPrepaid', tableList => {
       global.panf.paied = tableList.map(x => x.prepaid)
       io.emit('updatePrepaid', global.panf.paied)
     })
@@ -75,20 +75,28 @@ module.exports.panfIO = function (http, config) {
         global.panf.orders = []
         global.panf.meta = {}
         global.panf.paied = []
-        serializer.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
+        serializer.sync(
+          global.panf.tableId,
+          global.panf.orders,
+          global.panf.meta,
+          global.panf.paied
+        )
         io.sockets.emit('reload', { receivers: 'everyone' })
       } else {
         logdebug('we are in order process...')
-        socket.emit('trollProtection', { task: 'clearList', reason: 'invalid time' })
+        socket.emit('trollProtection', {
+          task: 'clearList',
+          reason: 'invalid time'
+        })
       }
     })
 
-    socket.on('POSTpaied', (data) => {
+    socket.on('POSTpaied', data => {
       global.panf.paied.push(data)
       io.emit('GETpaied', data)
     })
 
-    socket.on('POSTorder', (data) => {
+    socket.on('POSTorder', data => {
       for (let idx = 0; idx < global.panf.orders.length; idx++) {
         const order = global.panf.orders[idx]
         if (order.name === data.name) {

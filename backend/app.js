@@ -6,7 +6,6 @@ import config from './config'
 
 import express from 'express'
 import session from 'express-session'
-import cors from 'cors'
 
 const log = debug('panf:app:info')
 const logdebug = debug('panf:app:debug')
@@ -76,13 +75,7 @@ setInterval(function () {
 }, config.serialization.interval)
 
 const router = require('./routes')
-router.use(cors)
 app.use(router)
-
-app.get('/foo', (req, res) => {
-  log(req.session)
-  res.send('hello world!')
-})
 
 http.listen(port, () => {
   log('Listening on port %d', port)
