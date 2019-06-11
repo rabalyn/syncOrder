@@ -5,6 +5,7 @@ import fs from 'fs'
 import config from './config'
 
 import express from 'express'
+import cookieParser from 'cookie-parser'
 import session from 'express-session'
 
 const log = debug('panf:app:info')
@@ -16,29 +17,28 @@ const helmet = require('helmet')
 const RedisStore = require('connect-redis')(session)
 
 const port = process.env.PORT || config.app.port || 9000
+const sharedSession = session({
+  store: new RedisStore(),
+  secret: config.cookie.secret,
+  resave: config.cookie.resave,
+  saveUninitialized: config.cookie.saveUninitialized,
+  name: 'panf',
+  cookie: {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    path: '/',
+    httpOnly: true,
+    secure: true
+  }
+})
 const app = express()
-
-app.use(
-  helmet({
-    hsts: false
-  })
-)
 
 app.set('trust proxy', 1)
 
+app.use(cookieParser())
+app.use(sharedSession)
 app.use(
-  session({
-    store: new RedisStore(),
-    secret: config.cookie.secret,
-    resave: config.cookie.resave,
-    saveUninitialized: config.cookie.saveUninitialized,
-    name: 'panf',
-    cookie: {
-      maxAge: 365 * 24 * 60 * 60 * 1000,
-      path: '/',
-      httpOnly: true,
-      secure: false
-    }
+  helmet({
+    hsts: false
   })
 )
 
@@ -61,7 +61,7 @@ global.panf.paied =
 
 const http = require('http').Server(app)
 const socket = require('./lib/socketConnection')
-socket.panfIO(http, config)
+socket.panfIO(http, sharedSession, config)
 
 const serializeJson = require('./lib/serializeJson').Serialize(config)
 

@@ -21,7 +21,12 @@
               <span ref="phone">&nbsp;06151 29 28 27</span>
             </b-nav-item>
             <b-nav-item>
-              <b-button v-b-modal.confirmDeleteOrderList variant="danger" size="sm">
+              <b-button
+                v-if="noOrderTime"
+                v-b-modal.confirmDeleteOrderList
+                variant="danger"
+                size="sm"
+              >
                 <font-awesome-icon icon="trash"/>&nbsp;Liste Löschen
               </b-button>
             </b-nav-item>
@@ -38,23 +43,30 @@
 </template>
 
 <script>
-import ConfirmDeleteOrderListModal from '@/components/ConfirmDeleteOrderListModal.vue'
+import ConfirmDeleteOrderListModal from "@/components/ConfirmDeleteOrderListModal.vue";
 
 export default {
   components: {
     ConfirmDeleteOrderListModal
   },
+  computed: {
+    noOrderTime: function() {
+      const today = new Date().getHours();
+      const listClearable = !(today >= 10 && today <= 14);
+      return listClearable;
+    }
+  },
   methods: {
-    copyToClipboard () {
-      const range = document.createRange()
-      range.selectNode(this.$refs.phone)
-      window.getSelection().removeAllRanges()
-      window.getSelection().addRange(range)
-      document.execCommand('copy')
-      window.getSelection().removeAllRanges()
+    copyToClipboard() {
+      const range = document.createRange();
+      range.selectNode(this.$refs.phone);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges();
     }
   }
-}
+};
 </script>
 
 <style scoped>

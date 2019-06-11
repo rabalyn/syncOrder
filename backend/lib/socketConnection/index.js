@@ -9,12 +9,18 @@ logdebug.log = console.log.bind(console)
 const serializeJson = require('../serializeJson')
 let serializer = null
 
-module.exports.panfIO = function (http, config) {
+module.exports.panfIO = function (http, sharedSession, config) {
   serializer = new serializeJson.Serialize(config)
 
   const io = require('socket.io')(http)
+  io.use(function (socket, next) {
+    sharedSession(socket.request, socket.request.res, next)
+  })
+
   io.on('connection', socket => {
     loginfo('a user connected')
+
+    loginfo('socket.panf: %O', socket.request.session.panf)
 
     socket.on('disconnect', () => {
       loginfo('user disconnected')
@@ -25,6 +31,10 @@ module.exports.panfIO = function (http, config) {
 
     loginfo('initPaied to new user: %O', global.panf.paied)
     socket.emit('initPaied', global.panf.paied)
+
+    if (socket.request.session.panf) {
+      socket.emit('loadSession', socket.request.session.panf)
+    }
 
     /*
         META DATA
@@ -81,7 +91,11 @@ module.exports.panfIO = function (http, config) {
           global.panf.meta,
           global.panf.paied
         )
-        io.sockets.emit('reload', { receivers: 'everyone' })
+
+        io.sockets.emit('destroySession')
+        io.sockets.emit('reloadMeta')
+        io.sockets.emit('reloadOrder')
+        io.sockets.emit('reloadOrderTable')
       } else {
         logdebug('we are in order process...')
         socket.emit('trollProtection', {
@@ -91,25 +105,46 @@ module.exports.panfIO = function (http, config) {
       }
     })
 
-    socket.on('POSTpaied', data => {
-      global.panf.paied.push(data)
-      io.emit('GETpaied', data)
+    socket.on('destroySession', () => {
+      loginfo('destroysession')
+      socket.request.session.destroy()
+      // io.sockets.emit('loadSession', socket.request.session.panf)
     })
+
+    function _updateOrder (socket, data) {
+      logdebug('- UPDATEorder: %o', data)
+      const orderId = parseInt(data.orderId)
+      global.panf.orders[orderId - 1] = data
+      socket.request.session.panf.order = data
+      socket.request.session.save()
+      io.sockets.emit('loadSession', socket.request.session.panf)
+      socket.emit('UPDATEorder', data)
+    }
+
+    function _addOrder (socket, data) {
+      logdebug(' - GETorder global.panf.tableId: %O', global.panf.tableId)
+      logdebug(' - GETorder: %o', data)
+      data.orderId = global.panf.tableId++
+      global.panf.orders.push(data)
+
+      socket.request.session.panf = socket.request.session.panf || {}
+      socket.request.session.panf.order = data
+      socket.request.session.save()
+
+      socket.emit('showOrderReceiption', data)
+      io.sockets.emit('GETorder', data)
+      socket.emit('loadSession', socket.request.session.panf)
+    }
 
     socket.on('POSTorder', data => {
       for (let idx = 0; idx < global.panf.orders.length; idx++) {
         const order = global.panf.orders[idx]
         if (order.name === data.name) {
-          logdebug(data.name, ' steht schon auf der liste!')
-          return socket.emit('FAILorder', data)
+          return _updateOrder(socket, data)
         }
       }
 
-      logdebug(' - GETorder: %o', data)
-      data.tableId = global.panf.tableId++
-      global.panf.orders.push(data)
-      io.emit('GETorder', data)
-      io.sockets.emit('reload', { receivers: 'everyone' })
+      _addOrder(socket, data)
     })
   })
 }
