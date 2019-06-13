@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import ConfirmDeleteOrderListModal from "@/components/ConfirmDeleteOrderListModal.vue";
+import ConfirmDeleteOrderListModal from '@/components/ConfirmDeleteOrderListModal.vue'
 
 export default {
   components: {
@@ -51,22 +51,25 @@ export default {
   },
   computed: {
     noOrderTime: function() {
-      const today = new Date().getHours();
-      const listClearable = !(today >= 10 && today <= 14);
-      return listClearable;
+      const today = new Date().getHours()
+      const START_HOUR_ORDER_PROCESS = 10
+      const END_HOUR_ORDER_PROCESS = 14
+      const listClearable = !(today >= START_HOUR_ORDER_PROCESS && today <= END_HOUR_ORDER_PROCESS)
+
+      return listClearable
     }
   },
   methods: {
     copyToClipboard() {
-      const range = document.createRange();
-      range.selectNode(this.$refs.phone);
-      window.getSelection().removeAllRanges();
-      window.getSelection().addRange(range);
-      document.execCommand("copy");
-      window.getSelection().removeAllRanges();
+      const range = document.createRange()
+      range.selectNode(this.$refs.phone)
+      window.getSelection().removeAllRanges()
+      window.getSelection().addRange(range)
+      document.execCommand('copy')
+      window.getSelection().removeAllRanges()
     }
   }
-};
+}
 </script>
 
 <style scoped>
