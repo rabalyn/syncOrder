@@ -14,7 +14,7 @@
               <font-awesome-icon icon="file-alt"/>&nbsp;Da-Vinci
             </b-nav-item>
           </b-navbar-nav>
-          <!-- Right aligned nav items -->
+
           <b-navbar-nav class="ml-auto">
             <b-nav-item @click="copyToClipboard">
               <font-awesome-icon icon="phone"/>

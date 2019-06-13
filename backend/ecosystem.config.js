@@ -9,6 +9,7 @@ module.exports = {
         NODE_ENV: 'development',
         DEBUG: 'panf:*'
       },
+      // eslint-disable-next-line camelcase
       env_production: {
         NODE_ENV: 'production',
         DEBUG: 'panf:*'

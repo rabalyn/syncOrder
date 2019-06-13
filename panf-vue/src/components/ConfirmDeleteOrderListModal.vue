@@ -8,11 +8,24 @@
   >
     <p class="my-4">Soll die aktuelle Bestellliste wirklich gelöscht werden?</p>
 
-    <template slot="modal-footer" footer-bg-variant="dark" footer-text-variant="light" slot-scope="{ ok, cancel }">
-      <b-button size="sm" variant="secondary" @click="cancel()">
+    <template
+      slot="modal-footer"
+      footer-bg-variant="dark"
+      footer-text-variant="light"
+      slot-scope="{ ok, cancel }"
+    >
+      <b-button
+        size="sm"
+        variant="secondary"
+        @click="cancel()"
+      >
         Schließen
       </b-button>
-      <b-button size="sm" variant="danger" @click="ok()">
+      <b-button
+        size="sm"
+        variant="danger"
+        @click="ok()"
+      >
         Liste Löschen
       </b-button>
     </template>
@@ -31,7 +44,7 @@ export default {
   computed: {
   },
   methods: {
-    clearOrderList () {
+    clearOrderList() {
       this.$socket.emit('clearList')
     }
   },

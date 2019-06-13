@@ -3,54 +3,35 @@
     {
       "number": 0.5,
       "name": "Arwen",
-      "ingredients": [
-        "Tomaten",
-        "Käse"
-      ],
+      "ingredients": ["Tomaten", "Käse"],
       "pricesmall": 3.7,
       "pricebig": 4.9
     },
     {
       "number": 1,
       "name": "Bilbo",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Peperoniwurst"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Peperoniwurst"],
       "pricesmall": 4.2,
       "pricebig": 5.6
     },
     {
       "number": 2,
       "name": "Sam",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Salami"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Salami"],
       "pricesmall": 4.2,
       "pricebig": 5.6
     },
     {
       "number": 3,
       "name": "Gandalf",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken"],
       "pricesmall": 4.3,
       "pricebig": 5.9
     },
     {
       "number": 4,
       "name": "Fangor",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinkenwürfel"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinkenwürfel"],
       "pricesmall": 4.2,
       "pricebig": 5.6
     },
@@ -70,12 +51,7 @@
     {
       "number": 6,
       "name": "Galadriel",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Zwiebeln",
-        "Schinkenwürfel"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Zwiebeln", "Schinkenwürfel"],
       "pricesmall": 4.5,
       "pricebig": 5.8
     },
@@ -110,13 +86,7 @@
     {
       "number": 9,
       "name": "Morgul",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken",
-        "Salami",
-        "Peperoniwurst"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken", "Salami", "Peperoniwurst"],
       "pricesmall": 4.5,
       "pricebig": 6.1
     },
@@ -152,12 +122,7 @@
     {
       "number": 12,
       "name": "Merry",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken",
-        "Ananas"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken", "Ananas"],
       "pricesmall": 5.0,
       "pricebig": 6.4
     },
@@ -204,98 +169,56 @@
     {
       "number": 16,
       "name": "Aragorn",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Zwiebeln",
-        "Thunfisch"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Zwiebeln", "Thunfisch"],
       "pricesmall": 4.7,
       "pricebig": 6.1
     },
     {
       "number": 17,
       "name": "Balrog",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Zwiebeln",
-        "Sardellen",
-        "Kapern"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Zwiebeln", "Sardellen", "Kapern"],
       "pricesmall": 5.2,
       "pricebig": 6.6
     },
     {
       "number": 18,
       "name": "Elrond",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Thunfisch",
-        "Calamares"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Thunfisch", "Calamares"],
       "pricesmall": 5.2,
       "pricebig": 6.6
     },
     {
       "number": 19,
       "name": "Smeagol",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Thunfisch",
-        "Shrimps"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Thunfisch", "Shrimps"],
       "pricesmall": 5.2,
       "pricebig": 6.6
     },
     {
       "number": 20,
       "name": "Mordor",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Shrimps",
-        "Calamares",
-        "Ananas"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Shrimps", "Calamares", "Ananas"],
       "pricesmall": 5.5,
       "pricebig": 6.9
     },
     {
       "number": 21,
       "name": "Saruman",
-      "ingredients": [
-        "Sauce Hollandaise",
-        "Schinken",
-        "Spargel",
-        "Käse"
-      ],
+      "ingredients": ["Sauce Hollandaise", "Schinken", "Spargel", "Käse"],
       "pricesmall": 5.0,
       "pricebig": 6.4
     },
     {
       "number": 22,
       "name": "Smaug",
-      "ingredients": [
-        "Tomaten",
-        "Lasagne",
-        "Käse"
-      ],
+      "ingredients": ["Tomaten", "Lasagne", "Käse"],
       "pricesmall": 5.0,
       "pricebig": 6.4
     },
     {
       "number": 23,
       "name": "Legolas",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken",
-        "Spinat",
-        "Ei"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken", "Spinat", "Ei"],
       "pricesmall": 5.0,
       "pricebig": 6.4
     },
@@ -342,38 +265,21 @@
     {
       "number": 27,
       "name": "Boromir",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken",
-        "Artischocken",
-        "Oliven"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken", "Artischocken", "Oliven"],
       "pricesmall": 5.0,
       "pricebig": 6.3
     },
     {
       "number": 28,
       "name": "Gollum",
-      "ingredients": [
-        "Currysauce",
-        "Käse",
-        "Hähnchenbruststreifen",
-        "Ananas"
-      ],
+      "ingredients": ["Currysauce", "Käse", "Hähnchenbruststreifen", "Ananas"],
       "pricesmall": 5.2,
       "pricebig": 6.6
     },
     {
       "number": 29,
       "name": "Eowyn",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Peperoniwurst",
-        "Lauch",
-        "Knoblauch"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Peperoniwurst", "Lauch", "Knoblauch"],
       "pricesmall": 4.8,
       "pricebig": 6.2
     },
@@ -412,111 +318,61 @@
     {
       "number": 0,
       "name": "Kalizze A",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Zwiebeln",
-        "Schinkenwürfel"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Zwiebeln", "Schinkenwürfel"],
       "price": 4.2
     },
     {
       "number": 1,
       "name": "Kalizze B",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Peperoniwurst",
-        "Pilze"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Peperoniwurst", "Pilze"],
       "price": 4.2
     },
     {
       "number": 2,
       "name": "Kalizze C",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Thunfisch",
-        "Zwiebeln"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Thunfisch", "Zwiebeln"],
       "price": 4.2
     },
     {
       "number": 3,
       "name": "Kalizze D",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schinken",
-        "Brokkoli"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schinken", "Brokkoli"],
       "price": 4.6
     },
     {
       "number": 4,
       "name": "Kalizze E",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schinken",
-        "Spargel"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schinken", "Spargel"],
       "price": 4.6
     },
     {
       "number": 5,
       "name": "Kalizze F",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schafskäse",
-        "Tomaten"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schafskäse", "Tomaten"],
       "price": 4.6
     },
     {
       "number": 6,
       "name": "Kalizze G",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schinken",
-        "Spinat",
-        "Ei"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schinken", "Spinat", "Ei"],
       "price": 4.6
     },
     {
       "number": 7,
       "name": "Kalizze H",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Bolognesesauce"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Bolognesesauce"],
       "price": 4.6
     },
     {
       "number": 8,
       "name": "Kalizze I",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schinken",
-        "Lauch"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schinken", "Lauch"],
       "price": 4.6
     },
     {
       "number": 9,
       "name": "Kalizze J",
-      "ingredients": [
-        "Kartoffeln",
-        "Käse",
-        "Schinkenwürfel",
-        "grüne Bohnen"
-      ],
+      "ingredients": ["Kartoffeln", "Käse", "Schinkenwürfel", "grüne Bohnen"],
       "price": 4.2
     }
   ],
@@ -524,48 +380,31 @@
     {
       "number": 0,
       "name": "Flammkuchen 1",
-      "ingredients": [
-        "Zwiebeln",
-        "Schinkenwürfel"
-      ],
+      "ingredients": ["Zwiebeln", "Schinkenwürfel"],
       "price": 4.1
     },
     {
       "number": 1,
       "name": "Flammkuchen 2",
-      "ingredients": [
-        "Schinkenwürfel",
-        "grüne Bohnen"
-      ],
+      "ingredients": ["Schinkenwürfel", "grüne Bohnen"],
       "price": 4.1
     },
     {
       "number": 2,
       "name": "Flammkuchen 3",
-      "ingredients": [
-        "Schinken",
-        "Lauch"
-      ],
+      "ingredients": ["Schinken", "Lauch"],
       "price": 4.5
     },
     {
       "number": 3,
       "name": "Flammkuchen 4",
-      "ingredients": [
-        "Zwiebeln",
-        "Brokkoli",
-        "Mais"
-      ],
+      "ingredients": ["Zwiebeln", "Brokkoli", "Mais"],
       "price": 4.5
     },
     {
       "number": 4,
       "name": "Flammkuchen 5",
-      "ingredients": [
-        "Tomaten",
-        "Peperoni",
-        "Oliven"
-      ],
+      "ingredients": ["Tomaten", "Peperoni", "Oliven"],
       "price": 4.5
     }
   ],
@@ -573,62 +412,43 @@
     {
       "number": 0,
       "name": "Pizzabrot",
-      "ingredients": [
-        ""
-      ],
+      "ingredients": [""],
       "price": 2.6
     },
     {
       "number": 1,
       "name": "Pizzabrot mit Knoblauch",
-      "ingredients": [
-        "Knoblauch"
-      ],
+      "ingredients": ["Knoblauch"],
       "price": 3.1
     },
     {
       "number": 2,
       "name": "Pizzabrot mit Käse",
-      "ingredients": [
-        "Käse"
-      ],
+      "ingredients": ["Käse"],
       "price": 3.3
     },
     {
       "number": 3,
       "name": "Pizzabrot mit Käse, Knoblauch",
-      "ingredients": [
-        "Käse",
-        "Knoblauch"
-      ],
+      "ingredients": ["Käse", "Knoblauch"],
       "price": 3.5
     },
     {
       "number": 4,
       "name": "Pizzabrot mit Käse, Tomaten",
-      "ingredients": [
-        "Käse",
-        "Tomaten"
-      ],
+      "ingredients": ["Käse", "Tomaten"],
       "price": 3.7
     },
     {
       "number": 5,
       "name": "Pizzabrot mit Käse, Bolognesesauce",
-      "ingredients": [
-        "Käse",
-        "Bolognesesauce"
-      ],
+      "ingredients": ["Käse", "Bolognesesauce"],
       "price": 4.0
     },
     {
       "number": 6,
       "name": "Pizzabrot mit Käse, Bolognesesauce, Jalapenos (scharf)",
-      "ingredients": [
-        "Käse",
-        "Bolognesesauce",
-        "Jalapenos (scharf)"
-      ],
+      "ingredients": ["Käse", "Bolognesesauce", "Jalapenos (scharf)"],
       "price": 4.3
     }
   ],
@@ -636,257 +456,193 @@
     {
       "number": 0,
       "name": "Bolognesesauce statt Tomatensauce",
-      "ingredients": [
-        "Bolognesesauce"
-      ],
+      "ingredients": ["Bolognesesauce"],
       "price": 1.2
     },
     {
       "number": 1,
       "name": "doppelt Käse",
-      "ingredients": [
-        "Käse"
-      ],
+      "ingredients": ["Käse"],
       "price": 1.2
     },
     {
       "number": 2,
       "name": "Schinken",
-      "ingredients": [
-        "Schinken"
-      ],
+      "ingredients": ["Schinken"],
       "price": 1.2
     },
     {
       "number": 3,
       "name": "Mozzarella",
-      "ingredients": [
-        "Mozzarella"
-      ],
+      "ingredients": ["Mozzarella"],
       "price": 1.2
     },
     {
       "number": 4,
       "name": "Peperoniwurst",
-      "ingredients": [
-        "Peperoniwurst"
-      ],
+      "ingredients": ["Peperoniwurst"],
       "price": 1.2
     },
     {
       "number": 5,
       "name": "Calamares",
-      "ingredients": [
-        "Calamares"
-      ],
+      "ingredients": ["Calamares"],
       "price": 1.2
     },
     {
       "number": 6,
       "name": "Shrimps",
-      "ingredients": [
-        "Shrimps"
-      ],
+      "ingredients": ["Shrimps"],
       "price": 1.2
     },
     {
       "number": 7,
       "name": "Sardellen",
-      "ingredients": [
-        "Sardellen"
-      ],
+      "ingredients": ["Sardellen"],
       "price": 1.2
     },
     {
       "number": 8,
       "name": "Schafskäse",
-      "ingredients": [
-        "Schafskäse"
-      ],
+      "ingredients": ["Schafskäse"],
       "price": 1.2
     },
     {
       "number": 9,
       "name": "Schinkenwürfel",
-      "ingredients": [
-        "Schinkenwürfel"
-      ],
+      "ingredients": ["Schinkenwürfel"],
       "price": 1.2
     },
     {
       "number": 10,
       "name": "Thunfisch",
-      "ingredients": [
-        "Thunfisch"
-      ],
+      "ingredients": ["Thunfisch"],
       "price": 1.2
     },
     {
       "number": 11,
       "name": "Salami",
-      "ingredients": [
-        "Salami"
-      ],
+      "ingredients": ["Salami"],
       "price": 1.2
     },
     {
       "number": 12,
       "name": "Hähnchenbruststreifen",
-      "ingredients": [
-        "Hähnchenbruststreifen"
-      ],
+      "ingredients": ["Hähnchenbruststreifen"],
       "price": 1.2
     },
     {
       "number": 13,
       "name": "Brokkoli",
-      "ingredients": [
-        "Brokkoli"
-      ],
+      "ingredients": ["Brokkoli"],
       "price": 0.9
     },
     {
       "number": 14,
       "name": "Spargel",
-      "ingredients": [
-        "Spargel"
-      ],
+      "ingredients": ["Spargel"],
       "price": 0.9
     },
     {
       "number": 15,
       "name": "Paprika",
-      "ingredients": [
-        "Paprika"
-      ],
+      "ingredients": ["Paprika"],
       "price": 0.9
     },
     {
       "number": 16,
       "name": "Ananas",
-      "ingredients": [
-        "Ananas"
-      ],
+      "ingredients": ["Ananas"],
       "price": 0.9
     },
     {
       "number": 17,
       "name": "Lauch",
-      "ingredients": [
-        "Lauch"
-      ],
+      "ingredients": ["Lauch"],
       "price": 0.9
     },
     {
       "number": 18,
       "name": "Spinat",
-      "ingredients": [
-        "Spinat"
-      ],
+      "ingredients": ["Spinat"],
       "price": 0.9
     },
     {
       "number": 19,
       "name": "Artischocken",
-      "ingredients": [
-        "Artischocken"
-      ],
+      "ingredients": ["Artischocken"],
       "price": 0.9
     },
     {
       "number": 20,
       "name": "frischer Knoblauch",
-      "ingredients": [
-        "frischer Knoblauch"
-      ],
+      "ingredients": ["frischer Knoblauch"],
       "price": 0.9
     },
     {
       "number": 21,
       "name": "Tomaten",
-      "ingredients": [
-        "Tomaten"
-      ],
+      "ingredients": ["Tomaten"],
       "price": 0.7
     },
     {
       "number": 22,
       "name": "Pilze",
-      "ingredients": [
-        "Pilze"
-      ],
+      "ingredients": ["Pilze"],
       "price": 0.7
     },
     {
       "number": 23,
       "name": "Ei",
-      "ingredients": [
-        "Ei"
-      ],
+      "ingredients": ["Ei"],
       "price": 0.7
     },
     {
       "number": 24,
       "name": "Oliven",
-      "ingredients": [
-        "Oliven"
-      ],
+      "ingredients": ["Oliven"],
       "price": 0.7
     },
     {
       "number": 25,
       "name": "Kapern",
-      "ingredients": [
-        "Kapern"
-      ],
+      "ingredients": ["Kapern"],
       "price": 0.7
     },
     {
       "number": 26,
       "name": "Mais",
-      "ingredients": [
-        "Mais"
-      ],
+      "ingredients": ["Mais"],
       "price": 0.7
     },
     {
       "number": 27,
       "name": "Peperoni",
-      "ingredients": [
-        "Peperoni"
-      ],
+      "ingredients": ["Peperoni"],
       "price": 0.7
     },
     {
       "number": 28,
       "name": "Kidney Bohnen",
-      "ingredients": [
-        "Kidney Bohnen"
-      ],
+      "ingredients": ["Kidney Bohnen"],
       "price": 0.7
     },
     {
       "number": 29,
       "name": "Zwiebeln",
-      "ingredients": [
-        "Zwiebeln"
-      ],
+      "ingredients": ["Zwiebeln"],
       "price": 0.7
     },
     {
       "number": 30,
       "name": "grüne Bohnen",
-      "ingredients": [
-        "grüne Bohnen"
-      ],
+      "ingredients": ["grüne Bohnen"],
       "price": 0.7
     },
     {
       "number": 31,
       "name": "Jalapenos (scharf)",
-      "ingredients": [
-        "Jalapenos (scharf)"
-      ],
+      "ingredients": ["Jalapenos (scharf)"],
       "price": 0.7
     }
   ]

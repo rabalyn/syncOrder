@@ -3,51 +3,31 @@
     {
       "number": 1,
       "name": "Margherita",
-      "ingredients": [
-        "Tomaten",
-        "Käse"
-      ],
+      "ingredients": ["Tomaten", "Käse"],
       "price": 7.0
     },
     {
       "number": 2,
       "name": "Prosciutto",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken"],
       "price": 7.5
     },
     {
       "number": 3,
       "name": "Peperoni",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Peperoniwurst"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Peperoniwurst"],
       "price": 7.5
     },
     {
       "number": 4,
       "name": "Salami",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Salami"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Salami"],
       "price": 7.5
     },
     {
       "number": 5,
       "name": "Hawaii",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Schinken",
-        "Ananas"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Schinken", "Ananas"],
       "price": 8.0
     },
     {
@@ -66,12 +46,7 @@
     {
       "number": 7,
       "name": "Tonno",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Thunfisch",
-        "Zwiebeln"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Thunfisch", "Zwiebeln"],
       "price": 8.5
     },
     {
@@ -103,30 +78,19 @@
     {
       "number": 10,
       "name": "Quattro Formaggi",
-      "ingredients": [
-        "Tomaten",
-        "vier Käsesorten"
-      ],
+      "ingredients": ["Tomaten", "vier Käsesorten"],
       "price": 9.0
     },
     {
       "number": 11,
       "name": "Frutti di Mare",
-      "ingredients": [
-        "Tomaten",
-        "Meeresfrüchte",
-        "Knoblauch"
-      ],
+      "ingredients": ["Tomaten", "Meeresfrüchte", "Knoblauch"],
       "price": 9.8
     },
     {
       "number": 12,
       "name": "Parma",
-      "ingredients": [
-        "Parmaschinken",
-        "Rucola",
-        "Parmesan"
-      ],
+      "ingredients": ["Parmaschinken", "Rucola", "Parmesan"],
       "price": 11.5
     },
     {
@@ -157,12 +121,7 @@
     {
       "number": 15,
       "name": "Primo Amore",
-      "ingredients": [
-        "Tomaten",
-        "Käse",
-        "Mozzarella",
-        "Basilikum"
-      ],
+      "ingredients": ["Tomaten", "Käse", "Mozzarella", "Basilikum"],
       "price": 8.5
     },
     {
@@ -181,10 +140,7 @@
     {
       "number": 17,
       "name": "da Vinci",
-      "ingredients": [
-        "Mista",
-        "Hackfleischsauce"
-      ],
+      "ingredients": ["Mista", "Hackfleischsauce"],
       "price": 8.8
     },
     {
@@ -205,9 +161,7 @@
     {
       "number": 1,
       "name": "Pizzabrot",
-      "ingredients": [
-        ""
-      ],
+      "ingredients": [""],
       "price": 3.5
     }
   ],
@@ -215,146 +169,97 @@
     {
       "number": 1,
       "name": "Pomodoro",
-      "ingredients": [
-        "Tomatensauce"
-      ],
+      "ingredients": ["Tomatensauce"],
       "price": 7.5
     },
     {
       "number": 2,
       "name": "Aglio, Olio e Peperoncino",
-      "ingredients": [
-        "Knoblauch",
-        "Öl",
-        "Peperoncino"
-      ],
+      "ingredients": ["Knoblauch", "Öl", "Peperoncino"],
       "price": 8.0
     },
     {
       "number": 3,
       "name": "Bolognese",
-      "ingredients": [
-        "Hackfleischsauce"
-      ],
+      "ingredients": ["Hackfleischsauce"],
       "price": 8.0
     },
     {
       "number": 4,
       "name": "Pesto",
-      "ingredients": [
-        "Basilikumsauce"
-      ],
+      "ingredients": ["Basilikumsauce"],
       "price": 8.0
     },
     {
       "number": 5,
       "name": "Ortolana",
-      "ingredients": [
-        "Gemüse"
-      ],
+      "ingredients": ["Gemüse"],
       "price": 9.0
     },
     {
       "number": 6,
       "name": "Panna e Prosciutto",
-      "ingredients": [
-        "Schinken",
-        "Sahne-Sauce"
-      ],
+      "ingredients": ["Schinken", "Sahne-Sauce"],
       "price": 9.0
     },
     {
       "number": 7,
       "name": "Amatriciana",
-      "ingredients": [
-        "Speck",
-        "Zwiebeln",
-        "pikant"
-      ],
+      "ingredients": ["Speck", "Zwiebeln", "pikant"],
       "price": 9.0
     },
     {
       "number": 8,
       "name": "Gorgonzola",
-      "ingredients": [
-        "Gorgonzola Käsesauce"
-      ],
+      "ingredients": ["Gorgonzola Käsesauce"],
       "price": 9.0
     },
     {
       "number": 9,
       "name": "Tonno",
-      "ingredients": [
-        "Thunfisch",
-        "Zwiebeln"
-      ],
+      "ingredients": ["Thunfisch", "Zwiebeln"],
       "price": 9.0
     },
     {
       "number": 10,
       "name": "Frutti di Mare",
-      "ingredients": [
-        "Meeresfrüchte"
-      ],
+      "ingredients": ["Meeresfrüchte"],
       "price": 9.8
     },
     {
       "number": 11,
       "name": "Salmone",
-      "ingredients": [
-        "Lachs"
-      ],
+      "ingredients": ["Lachs"],
       "price": 9.5
     },
     {
       "number": 12,
       "name": "Carbonara",
-      "ingredients": [
-        "Speck",
-        "Ei",
-        "Sahne"
-      ],
+      "ingredients": ["Speck", "Ei", "Sahne"],
       "price": 7.8
     },
     {
       "number": 13,
       "name": "Leggera",
-      "ingredients": [
-        "Rucola",
-        "Cocktailtomaten",
-        "Parmesan"
-      ],
+      "ingredients": ["Rucola", "Cocktailtomaten", "Parmesan"],
       "price": 9.0
     },
     {
       "number": 14,
       "name": "Orto e Mare",
-      "ingredients": [
-        "Shrimps",
-        "grüne Bohnen",
-        "Cocktailtomaten"
-      ],
+      "ingredients": ["Shrimps", "grüne Bohnen", "Cocktailtomaten"],
       "price": 9.5
     },
     {
       "number": 15,
       "name": "Saporita",
-      "ingredients": [
-        "Speck",
-        "Artischocken",
-        "grüne Peperoni"
-      ],
+      "ingredients": ["Speck", "Artischocken", "grüne Peperoni"],
       "price": 8.5
     },
     {
       "number": 16,
       "name": "Pasta da Vinci",
-      "ingredients": [
-        "Speck",
-        "Zucchini",
-        "Mozzarella",
-        "Safran"
-      ],
+      "ingredients": ["Speck", "Zucchini", "Mozzarella", "Safran"],
       "price": 8.8
     }
   ],
@@ -362,73 +267,49 @@
     {
       "number": 1,
       "name": "Tortellini al Pomodoro",
-      "ingredients": [
-        "Tortellini",
-        "Tomatensauce"
-      ],
+      "ingredients": ["Tortellini", "Tomatensauce"],
       "price": 8.3
     },
     {
       "number": 2,
       "name": "Tortellini Bolognese",
-      "ingredients": [
-        "Tortellini",
-        "Hackfleischsauce"
-      ],
+      "ingredients": ["Tortellini", "Hackfleischsauce"],
       "price": 8.8
     },
     {
       "number": 3,
       "name": "Tortellini Panna e Prosciutto",
-      "ingredients": [
-        "Tortellini",
-        "Schinken",
-        "Sahne"
-      ],
+      "ingredients": ["Tortellini", "Schinken", "Sahne"],
       "price": 9.0
     },
     {
       "number": 4,
       "name": "Gnocchi Bolognese",
-      "ingredients": [
-        "Gnocchi",
-        "Hackfleischsauce"
-      ],
+      "ingredients": ["Gnocchi", "Hackfleischsauce"],
       "price": 8.8
     },
     {
       "number": 5,
       "name": "Gnocchi ai quattro Formaggi",
-      "ingredients": [
-        "Gnocchi",
-        "vier Käsesorten"
-      ],
+      "ingredients": ["Gnocchi", "vier Käsesorten"],
       "price": 9.8
     },
     {
       "number": 6,
       "name": "Gnocchi alla Sorrentina",
-      "ingredients": [
-        "Gnocchi",
-        "Tomaten",
-        "Mozzarella (überbacken)"
-      ],
+      "ingredients": ["Gnocchi", "Tomaten", "Mozzarella (überbacken)"],
       "price": 9.8
     },
     {
       "number": 7,
       "name": "Combinazione",
-      "ingredients": [
-        ""
-      ],
+      "ingredients": [""],
       "price": 8.8
     },
     {
       "number": 8,
       "name": "Lasagne",
-      "ingredients": [
-        ""
-      ],
+      "ingredients": [""],
       "price": 8.5
     }
   ],
@@ -436,30 +317,19 @@
     {
       "number": 1,
       "name": "Caprese",
-      "ingredients": [
-        "Tomaten",
-        "Mozzarella",
-        "Basilikum"
-      ],
+      "ingredients": ["Tomaten", "Mozzarella", "Basilikum"],
       "price": 10.5
     },
     {
       "number": 2,
       "name": "Prosciutto e Melone",
-      "ingredients": [
-        "Parmaschinken",
-        "Melone"
-      ],
+      "ingredients": ["Parmaschinken", "Melone"],
       "price": 14.5
     },
     {
       "number": 3,
       "name": "Carpaccio",
-      "ingredients": [
-        "Rindfleisch",
-        "Rucola",
-        "Parmesan"
-      ],
+      "ingredients": ["Rindfleisch", "Rucola", "Parmesan"],
       "price": 15.5
     },
     {
@@ -473,26 +343,19 @@
     {
       "number": 1,
       "name": "Pomodoro",
-      "ingredients": [
-        "Tomatensuppe"
-      ],
+      "ingredients": ["Tomatensuppe"],
       "price": 4.8
     },
     {
       "number": 2,
       "name": "Minestrone",
-      "ingredients": [
-        "Gemüsesuppe"
-      ],
+      "ingredients": ["Gemüsesuppe"],
       "price": 4.8
     },
     {
       "number": 3,
       "name": "Stracciatella",
-      "ingredients": [
-        "Kraftbrühe",
-        "Ei"
-      ],
+      "ingredients": ["Kraftbrühe", "Ei"],
       "price": 4.8
     }
   ],
@@ -500,13 +363,7 @@
     {
       "number": 1,
       "name": "Beilagensalat",
-      "ingredients": [
-        "Salat",
-        "Gurke",
-        "Paprika",
-        "Tomaten",
-        "Karotten"
-      ],
+      "ingredients": ["Salat", "Gurke", "Paprika", "Tomaten", "Karotten"],
       "price": 4.8
     },
     {
@@ -527,24 +384,13 @@
     {
       "number": 3,
       "name": "Moira",
-      "ingredients": [
-        "Salat",
-        "Tomaten",
-        "Paprika",
-        "Shrimps",
-        "Mozzarella"
-      ],
+      "ingredients": ["Salat", "Tomaten", "Paprika", "Shrimps", "Mozzarella"],
       "price": 10.5
     },
     {
       "number": 4,
       "name": "Tricolore",
-      "ingredients": [
-        "Salat",
-        "Rucola",
-        "Mozzarella",
-        "Tomatenscheiben"
-      ],
+      "ingredients": ["Salat", "Rucola", "Mozzarella", "Tomatenscheiben"],
       "price": 8.8
     },
     {
@@ -564,30 +410,19 @@
     {
       "number": 1,
       "name": "Calamari Fritti",
-      "ingredients": [
-        "Thunfischringe",
-        "Pommes",
-        "Salat"
-      ],
+      "ingredients": ["Thunfischringe", "Pommes", "Salat"],
       "price": 14.5
     },
     {
       "number": 2,
       "name": "Filetto di Lucioperchia alla Griglia",
-      "ingredients": [
-        "Zanderfilet (Grill)",
-        "Salzkartoffel",
-        "Salat"
-      ],
+      "ingredients": ["Zanderfilet (Grill)", "Salzkartoffel", "Salat"],
       "price": 18.5
     },
     {
       "number": 3,
       "name": "Scampi alla Griglia",
-      "ingredients": [
-        "Riesengarnelen (Grill)",
-        "2 Wunschbeilagen"
-      ],
+      "ingredients": ["Riesengarnelen (Grill)", "2 Wunschbeilagen"],
       "price": 28.5
     }
   ],
@@ -595,17 +430,13 @@
     {
       "number": 1,
       "name": "Impanata",
-      "ingredients": [
-        "Schweineschnitzel (Wiener Art)"
-      ],
+      "ingredients": ["Schweineschnitzel (Wiener Art)"],
       "price": 12.5
     },
     {
       "number": 2,
       "name": "Cacciatore",
-      "ingredients": [
-        "Schweineschnitzel (Jägerschnitzel)"
-      ],
+      "ingredients": ["Schweineschnitzel (Jägerschnitzel)"],
       "price": 13.0
     },
     {
@@ -624,36 +455,25 @@
     {
       "number": 1,
       "name": "Impanata Milanese",
-      "ingredients": [
-        "Kalbschnitzel (paniert)"
-      ],
+      "ingredients": ["Kalbschnitzel (paniert)"],
       "price": 15.0
     },
     {
       "number": 2,
       "name": "Scaloppine al Limone",
-      "ingredients": [
-        "Kalbschnitzel",
-        "Zitronensauce"
-      ],
+      "ingredients": ["Kalbschnitzel", "Zitronensauce"],
       "price": 15.5
     },
     {
       "number": 3,
       "name": "Scaloppine al Vino Bianco",
-      "ingredients": [
-        "Kalbschnitzel",
-        "Weißweinsauce"
-      ],
+      "ingredients": ["Kalbschnitzel", "Weißweinsauce"],
       "price": 15.5
     },
     {
       "number": 4,
       "name": "Scaloppine ai Funghi Freschi",
-      "ingredients": [
-        "Kalbschnitzel",
-        "Champignon-Rahm-Sauce"
-      ],
+      "ingredients": ["Kalbschnitzel", "Champignon-Rahm-Sauce"],
       "price": 16.5
     },
     {
@@ -672,27 +492,19 @@
     {
       "number": 1,
       "name": "Bistecca alla Griglia",
-      "ingredients": [
-        "Rumpsteak (Grill)"
-      ],
+      "ingredients": ["Rumpsteak (Grill)"],
       "price": 18.0
     },
     {
       "number": 2,
       "name": "Bistecca con Cipolle",
-      "ingredients": [
-        "Rumpsteak",
-        "Zwiebeln"
-      ],
+      "ingredients": ["Rumpsteak", "Zwiebeln"],
       "price": 19.5
     },
     {
       "number": 3,
       "name": "Bistecca al Pepe",
-      "ingredients": [
-        "Rumpsteak",
-        "Pfeffersauce"
-      ],
+      "ingredients": ["Rumpsteak", "Pfeffersauce"],
       "price": 19.5
     }
   ],
@@ -700,89 +512,67 @@
     {
       "number": 1,
       "name": "Gorgonzola",
-      "ingredients": [
-        "Gorgonzola"
-      ],
+      "ingredients": ["Gorgonzola"],
       "price": 1.5
     },
     {
       "number": 2,
       "name": "Mozzarella",
-      "ingredients": [
-        "Mozzarella"
-      ],
+      "ingredients": ["Mozzarella"],
       "price": 1.5
     },
     {
       "number": 3,
       "name": "Rucola",
-      "ingredients": [
-        "Rucola"
-      ],
+      "ingredients": ["Rucola"],
       "price": 1.5
     },
     {
       "number": 4,
       "name": "Parmaschinken",
-      "ingredients": [
-        "Parmaschinken"
-      ],
+      "ingredients": ["Parmaschinken"],
       "price": 2.0
     },
     {
       "number": 5,
       "name": "Zwiebeln",
-      "ingredients": [
-        "Zwiebeln"
-      ],
+      "ingredients": ["Zwiebeln"],
       "price": 0.5
     },
     {
       "number": 6,
       "name": "Paprika",
-      "ingredients": [
-        "Paprika"
-      ],
+      "ingredients": ["Paprika"],
       "price": 0.5
     },
     {
       "number": 7,
       "name": "Käse",
-      "ingredients": [
-        "Käse"
-      ],
+      "ingredients": ["Käse"],
       "price": 0.5
     },
     {
       "number": 8,
       "name": "Schinken",
-      "ingredients": [
-        "Schinken"
-      ],
+      "ingredients": ["Schinken"],
       "price": 0.5
     },
     {
       "number": 9,
       "name": "Salami",
-      "ingredients": [
-        "Salami"
-      ],
+      "ingredients": ["Salami"],
       "price": 0.5
     },
     {
       "number": 10,
       "name": "Peperoniwurst",
-      "ingredients": [
-        "Peperoniwurst"
-      ],
+      "ingredients": ["Peperoniwurst"],
       "price": 0.5
     },
     {
       "number": 11,
       "name": "Ananas",
-      "ingredients": [
-        "Ananas"
-      ],
+      "ingredients": ["Ananas"],
       "price": 0.5
     }
   ]

@@ -9,15 +9,15 @@ logdebug.log = console.log.bind(console)
 const serializeJson = require('../serializeJson')
 let serializer = null
 
-module.exports.panfIO = function (http, sharedSession, config) {
+module.exports.panfIO = function(http, sharedSession, config) {
   serializer = new serializeJson.Serialize(config)
 
   const io = require('socket.io')(http)
-  io.use(function (socket, next) {
+  io.use(function(socket, next) {
     sharedSession(socket.request, socket.request.res, next)
   })
 
-  io.on('connection', socket => {
+  io.on('connection', (socket) => {
     loginfo('a user connected')
 
     loginfo('socket.panf: %O', socket.request.session.panf)
@@ -45,22 +45,22 @@ module.exports.panfIO = function (http, sharedSession, config) {
       socket.emit('sendMeta', global.panf.meta)
     })
 
-    socket.on('syncDate', dateString => {
+    socket.on('syncDate', (dateString) => {
       global.panf.meta.dateString = dateString
       socket.broadcast.emit('pushDate', dateString)
     })
 
-    socket.on('syncCollectTime', collectTime => {
+    socket.on('syncCollectTime', (collectTime) => {
       global.panf.meta.collectTime = collectTime
       socket.broadcast.emit('pushCollectTime', collectTime)
     })
 
-    socket.on('syncCaller', caller => {
+    socket.on('syncCaller', (caller) => {
       global.panf.meta.caller = caller
       socket.broadcast.emit('pushCaller', caller)
     })
 
-    socket.on('syncCollector', collector => {
+    socket.on('syncCollector', (collector) => {
       global.panf.meta.collector = collector
       socket.broadcast.emit('pushCollector', collector)
     })
@@ -68,8 +68,8 @@ module.exports.panfIO = function (http, sharedSession, config) {
         // META DATA
     */
 
-    socket.on('syncPrepaid', tableList => {
-      global.panf.paied = tableList.map(x => x.prepaid)
+    socket.on('syncPrepaid', (tableList) => {
+      global.panf.paied = tableList.map((x) => x.prepaid)
       io.emit('updatePrepaid', global.panf.paied)
     })
 
@@ -85,12 +85,7 @@ module.exports.panfIO = function (http, sharedSession, config) {
         global.panf.orders = []
         global.panf.meta = {}
         global.panf.paied = []
-        serializer.sync(
-          global.panf.tableId,
-          global.panf.orders,
-          global.panf.meta,
-          global.panf.paied
-        )
+        serializer.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
 
         io.sockets.emit('destroySession')
         io.sockets.emit('reloadMeta')
@@ -107,44 +102,49 @@ module.exports.panfIO = function (http, sharedSession, config) {
 
     socket.on('destroySession', () => {
       loginfo('destroysession')
-      socket.request.session.destroy()
-      // io.sockets.emit('loadSession', socket.request.session.panf)
+      if (socket.request.session) {
+        socket.request.session.destroy()
+        io.sockets.emit('loadSession', socket.request.session.panf)
+      } else {
+        log('no session to destroy')
+      }
     })
 
-    function _updateOrder (socket, data) {
+    function _updateOrder(passedSocket, passedIO, data) {
       logdebug('- UPDATEorder: %o', data)
       const orderId = parseInt(data.orderId)
-      global.panf.orders[orderId - 1] = data
-      socket.request.session.panf.order = data
-      socket.request.session.save()
-      io.sockets.emit('loadSession', socket.request.session.panf)
-      socket.emit('UPDATEorder', data)
+      const ARRAY_ZERO_OFFSET = 1
+      global.panf.orders[orderId - ARRAY_ZERO_OFFSET] = data
+      passedSocket.request.session.panf.order = data
+      passedSocket.request.session.save()
+      passedIO.sockets.emit('loadSession', socket.request.session.panf)
+      passedSocket.emit('UPDATEorder', data)
     }
 
-    function _addOrder (socket, data) {
+    function _addOrder(passedSocket, passedIO, data) {
       logdebug(' - GETorder global.panf.tableId: %O', global.panf.tableId)
       logdebug(' - GETorder: %o', data)
       data.orderId = global.panf.tableId++
       global.panf.orders.push(data)
 
-      socket.request.session.panf = socket.request.session.panf || {}
-      socket.request.session.panf.order = data
-      socket.request.session.save()
+      passedSocket.request.session.panf = socket.request.session.panf || {}
+      passedSocket.request.session.panf.order = data
+      passedSocket.request.session.save()
 
-      socket.emit('showOrderReceiption', data)
-      io.sockets.emit('GETorder', data)
-      socket.emit('loadSession', socket.request.session.panf)
+      passedSocket.emit('showOrderReceiption', data)
+      passedIO.sockets.emit('GETorder', data)
+      passedSocket.emit('loadSession', socket.request.session.panf)
     }
 
-    socket.on('POSTorder', data => {
+    socket.on('POSTorder', (data) => {
       for (let idx = 0; idx < global.panf.orders.length; idx++) {
         const order = global.panf.orders[idx]
         if (order.name === data.name) {
-          return _updateOrder(socket, data)
+          return _updateOrder(socket, io, data)
         }
       }
 
-      _addOrder(socket, data)
+      _addOrder(socket, io, data)
     })
   })
 }

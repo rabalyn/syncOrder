@@ -13,19 +13,17 @@ import './icons'
 
 import VueSocketIO from 'vue-socket.io'
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
 import config from './config.js'
 const connectionString = config.server.baseUrl
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.use(
-  new VueSocketIO({
-    debug: false,
-    connection: connectionString
-  })
-)
+Vue.use(new VueSocketIO({
+  debug: false,
+  connection: connectionString
+}))
 
 Vue.use(BootstrapVue)
 Vue.prototype.$http = axios
@@ -35,9 +33,9 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
   sockets: {
-    connect: function () {
+    connect: function() {
       console.info('socket connected')
     }
   }

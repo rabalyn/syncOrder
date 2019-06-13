@@ -1,27 +1,23 @@
 <template>
   <b-container>
-    <PanfFormInfo/>
-    <PanfMetaData/>
+    <PanfFormInfo />
+    <PanfMetaData />
 
-    <hr>
+    <PanfNewOrder />
 
-    <PanfNewOrder/>
-
-    <hr>
-
-    <PanfOrderTable/>
+    <PanfOrderTable />
   </b-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import PanfFormInfo from "@/components/PanfFormInfo.vue";
-import PanfMetaData from "@/components/PanfMetaData.vue";
-import PanfNewOrder from "@/components/PanfNewOrder.vue";
-import PanfOrderTable from "@/components/PanfOrderTable.vue";
+import PanfFormInfo from '@/components/PanfFormInfo.vue'
+import PanfMetaData from '@/components/PanfMetaData.vue'
+import PanfNewOrder from '@/components/PanfNewOrder.vue'
+import PanfOrderTable from '@/components/PanfOrderTable.vue'
 
 export default {
-  name: "panf",
+  name: 'panf',
   components: {
     PanfFormInfo,
     PanfMetaData,
@@ -29,21 +25,21 @@ export default {
     PanfOrderTable
   },
   props: {},
-  data: function() {
-    return {};
+  data: function () {
+    return {}
   },
   computed: {},
   methods: {
     destroySession() {
-      this.$socket.emit("destroySession");
+      this.$socket.emit('destroySession')
     }
   },
   watch: {},
-  created: function() {},
-  mounted: function() {
-    this.sockets.subscribe("destroySession", () => {
-      this.destroySession();
-    });
+  created: function () { },
+  mounted: function () {
+    this.sockets.subscribe('destroySession', () => {
+      this.destroySession()
+    })
   }
-};
+}
 </script>
