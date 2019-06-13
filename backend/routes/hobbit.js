@@ -4,9 +4,9 @@ import hobbitMenu from '../lib/hobbitMenu'
 
 const express = require('express')
 const router = express.Router()
-const loginfo = debug('panf:routes:hobbit:info')
+const log = debug('panf:routes:hobbit:info')
 const logdebug = debug('panf:routes:hobbit:debug')
-loginfo.log = console.log.bind(console)
+log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
 router.get('/', (req, res) => {

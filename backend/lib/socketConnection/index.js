@@ -1,9 +1,9 @@
 import Moment from 'moment'
 import debug from 'debug'
 
-const loginfo = debug('panf:lib:socket:info')
+const log = debug('panf:lib:socket:info')
 const logdebug = debug('panf:lib:socket:debug')
-loginfo.log = console.log.bind(console)
+log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
 const serializeJson = require('../serializeJson')
@@ -18,18 +18,18 @@ module.exports.panfIO = function(http, sharedSession, config) {
   })
 
   io.on('connection', (socket) => {
-    loginfo('a user connected')
+    log('a user connected')
 
-    loginfo('socket.panf: %O', socket.request.session.panf)
+    log('socket.panf: %O', socket.request.session.panf)
 
     socket.on('disconnect', () => {
-      loginfo('user disconnected')
+      log('user disconnected')
     })
 
-    loginfo('initOrders to new user: %O', global.panf.orders)
+    log('initOrders to new user: %O', global.panf.orders)
     socket.emit('initOrders', global.panf.orders)
 
-    loginfo('initPaied to new user: %O', global.panf.paied)
+    log('initPaied to new user: %O', global.panf.paied)
     socket.emit('initPaied', global.panf.paied)
 
     if (socket.request.session.panf) {
@@ -101,8 +101,8 @@ module.exports.panfIO = function(http, sharedSession, config) {
     })
 
     socket.on('destroySession', () => {
-      loginfo('destroysession')
-      if (socket.request.session) {
+      log('destroysession')
+      if (socket.request.session.panf) {
         socket.request.session.destroy()
         io.sockets.emit('loadSession', socket.request.session.panf)
       } else {

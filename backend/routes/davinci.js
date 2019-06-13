@@ -1,9 +1,9 @@
 import davinciMenu from '../lib/davinciMenu'
 import debug from 'debug'
 
-const loginfo = debug('panf:routes:davinci:info')
+const log = debug('panf:routes:davinci:info')
 const logdebug = debug('panf:routes:davinci:debug')
-loginfo.log = console.log.bind(console)
+log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
 const express = require('express')
