@@ -92,7 +92,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
         io.sockets.emit('reloadOrder')
         io.sockets.emit('reloadOrderTable')
       } else {
-        logdebug('we are in order process...')
+        log('we are in order process...')
         socket.emit('trollProtection', {
           task: 'clearList',
           reason: 'invalid time'

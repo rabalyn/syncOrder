@@ -19,6 +19,7 @@ import SerializeJson from './lib/serializeJson'
 
 const log = debug('panf:app:info')
 const logdebug = debug('panf:app:debug')
+const logerror = debug('panf:app:error')
 log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
@@ -61,35 +62,61 @@ app.use(helmet({
 // should be redis instead? or implement postgres store for this + new features like user administration
 const DEFAULT_TABLE_ID = 1
 global.panf = {}
+
 fs.readFile(config.serialization.tableIdFilestorepath, 'utf-8', (error, data) => {
   if (error) {
-    logerror('could not read tableId from file store: %O', error)
+    fs.writeFile(config.serialization.tableIdFilestorepath, DEFAULT_TABLE_ID, (err) => {
+      if (err) {
+        logerror('could not initialize tableId: %O', err)
+      } else {
+        global.panf.tableId = DEFAULT_TABLE_ID
+      }
+    })
+  } else {
+    global.panf.tableId = JSON.parse(data)
   }
-  global.panf.tableId = data || DEFAULT_TABLE_ID
 })
 
 fs.readFile(config.serialization.ordersFilestorepath, 'utf-8', (error, data) => {
   if (error) {
-    logerror('could not read orders from file store: %O', error)
+    fs.writeFile(config.serialization.ordersFilestorepath, '[]', (err) => {
+      if (err) {
+        logerror('could not initialize orders store: %O', err)
+      } else {
+        global.panf.orders = []
+      }
+    })
+  } else {
+    global.panf.orders = JSON.parse(data)
   }
-
-  global.panf.orders = JSON.parse(data) || []
 })
 
 fs.readFile(config.serialization.metaFilestorepath, 'utf-8', (error, data) => {
   if (error) {
-    logerror('could not read meta from file store: %O', error)
+    fs.writeFile(config.serialization.metaFilestorepath, '{}', (err) => {
+      if (err) {
+        logerror('could not initialize meta store: %O', err)
+      } else {
+        global.panf.meta = {}
+      }
+    })
+  } else {
+    global.panf.meta = JSON.parse(data)
   }
-
-  global.panf.meta = JSON.parse(data) || {}
 })
 
 fs.readFile(config.serialization.paiedFilestorepath, 'utf-8', (error, data) => {
   if (error) {
-    logerror('could not read paied from file store: %O', error)
+    fs.writeFile(config.serialization.paiedFilestorepath, '[]', (err) => {
+      if (err) {
+        logerror('could not initialize paied store: %O', err)
+      } else {
+        global.panf.paied = []
+      }
+    })
+  } else {
+    global.panf.paied = JSON.parse(data)
   }
-
-  global.panf.paied = JSON.parse(data) || []
 })
 
 const myServer = new http.Server(app)
