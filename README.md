@@ -6,14 +6,17 @@ Happy cloning and forking!
 
 ```
 git clone https://github.com/rabalyn/syncOrder.git
-cd syncOrder
+cd syncOrder/backend
 npm install
 npm start
+cd ../frontend
+npm run install
+npm run serve
 ```
 
 ## What you get
 
-A simple express-app with bootstrap frontend to coordinate ordering in your office. The text is hard coded in german and there is the menu card of our weekly pizza delivery.
+A simple express-app backend with vue/vue-bootstrap frontend to coordinate ordering in your office. The text is hard coded in german and there is the menu card of our weekly pizza delivery.
 
 You are welcome to customize for your needs :)
 
@@ -21,116 +24,79 @@ The textfields and table are updated in realtime via websockets - thank you [soc
 
 ## Structure of data JSON files
 
-The data is stupidly populated and never updated - all new values (as objects) are simply appended.
-The structure of the object is
+The data serialized every 5 minutes to the \*.json files in the \$root/data directory
+
+Structure of the files:
+
 ```
 const metaObj = {
-    "id": "$htmlElementId",
-    "text": "$inputValue"
+    "dateString":"2019-06-13",
+    "caller":"foo",
+    "collector":"bar",
+    "collectTime":"12:22"
 }
-```
-```
-const meta = [
-    {
-        "id": "inputCollector",
-        "text": "F"
-    },
-    {
-        "id": "inputCollector",
-        "text": "Fo"
-    },
-    {
-        "id": "inputCollector",
-        "text": "Foo"
-    },
-    {
-        "id": "inputName",
-        "text": "B"
-    },
-    {
-        "id": "inputName",
-        "text": "Ba"
-    },
-    {
-        "id": "inputName",
-        "text": "Bar"
-    }
-]
 ```
 
-The data is stupidly populated and never updated - all new values (as objects) are simply appended.
+The data is stupidly populated.
 The structure of the object is
-```
-const paiedObj = {
-    "id": {},
-    "htmlid": "$Name$mealNumber $mealnamenull",
-    "paied": "$amount"
-}
-```
+
 ```
 const paied = [
-    {
-        "id": {},
-        "htmlid": "Foo1 Pizza2null",
-        "paied": "1"
-    },
-    {
-        "id": {},
-        "htmlid": "Foo1 Pizza2null",
-        "paied": "10"
-    },
-    {
-        "id": {},
-        "htmlid": "Foo1 Pizza2null",
-        "paied": "100"
-    },
-    {
-        "id": {},
-        "htmlid": "Foo1 Pizza2null",
-        "paied": "10"
-    },
-    {
-        "id": {},
-        "htmlid": "Bar7 Salad16null",
-        "paied": "5"
-    }
+  "15",   // first order
+  0,      // second order
+  null    // 'sum' row
 ]
 ```
 
-The orders are not stored on every change, only when the user is saving the order:
-```
-const ordersObj = {
-    "name": "$name",
-    "meal": "$mealnumber $mealName",
-    "size": null, // not used for DaVinci
-    "extras": "Object Array with chosen extras || null",
-    "price": "$priceString",
-    "tableId": 1
-}
-```
+The orders are not stored on every change, only when the user is saving / updating the order:
+
 ```
 const orders = [
     {
-        "name": "Foo",
-        "meal": "1 Pizza",
-        "size": null, // not used for DaVinci
-        "extras": "[{\"category\":\"Extras\",\"number\":\"5\",\"name\":\"Zwiebeln\",\"ingredients\":\"Zwiebeln\",\"price\":\"0.5\"}]",
-        "price": "9.00€",
-        "tableId": 1
+        "name": "test",
+        "meal": "Margherita",
+        "mealPrice": 7,
+        "extras": [
+            {
+                "number": 4,
+                "name": "Parmaschinken",
+                "ingredients": [
+                    "Parmaschinken"
+                ],
+                "price": 2,
+                "type": "add"
+            },
+            {
+                "number": 1,
+                "name": "Gorgonzola",
+                "ingredients": [
+                    "Gorgonzola"
+                ],
+                "price": 1.5,
+                "type": "add"
+            },
+            {
+                "name": "ohne Käse",
+                "price": "",
+                "type": "remove"
+            }
+        ],
+        "extrasPrice": 3.5,
+        "orderId": 1
     },
     {
-        "name": "Bar",
-        "meal": "7 Salad",
-        "size": null,
-        "extras": "null",
-        "price": "7.50€",
-        "tableId": 2
+        "name": "test2",
+        "meal": "Frutti di Mare",
+        "mealPrice": 9.8,
+        "extras": [],
+        "extrasPrice": 0,
+        "orderId": 2
     }
 ]
 ```
 
 Number of the next table row.
+
 ```
 const tableId = 9
 ```
-
