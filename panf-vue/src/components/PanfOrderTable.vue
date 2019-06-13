@@ -6,6 +6,7 @@
       responsive
       striped
       hover
+      v-if="showOrderList.length > 1"
       :items="showOrderList"
       :empty-text="noOrdersText"
     >
@@ -87,6 +88,9 @@
         ></b-form-input>
       </template>
     </b-table>
+    <p v-else>
+      Noch keine Bestellungen vorhanden.
+    </p>
   </b-container>
 </template>
 
