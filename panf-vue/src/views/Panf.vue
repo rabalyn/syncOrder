@@ -3,7 +3,11 @@
     <PanfFormInfo />
     <PanfMetaData />
 
+    <hr />
+
     <PanfNewOrder />
+
+    <hr />
 
     <PanfOrderTable />
   </b-container>
