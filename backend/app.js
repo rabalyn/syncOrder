@@ -1,108 +1,136 @@
 import debug from 'debug'
-const loginfo = debug('app:info')
-const logerror = debug('app:error')
-const logdebug = debug('app:debug')
-
 import fs from 'fs'
-import path from 'path'
 
 import config from './config'
 
 import express from 'express'
-const helmet = require('helmet')
+import router from './routes'
+import helmet from 'helmet'
+
+import cookieParser from 'cookie-parser'
+
 import session from 'express-session'
-const RedisStore = require('connect-redis')(session)
-const i18next = require('i18next')
-const i18nextExpressMiddleware = require('i18next-express-middleware')
-const Backend = require('i18next-node-fs-backend')
-const exphbs = require('express-handlebars')
+import connectRedis from 'connect-redis'
 
-i18next
-  .use(Backend)
-  .use(i18nextExpressMiddleware.LanguageDetector)
-  .init({
-    backend: {
-      loadPath: __dirname + '/../locales/{{lng}}/translation.json',
-      addPath: __dirname + '/../locales/{{lng}}/translation.missing.json'
-    },
-    fallbackLng: 'de',
-    preload: ['en', 'de'],
-    saveMissing: true,
-    detection: {
-      order: ['session', 'cookie', 'querystring'],
-    }
-  }, function(err, t) {
-    if(err) {
-      logerror('i18next init failed: %O', err)
-    } else {
-      logdebug('i18next language loaded... translated... %s', i18next.t('language'))
-    }
-  })
+import http from 'http'
 
-const port = process.env.PORT || 9000
-const app = express()
-app.use(helmet({
-  hsts: false
-}))
-app.use(session({
+import socket from './lib/socketConnection'
+import SerializeJson from './lib/serializeJson'
+
+const log = debug('panf:app:info')
+const logdebug = debug('panf:app:debug')
+const logerror = debug('panf:app:error')
+log.log = console.log.bind(console)
+logdebug.log = console.log.bind(console)
+
+const RedisStore = new connectRedis(session)
+
+const FALLBACK_PORT = 9000
+const port = process.env.PORT || config.app.port || FALLBACK_PORT
+const DAYS_IN_ONE_YEAR = 365
+const HOURS_IN_ONE_DAY = 24
+const MINUTES_IN_ONE_HOUR = 60
+const SECONDS_IN_ONE_MINUTE = 60
+const MILLI_FACTOR = 1000
+const ONE_YEAR = DAYS_IN_ONE_YEAR * HOURS_IN_ONE_DAY * MINUTES_IN_ONE_HOUR * SECONDS_IN_ONE_MINUTE * MILLI_FACTOR
+
+const sharedSession = session({
   store: new RedisStore(),
   secret: config.cookie.secret,
   resave: config.cookie.resave,
-  saveUninitialized: config.cookie.saveUninitialized
-}))
-app.use(i18nextExpressMiddleware.handle(i18next))
-
-global.tableId = fs.readFileSync(config.serialization.tableIdFilestorepath, 'utf-8') || 1
-global.orders = JSON.parse(fs.readFileSync(config.serialization.ordersFilestorepath, 'utf-8')) || []
-global.meta = JSON.parse(fs.readFileSync(config.serialization.metaFilestorepath, 'utf-8')) || []
-global.paied = JSON.parse(fs.readFileSync(config.serialization.paiedFilestorepath, 'utf-8')) || []
-
-const http = require('http').Server(app)
-const socket = require('./lib/socketConnection')
-socket.hobbitIO(http)
-socket.setConfig(config)
-
-const serializeJson = require('./lib/serializeJson')
-serializeJson.setConfig(config)
-
-setInterval(function() {
-  serializeJson.sync(global.tableId, global.orders, global.meta, global.paied)
-}, config.serialization.interval)
-
-const hbs = exphbs.create({
-  defaultLayout: 'main',
-  partialsDir: [
-    'views/partials/'
-  ],
-  extname: '.hbs',
-  helpers: {
-    t: (key, options) => getLangT(key, options)
+  saveUninitialized: config.cookie.saveUninitialized,
+  name: 'panf',
+  cookie: {
+    maxAge: ONE_YEAR,
+    path: '/',
+    httpOnly: true,
+    secure: true
   }
 })
 
-function getLangT(key, options) {
-  return renderT(key, options)
-}
+const app = express()
 
-let renderT = i18next.t
+const COUNT_TRUSTED_PROXIES = 1
+app.set('trust proxy', COUNT_TRUSTED_PROXIES)
 
-app.engine('hbs', hbs.engine)
-app.set('view engine', 'hbs')
-app.set('views', path.join(__dirname, 'views'))
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')))
+app.use(cookieParser())
+app.use(sharedSession)
+app.use(helmet({
+  hsts: false
+}))
 
-app.get('*', (req, res, next) => {
-  renderT = req.t
-  next()
+// should be redis instead? or implement postgres store for this + new features like user administration
+const DEFAULT_TABLE_ID = 1
+global.panf = {}
+
+fs.readFile(config.serialization.tableIdFilestorepath, 'utf-8', (error, data) => {
+  if (error) {
+    fs.writeFile(config.serialization.tableIdFilestorepath, DEFAULT_TABLE_ID, (err) => {
+      if (err) {
+        logerror('could not initialize tableId: %O', err)
+      } else {
+        global.panf.tableId = DEFAULT_TABLE_ID
+      }
+    })
+  } else {
+    global.panf.tableId = JSON.parse(data)
+  }
 })
 
-const router = require('./routes')
+fs.readFile(config.serialization.ordersFilestorepath, 'utf-8', (error, data) => {
+  if (error) {
+    fs.writeFile(config.serialization.ordersFilestorepath, '[]', (err) => {
+      if (err) {
+        logerror('could not initialize orders store: %O', err)
+      } else {
+        global.panf.orders = []
+      }
+    })
+  } else {
+    global.panf.orders = JSON.parse(data)
+  }
+})
+
+fs.readFile(config.serialization.metaFilestorepath, 'utf-8', (error, data) => {
+  if (error) {
+    fs.writeFile(config.serialization.metaFilestorepath, '{}', (err) => {
+      if (err) {
+        logerror('could not initialize meta store: %O', err)
+      } else {
+        global.panf.meta = {}
+      }
+    })
+  } else {
+    global.panf.meta = JSON.parse(data)
+  }
+})
+
+fs.readFile(config.serialization.paiedFilestorepath, 'utf-8', (error, data) => {
+  if (error) {
+    fs.writeFile(config.serialization.paiedFilestorepath, '[]', (err) => {
+      if (err) {
+        logerror('could not initialize paied store: %O', err)
+      } else {
+        global.panf.paied = []
+      }
+    })
+  } else {
+    global.panf.paied = JSON.parse(data)
+  }
+})
+
+const myServer = new http.Server(app)
+
+socket.panfIO(myServer, sharedSession, config)
+
+const serializeJson = SerializeJson.Serialize(config)
+
+setInterval(() => {
+  serializeJson.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
+}, config.serialization.interval)
+
 app.use(router)
-app.get('/', (req, res) => res.redirect('/home'))
 
-
-
-http.listen(port, () => {
-  loginfo('Listening on port %d', port)
+myServer.listen(port, () => {
+  log('Listening on port %d', port)
 })
-
