@@ -398,14 +398,12 @@ export default {
         credentials: true
       })
       .then((res) => {
-        console.log(res)
         this.extralist = res.data.extras
         delete res.data.extras
         this.menulist = res.data
       })
 
     this.sockets.subscribe('loadSession', (session) => {
-      console.log(session)
       if (session && session.order) {
         this.name = session.order.name
         this.meal = session.order.meal

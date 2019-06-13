@@ -39,20 +39,23 @@
         slot="extras"
         slot-scope="row"
       >
-        <span
-          v-bind:key="idx"
-          v-for="(extra, idx) in row.item.extras"
-        >
-          <b-badge
-            v-if="extra.type === 'remove'"
-            variant="danger"
-          >{{ extra.name }}</b-badge>
+        <div v-if="row.item.name">
+          <span
+            v-bind:key="idx"
+            v-for="(extra, idx) in row.item.extras"
+          >
+            <b-badge
+              v-if="extra.type === 'remove'"
+              variant="danger"
+            >{{ extra.name }}</b-badge>
 
-          <b-badge
-            v-else
-            variant="success"
-          >+{{ extra.name }} ({{ formatPrice(extra.price) }}€)</b-badge>&nbsp;
-        </span>
+            <b-badge
+              v-else
+              variant="success"
+            >+{{ extra.name }} ({{ formatPrice(extra.price) }}€)</b-badge>&nbsp;
+          </span>
+        </div>
+        <span v-else>Gesamt:</span>
       </template>
 
       <template slot="HEAD_price">
@@ -63,7 +66,7 @@
         slot-scope="row"
       >
         <span v-if="row.value">{{ `${formatPrice(row.value)} €` }}</span>
-        <span v-else>Gesamt:</span>
+        <span v-else>{{formatPrice(orderSumPrice)}} €</span>
       </template>
 
       <template slot="HEAD_prepaid">
@@ -74,18 +77,16 @@
         slot-scope="row"
       >
         <b-form-input
-          v-if="row.item.id"
+          v-if="row.item.name"
           type="number"
           step="0.1"
           v-model="row.item.prepaid"
           @change="updatePrepaidSum()"
         ></b-form-input>
 
-        <b-form-input
-          v-else
-          disabled
-          v-model="formatPrepaidSum"
-        ></b-form-input>
+        <span v-else>
+          {{formatPrepaidSum}}
+        </span>
       </template>
     </b-table>
     <p v-else>
@@ -109,11 +110,16 @@ export default {
     }
   },
   computed: {
+    orderSumPrice: function() {
+      return this.orders.reduce((prev, next) => {
+        return prev + next.extrasPrice + next.mealPrice
+      // eslint-disable-next-line
+      }, 0.00)
+    },
     formatPrepaidSum: function () {
       return `${this.formatPrice(this.prepaidSum)}€`
     },
     showOrderList: function () {
-      console.log(this.orders)
       const newShowOrderList = this.orders.map((order) => {
         return {
           id: order.tableId,
@@ -186,9 +192,6 @@ export default {
     })
 
     this.sockets.subscribe('UPDATEorder', (order) => {
-      console.log('UPDATEorder')
-      console.log(order)
-      console.log(this.orders)
       // eslint-disable-next-line
       this.$set(this.orders, parseInt(order.orderId) - 1, order)
     })

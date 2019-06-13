@@ -102,7 +102,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
 
     socket.on('destroySession', () => {
       log('destroysession')
-      if (socket.request.session.panf) {
+      if (socket && socket.request && socket.request.session && socket.request.session.panf) {
         socket.request.session.destroy()
         io.sockets.emit('loadSession', socket.request.session.panf)
       } else {
