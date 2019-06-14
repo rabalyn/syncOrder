@@ -374,8 +374,6 @@ export default {
           extrasPrice: this.extrasPrice,
           orderId: this.orderId
         })
-
-        this.resetOrder(e)
       }
     },
     resetOrder(e) {

@@ -96,8 +96,6 @@
 </template>
 
 <script>
-import config from '../config.js'
-
 export default {
   name: 'PanfOrderTable',
   props: {},
@@ -110,10 +108,10 @@ export default {
     }
   },
   computed: {
-    orderSumPrice: function() {
+    orderSumPrice: function () {
       return this.orders.reduce((prev, next) => {
         return prev + next.extrasPrice + next.mealPrice
-      // eslint-disable-next-line
+        // eslint-disable-next-line
       }, 0.00)
     },
     formatPrepaidSum: function () {
@@ -155,14 +153,6 @@ export default {
 
       this.$socket.emit('syncPrepaid', this.showOrderList)
     },
-    loadOrders() {
-      this.orders = []
-      this.$http
-        .get(`${config.server.apiUrl}/order/getAllOrderlist`)
-        .then((res) => {
-          this.orders = res.data
-        })
-    },
     makeToast(opts) {
       const title = opts.title || ''
       const content = opts.content || ''
@@ -185,7 +175,9 @@ export default {
   },
   created: function () { },
   mounted: function () {
-    this.loadOrders()
+    this.sockets.subscribe('initOrders', (orders) => {
+      this.orders = orders
+    })
 
     this.sockets.subscribe('GETorder', (order) => {
       this.orders.push(order)
@@ -214,10 +206,6 @@ export default {
         }! \n Dein Name steht leider schon auf der Liste. Du musst einen anderen wählen.`,
         variant: 'danger'
       })
-    })
-
-    this.sockets.subscribe('reloadOrderTable', () => {
-      this.loadOrders()
     })
 
     this.sockets.subscribe('initPaied', (paiedList) => {
