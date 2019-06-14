@@ -5,16 +5,16 @@
         href="https://github.com/rabalyn/syncOrder/"
         target="_blank"
         rel="noopener noreferrer"
-        variant="light"
+        variant="dark"
+        class="footer-button"
       >
         <font-awesome-icon :icon="['fab', 'github']" />&nbsp;Github
       </b-button>
 
-      &nbsp;&nbsp;
-
       <b-button
-        variant="light"
+        variant="dark"
         @click="$bvModal.show('dataPrivacyPolicy')"
+        class="footer-button"
       >
         <font-awesome-icon icon="file-alt" />&nbsp;Datenschutzerklärung
       </b-button>
@@ -47,5 +47,12 @@ export default {
 <style scoped>
 .footer {
   align-content: center;
+  padding: 1em;
+  background-color: #343a40 !important;
+}
+
+.footer-button {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
 }
 </style>
