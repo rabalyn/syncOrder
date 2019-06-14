@@ -20,8 +20,6 @@ module.exports.panfIO = function(http, sharedSession, config) {
   io.on('connection', (socket) => {
     log('a user connected')
 
-    log('socket.panf: %O', socket.request.session.panf)
-
     socket.on('disconnect', () => {
       log('user disconnected')
     })
@@ -32,7 +30,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
     log('initPaied to new user: %O', global.panf.paied)
     socket.emit('initPaied', global.panf.paied)
 
-    if (socket.request.session.panf) {
+    if (socket && socket.request && socket.request.session && socket.request.session.panf) {
       socket.emit('loadSession', socket.request.session.panf)
     }
 
@@ -90,7 +88,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
         io.sockets.emit('destroySession')
         io.sockets.emit('reloadMeta')
         io.sockets.emit('reloadOrder')
-        io.sockets.emit('reloadOrderTable')
+        io.sockets.emit('initOrders')
       } else {
         log('we are in order process...')
         socket.emit('trollProtection', {
@@ -116,8 +114,10 @@ module.exports.panfIO = function(http, sharedSession, config) {
       global.panf.orders[orderId - ARRAY_ZERO_OFFSET] = data
       passedSocket.request.session.panf.order = data
       passedSocket.request.session.save()
-      passedIO.sockets.emit('loadSession', socket.request.session.panf)
+      logdebug('_updateOrder with data: %o', data)
+      passedSocket.emit('loadSession', data)
       passedSocket.emit('UPDATEorder', data)
+      passedIO.sockets.emit('initOrders', global.panf.orders)
     }
 
     function _addOrder(passedSocket, passedIO, data) {
@@ -136,14 +136,19 @@ module.exports.panfIO = function(http, sharedSession, config) {
     }
 
     socket.on('POSTorder', (data) => {
+      let placeNewOrder = true
       for (let idx = 0; idx < global.panf.orders.length; idx++) {
         const order = global.panf.orders[idx]
         if (order.name === data.name) {
+          placeNewOrder = false
+
           return _updateOrder(socket, io, data)
         }
       }
 
-      _addOrder(socket, io, data)
+      if (placeNewOrder) {
+        _addOrder(socket, io, data)
+      }
     })
   })
 }

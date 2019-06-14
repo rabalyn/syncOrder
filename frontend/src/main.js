@@ -22,7 +22,8 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(new VueSocketIO({
   debug: false,
-  connection: connectionString
+  connection: connectionString,
+  options: {path: '/panf_dev/'}
 }))
 
 Vue.use(BootstrapVue)
