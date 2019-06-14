@@ -3,21 +3,35 @@
     <ConfirmDeleteOrderListModal></ConfirmDeleteOrderListModal>
 
     <b-container id="app">
-      <b-navbar id="nav" toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand to="/panf" exact>🍕&nbsp;PANF</b-navbar-brand>
+      <b-navbar
+        id="nav"
+        toggleable="lg"
+        type="dark"
+        variant="dark"
+      >
+        <b-navbar-brand
+          to="/panf"
+          exact
+        >🍕&nbsp;PANF</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse-routes"></b-navbar-toggle>
 
-        <b-collapse id="nav-collapse-routes" is-nav>
+        <b-collapse
+          id="nav-collapse-routes"
+          is-nav
+        >
           <b-navbar-nav>
-            <b-nav-item to="/davinci-menu" exact>
-              <font-awesome-icon icon="file-alt"/>&nbsp;Da-Vinci
+            <b-nav-item
+              to="/davinci-menu"
+              exact
+            >
+              <font-awesome-icon icon="file-alt" />&nbsp;Da-Vinci
             </b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
             <b-nav-item @click="copyToClipboard">
-              <font-awesome-icon icon="phone"/>
+              <font-awesome-icon icon="phone" />
               <span ref="phone">&nbsp;06151 29 28 27</span>
             </b-nav-item>
             <b-nav-item>
@@ -27,30 +41,39 @@
                 variant="danger"
                 size="sm"
               >
-                <font-awesome-icon icon="trash"/>&nbsp;Liste Löschen
+                <font-awesome-icon icon="trash" />&nbsp;Liste Löschen
               </b-button>
             </b-nav-item>
-            <b-nav-item-dropdown text="Deutsch" right>
+            <b-nav-item-dropdown
+              text="Deutsch"
+              right
+            >
               <b-dropdown-item href="#">Deutsch</b-dropdown-item>
               <b-dropdown-item href="#">English</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
       </b-navbar>
-      <router-view/>
+      <router-view />
+
+      <hr />
+
+      <Footer />
     </b-container>
   </div>
 </template>
 
 <script>
 import ConfirmDeleteOrderListModal from '@/components/ConfirmDeleteOrderListModal.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   components: {
-    ConfirmDeleteOrderListModal
+    ConfirmDeleteOrderListModal,
+    Footer
   },
   computed: {
-    noOrderTime: function() {
+    noOrderTime: function () {
       const today = new Date().getHours()
       const START_HOUR_ORDER_PROCESS = 10
       const END_HOUR_ORDER_PROCESS = 14

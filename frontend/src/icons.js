@@ -15,6 +15,7 @@ import {faTimes} from '@fortawesome/free-solid-svg-icons/faTimes'
 import {faSave} from '@fortawesome/free-solid-svg-icons/faSave'
 import {faSearch} from '@fortawesome/free-solid-svg-icons/faSearch'
 import {faComment} from '@fortawesome/free-solid-svg-icons/faComment'
+import {faGithub} from '@fortawesome/free-brands-svg-icons/faGithub'
 
 library.add(
   faFileAlt,
@@ -31,7 +32,8 @@ library.add(
   faTimes,
   faSave,
   faSearch,
-  faComment
+  faComment,
+  faGithub
 )
 
 export default {
