@@ -17,13 +17,14 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 
 import config from './config.js'
 const connectionString = config.server.baseUrl
+const {socketIOPath} = config.server
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(new VueSocketIO({
   debug: false,
   connection: connectionString,
-  options: {path: '/panf_dev/'}
+  options: {path: socketIOPath}
 }))
 
 Vue.use(BootstrapVue)
