@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     handlePanfNavClick() {
-      if (this.$route.path === '/panf') {
+      if (this.$route.path === '/panf' || this.$route.path === '/panf/') {
         this.$router.go()
       } else {
         this.$router.push('/panf')
