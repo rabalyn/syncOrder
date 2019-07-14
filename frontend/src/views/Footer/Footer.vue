@@ -8,7 +8,7 @@
         variant="dark"
         class="footer-button"
       >
-        <font-awesome-icon :icon="['fab', 'github']" />&nbsp;Github
+        <font-awesome-icon :icon="['fab', 'github']" />&nbsp;{{$t('footer.github')}}
       </b-button>
 
       <b-button
@@ -16,7 +16,7 @@
         @click="$bvModal.show('dataPrivacyPolicy')"
         class="footer-button"
       >
-        <font-awesome-icon icon="file-alt" />&nbsp;Datenschutzerklärung
+        <font-awesome-icon icon="file-alt" />&nbsp;{{$t('footer.privacyPolicy')}}
       </b-button>
     </b-row>
 
@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import DataPrivacyPolicy from '@/components/DataPrivacyPolicy.vue'
+import DataPrivacyPolicy from './DataPrivacyPolicy.vue'
 
 export default {
   name: 'Footer',

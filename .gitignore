@@ -12,3 +12,4 @@ frontend/public/dist/*
 node_modules
 
 .vscode
+frontend/src/config.js
