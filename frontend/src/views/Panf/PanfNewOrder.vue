@@ -3,7 +3,7 @@
     id="orderContent"
     fluid
   >
-    <h4>Bestellung</h4>
+    <h4>{{$t('panf.newOrder.order')}}</h4>
     <b-row>
       <b-col
         xs="12"
@@ -18,7 +18,7 @@
           </b-input-group-text>
           <b-form-input
             v-model="name"
-            placeholder="Name"
+            :placeholder="$t('panf.newOrder.name')"
           ></b-form-input>
         </b-input-group>
       </b-col>
@@ -34,13 +34,13 @@
           </template>
           <b-dropdown
             id="mealDropdown"
-            text="Mahlzeiten"
+            :text="$t('panf.newOrder.meal')"
             variant="outline-secondary"
             boundary="window"
             dropright
             @shown="menulistDropdownClicked"
           >
-            <template slot="button-content">Mahlzeiten</template>
+            <template slot="button-content">{{$t('panf.newOrder.meal')}}</template>
 
             <b-input-group
               id="menulistFilterContainer"
@@ -52,7 +52,7 @@
               <b-form-input
                 ref="menulistFilterInput"
                 v-model="menulistFilter"
-                placeholder="Name oder Zutat filtern..."
+                :placeholder="$t('panf.newOrder.filterNameOrIngredient')"
               ></b-form-input>
             </b-input-group>
 
@@ -61,14 +61,14 @@
               v-for="(categoryMealList, category) in filteredMenulist"
             >
               <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-header>{{ category }}</b-dropdown-header>
+              <b-dropdown-header>{{ $t(`panf.newOrder.categories.${category}`) }}</b-dropdown-header>
               <b-dropdown-item
-                @click="choseMeal(meal)"
+                @click="chooseMeal(meal)"
                 v-bind:key="idx"
                 v-for="(meal, idx) in categoryMealList"
               >
-                {{ `${meal.name} ${formatPrice(meal.price)}€` }}
-                <small>{{ `(${meal.ingredients.join(', ')})` }}</small>
+                {{ $t(`panf.newOrder.meals.${meal.name}`) + `&nbsp;${formatPrice(meal.price)}€` }}
+                <small v-if="meal.ingredients[0]">{{ `(${meal.ingredients.map(x => $t(`panf.newOrder.extras.${x}`)).join(', ')})` }}</small>
               </b-dropdown-item>
             </div>
           </b-dropdown>
@@ -80,7 +80,7 @@
           variant="light"
         >
           {{ meal }} {{ formatPrice(mealPrice) }}€
-          <small>( {{ mealIngredients.join(', ') }})</small>
+          <small v-if="mealIngredients">( {{ mealIngredients.map(x => $t(`panf.newOrder.extras.${x}`)).join(', ') }})</small>
         </b-badge>
 
         <span v-else>&nbsp;</span>
@@ -103,7 +103,7 @@
             dropright
             @shown="extrasDropdownClicked"
           >
-            <template slot="button-content">Extras</template>
+            <template slot="button-content">{{$t('panf.newOrder.extra')}}</template>
 
             <b-input-group
               id="extralistFilterContainer"
@@ -125,7 +125,7 @@
               v-bind:key="extraIndex"
               v-for="(extra, extraIndex) in filteredExtralist"
             >
-              <small>{{ `${extra.name} ${formatPrice(extra.price)}€` }}</small>
+              <small>{{ $t(`panf.newOrder.extras.${extra.name}`) + `&nbsp;${formatPrice(extra.price)}€` }}</small>
             </b-dropdown-item>
           </b-dropdown>
         </b-input-group>
@@ -137,7 +137,7 @@
           v-for="(extra, idx) in extrasChosen"
         >
           <b-badge
-            v-if="extra.name.match(/ohne|Ohne|kein|Kein^-|^ -/)"
+            v-if="extra.name.match(/ohne|Ohne|kein|Kein|^-|^ -|^- |^ - /)"
             variant="danger"
           >
             {{ extra.name }}
@@ -196,21 +196,21 @@
           variant="success"
           :disabled="isPlaceOrderDisabled"
           @click="placeOrder"
-        >Bestellen</b-button>&nbsp;&nbsp;
+        >{{$t('panf.newOrder.btnOrder')}}</b-button>&nbsp;&nbsp;
         <b-button
           class="mt-3"
           size="sm"
           variant="danger"
           :disabled="isResetOrderDisabled"
           @click="resetOrder"
-        >Auswahl zurücksetzen</b-button>
+        >{{$t('panf.newOrder.btnReset')}}</b-button>
       </b-col>
     </b-row>
   </b-container>
 </template>
 
 <script>
-import config from '../config.js'
+import config from '../../config.js'
 
 import debug from 'debug'
 const log = debug('panf:newOrder:info')
@@ -287,6 +287,23 @@ export default {
     }
   },
   methods: {
+    loadSession() {
+      this.$http.get(`${config.server.apiUrl}/order/loadSession`)
+        .then((res) => {
+          const session = res.data
+
+          if (session && session.order) {
+            this.name = session.order.name
+            this.meal = session.order.meal
+            this.mealIngredients = session.order.ingredients || []
+            this.mealPrice = session.order.mealPrice
+            this.extrasChosen = session.order.extras || []
+            // eslint-disable-next-line
+            this.extrasPrice = session.order.extrasPrice || 0.0
+            this.orderId = session.order.orderId || null
+          }
+        })
+    },
     formatPrice(value) {
       // eslint-disable-next-line
       const val = (value / 1).toFixed(2).replace('.', ',')
@@ -304,7 +321,7 @@ export default {
         ? searchedExtra[0]
         : null
     },
-    choseMeal(meal) {
+    chooseMeal(meal) {
       this.menulistFilter = ''
       this.meal = meal.name
       this.mealPrice = meal.price
@@ -369,6 +386,7 @@ export default {
         this.$socket.emit('POSTorder', {
           name: this.name,
           meal: this.meal,
+          ingredients: this.mealIngredients,
           mealPrice: this.mealPrice,
           extras: this.extrasChosen,
           extrasPrice: this.extrasPrice,
@@ -405,6 +423,7 @@ export default {
       if (session && session.order) {
         this.name = session.order.name
         this.meal = session.order.meal
+        this.mealIngredients = session.order.ingredients || []
         this.mealPrice = session.order.mealPrice
         this.extrasChosen = session.order.extras || []
         // eslint-disable-next-line
@@ -412,6 +431,8 @@ export default {
         this.orderId = session.order.orderId || null
       }
     })
+
+    this.loadSession()
 
     this.sockets.subscribe('reloadOrder', () => {
       this.resetOrder()

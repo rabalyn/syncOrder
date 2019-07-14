@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h4>Allgemeine Bestellinformationen</h4>
+    <h4>{{$t('panf.metaData.title')}}</h4>
     <b-row>
       <b-col
         sm="12"
@@ -46,7 +46,6 @@
           <b-form-input
             @update="syncCaller"
             v-model="caller"
-            value="foo"
           ></b-form-input>
         </b-input-group>
       </b-col>
@@ -69,6 +68,8 @@
 </template>
 
 <script>
+import config from '../../config'
+
 export default {
   name: 'PanfMetaData',
   props: {},
@@ -82,6 +83,15 @@ export default {
   },
   computed: {},
   methods: {
+    loadMeta() {
+      this.$http.get(`${config.server.apiUrl}/order/loadMetadata`)
+        .then((res) => {
+          this.updateMeta(res.data)
+        })
+        .catch((error) => {
+          console.error('could not fetch meta data: ', error)
+        })
+    },
     updateMeta(meta) {
       this.dateString = meta.dateString || ''
 
@@ -115,6 +125,8 @@ export default {
       this.updateMeta(meta)
     })
 
+    this.loadMeta()
+
     this.sockets.subscribe('pushDate', (dateString) => {
       this.dateString = dateString
     })
@@ -141,9 +153,9 @@ export default {
 
     this.sockets.subscribe('trollProtection', () => {
       this.$bvToast.toast(
-        'Wir bestellen gerade! Das Löschen der Liste ist solange blockiert.',
+        this.$t('panf.metaData.trollProtectionText'),
         {
-          title: 'Bestellung aktiv',
+          title: this.$t('panf.metaData.orderActive'),
           variant: 'danger',
           solid: true,
           autoHideDelay: 7500

@@ -6,7 +6,7 @@
 
 <script>
 
-import DaVinciMenuTable from '@/components/DaVinciMenuTable.vue'
+import DaVinciMenuTable from './DaVinciMenuTable.vue'
 
 export default {
   name: 'daVinci',

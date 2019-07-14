@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <h4>Bestellungen</h4>
+    <h4>{{$t('panf.orderTable.order')}}</h4>
     <b-table
       show-empty
       responsive
@@ -8,16 +8,17 @@
       hover
       v-if="showOrderList.length > 1"
       :items="showOrderList"
-      :empty-text="noOrdersText"
+      :empty-text="$t('panf.orderTable.noOrdersText')"
     >
       <template slot="HEAD_id">#</template>
       <template
         slot="id"
         slot-scope="row"
-      >{{ row.value }}</template>
+        v-if="row.item.name"
+      >{{ row.index + 1 }}</template>
 
       <template slot="HEAD_name">
-        <font-awesome-icon icon="box" />Name
+        <font-awesome-icon icon="box" />{{$t('panf.orderTable.name')}}
       </template>
       <template
         slot="name"
@@ -25,7 +26,7 @@
       >{{ row.value }}</template>
 
       <template slot="HEAD_meal">
-        <font-awesome-icon icon="box" />Bestellung
+        <font-awesome-icon icon="box" />{{$t('panf.orderTable.order')}}
       </template>
       <template
         slot="meal"
@@ -33,7 +34,7 @@
       >{{ row.value }}</template>
 
       <template slot="HEAD_extras">
-        <font-awesome-icon icon="comment" />Kommentar
+        <font-awesome-icon icon="comment" />{{$t('panf.orderTable.comment')}}
       </template>
       <template
         slot="extras"
@@ -52,14 +53,14 @@
             <b-badge
               v-else
               variant="success"
-            >+{{ extra.name }} ({{ formatPrice(extra.price) }}€)</b-badge>&nbsp;
+            >+{{ $t(`panf.newOrder.extras.${extra.name}`) }} ({{ formatPrice(extra.price) }}€)</b-badge>&nbsp;
           </span>
         </div>
-        <span v-else>Gesamt:</span>
+        <span v-else>{{$t(`panf.orderTable.sum`)}}:</span>
       </template>
 
       <template slot="HEAD_price">
-        <font-awesome-icon icon="money-bill-alt" />Kosten
+        <font-awesome-icon icon="money-bill-alt" />{{$t(`panf.orderTable.cost`)}}
       </template>
       <template
         slot="price"
@@ -70,7 +71,7 @@
       </template>
 
       <template slot="HEAD_prepaid">
-        <font-awesome-icon icon="money-bill-alt" />Anzahlung
+        <font-awesome-icon icon="money-bill-alt" />{{$t('panf.orderTable.prepaid')}}
       </template>
       <template
         slot="prepaid"
@@ -90,12 +91,14 @@
       </template>
     </b-table>
     <p v-else>
-      Noch keine Bestellungen vorhanden.
+      {{$t('panf.orderTable.noOrdersText')}}
     </p>
   </b-container>
 </template>
 
 <script>
+import config from '../../config'
+
 export default {
   name: 'PanfOrderTable',
   props: {},
@@ -103,8 +106,8 @@ export default {
     return {
       fields: ['id', 'name', 'meal', 'extras', 'mealPrice', 'prepaid'],
       orders: [],
-      prepaidSum: 0,
-      noOrdersText: 'Noch keine Bestellung vorhanden.'
+      prepaidCharges: [],
+      prepaidSum: 0
     }
   },
   computed: {
@@ -118,6 +121,11 @@ export default {
       return `${this.formatPrice(this.prepaidSum)}€`
     },
     showOrderList: function () {
+      for (let i = 0; i < this.orders.length; i++) {
+        if (this.prepaidCharges[i]) {
+          this.orders[i].prepaid = parseFloat(this.prepaidCharges[i])
+        }
+      }
       const newShowOrderList = this.orders.map((order) => {
         return {
           id: order.tableId,
@@ -125,7 +133,7 @@ export default {
           meal: order.meal,
           extras: order.extras,
           price: order.mealPrice + order.extrasPrice,
-          prepaid: 0
+          prepaid: order.prepaid
         }
       })
 
@@ -142,9 +150,9 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
     updatePrepaidSum() {
-      this.prepaidSum = this.showOrderList.reduce((prev, curr) => {
-        if (curr.prepaid) {
-          return prev + parseFloat(curr.prepaid)
+      this.prepaidSum = this.prepaidCharges.reduce((prev, curr) => {
+        if (curr) {
+          return prev + parseFloat(curr)
         } else {
           return prev
         }
@@ -163,6 +171,24 @@ export default {
         solid: true,
         autoHideDelay: 7500
       })
+    },
+    loadOrders() {
+      this.$http.get(`${config.server.apiUrl}/order/getAllOrderList`)
+        .then((res) => {
+          this.orders = res.data
+        })
+        .catch((error) => {
+          console.error('could not fetch orders: ', error)
+        })
+    },
+    loadPrepaidCharges() {
+      this.$http.get(`${config.server.apiUrl}/order/getPrepaidCharges`)
+        .then((res) => {
+          this.prepaidCharges = res.data
+        })
+        .catch((error) => {
+          console.error('could not fetch prepaid charges: ', error)
+        })
     }
   },
   watch: {
@@ -171,10 +197,28 @@ export default {
         return newVal
       },
       deep: true
+    },
+    prepaidCharges: {
+      handler: function (newVal) {
+        this.prepaidSum = newVal.reduce((prev, curr) => {
+          if (curr) {
+            return prev + parseFloat(curr)
+          } else {
+            return prev
+          }
+          // eslint-disable-next-line
+        }, 0.0)
+
+        return newVal
+      },
+      deep: true
     }
   },
   created: function () { },
   mounted: function () {
+    this.loadOrders()
+    this.loadPrepaidCharges()
+
     this.sockets.subscribe('initOrders', (orders) => {
       this.orders = orders
     })
@@ -191,9 +235,9 @@ export default {
     this.sockets.subscribe('showOrderReceiption', (order) => {
       this.makeToast({
         title: 'Bestellung erhalten',
-        content: `Hey ${order.name}! \n ${
+        content: `Hey ${order.name} ! \n ${
           order.meal
-        } wurde zur Liste der Bestellungen hinzugefügt :-) \n Guten Hunger!`,
+          } wurde zur Liste der Bestellungen hinzugefügt: -) \n Guten Hunger!`,
         variant: 'info'
       })
     })
@@ -203,7 +247,7 @@ export default {
         title: 'Bestellung abgelehnt',
         content: `Hey ${
           order.name
-        }! \n Dein Name steht leider schon auf der Liste. Du musst einen anderen wählen.`,
+          } ! \n Dein Name steht leider schon auf der Liste.Du musst einen anderen wählen.`,
         variant: 'danger'
       })
     })

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Panf from './views/Panf.vue'
+import Panf from './views/Panf/Panf.vue'
 
 Vue.use(Router)
 
@@ -19,7 +19,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('./views/DaVinci.vue')
+      component: () => import('./views/DaVinci/DaVinci.vue')
     },
     {
       path: '*',
