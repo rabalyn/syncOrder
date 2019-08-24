@@ -75,13 +75,42 @@ export default {
   props: {},
   data: function () {
     return {
-      dateString: '',
-      collectTime: '',
-      caller: '',
-      collector: ''
     }
   },
-  computed: {},
+  computed: {
+    collector: {
+      get() {
+        return this.$store.state.metaInfo.collector
+      },
+      set(val) {
+        this.$store.commit('updateCollector', val)
+      }
+    },
+    dateString: {
+      get() {
+        return this.$store.state.metaInfo.dateString
+      },
+      set(val) {
+        this.$store.commit('updateDate', val)
+      }
+    },
+    collectTime: {
+      get() {
+        return this.$store.state.metaInfo.collectTime
+      },
+      set(val) {
+        this.$store.commit('updateCollectTime', val)
+      }
+    },
+    caller: {
+      get() {
+        return this.$store.state.metaInfo.caller
+      },
+      set(val) {
+        this.$store.commit('updateCaller', val)
+      }
+    }
+  },
   methods: {
     loadMeta() {
       this.$http.get(`${config.server.apiUrl}/order/loadMetadata`)
