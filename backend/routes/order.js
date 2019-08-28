@@ -1,3 +1,5 @@
+import knex from '../knex/knex.js'
+
 import debug from 'debug'
 
 const express = require('express')
@@ -9,7 +11,21 @@ log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
 router.get('/loadMetadata', (req, res) => {
-  res.json(global.panf.meta)
+  knex
+    .select()
+    .from('meta')
+    .then((rows) => {
+      const metaObj = {}
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i]
+        const {key} = row
+        const val = row.value
+        metaObj[key] = val
+      }
+
+      return metaObj
+    })
+    .then((rows) => res.json(rows))
 })
 
 router.get('/loadSession', (req, res) => {
@@ -21,8 +37,6 @@ router.get('/getAllOrderList', (req, res) => {
 })
 
 router.get('/getPrepaidCharges', (req, res) => {
-  log(global.panf)
-
   res.json(global.panf.paied)
 })
 

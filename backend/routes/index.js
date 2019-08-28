@@ -1,7 +1,10 @@
-const express = require('express')
+import express from 'express'
+
 const router = express.Router()
 
-router.use('/order', require('./order.js'))
+const order = require('./order')
+
+router.use('/order', order)
 router.use('/hobbit', require('./hobbit'))
 router.use('/davinci', require('./davinci'))
 

@@ -122,13 +122,12 @@ export default {
         })
     },
     updateMeta(meta) {
-      this.dateString = meta.dateString || ''
-
-      if (this.dateString === '') {
+      if (meta.dateString === null) {
         this.dateString = new Date().toISOString()
           // eslint-disable-next-line
           .slice(0, 10)
-        this.syncDateString()
+      } else {
+        this.dateString = meta.dateString
       }
       this.collectTime = meta.collectTime || ''
       this.caller = meta.caller || ''
