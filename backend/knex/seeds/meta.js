@@ -4,11 +4,6 @@ exports.seed = function(knex) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('meta').insert([
-        {id: 1, key: 'dateString', value: ''},
-        {id: 2, key: 'collectTime', value: ''},
-        {id: 3, key: 'caller', value: ''},
-        {id: 4, key: 'collector', value: ''}
-      ])
+      return knex('meta').insert([{id: 1, caller: '', collector: '', collecttime: '', datestring: ''}])
     })
 }

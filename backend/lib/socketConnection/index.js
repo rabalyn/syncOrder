@@ -33,30 +33,34 @@ module.exports.panfIO = function(http, sharedSession, config) {
     log('initPaied to new user: %O', global.panf.paied)
     socket.emit('initPaied', global.panf.paied)
 
-    if (
-      socket &&
-      socket.request &&
-      socket.request.session &&
-      socket.request.session.panf
-    ) {
+    if (socket && socket.request && socket.request.session && socket.request.session.panf) {
       socket.emit('loadSession', socket.request.session.panf)
     }
 
     /*
         META DATA
     */
-    socket.emit('initMeta', global.panf.meta)
+    knex
+      .first('caller', 'collector', 'collecttime', 'datestring')
+      .from('meta')
+      .then((cols) => {
+        socket.emit('initMeta', cols)
+      })
 
     socket.on('loadMeta', () => {
-      socket.emit('sendMeta', global.panf.meta)
+      knex
+        .first('caller', 'collector', 'collecttime', 'datestring')
+        .from('meta')
+        .then((cols) => {
+          socket.emit('sendMeta', cols)
+        })
     })
 
     socket.on('syncDate', (dateString) => {
       if (dateString) {
         socket.broadcast.emit('pushDate', dateString)
         knex('meta')
-          .update({value: dateString})
-          .where('key', '=', 'dateString')
+          .update({datestring: dateString})
           .then((successState) => {
             if (successState !== KNEX_UPDATE_SUCCESS) {
               logerror('could not update dateString')
@@ -68,8 +72,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
     socket.on('syncCollectTime', (collectTime) => {
       socket.broadcast.emit('pushCollectTime', collectTime)
       knex('meta')
-        .update({value: collectTime})
-        .where('key', '=', 'collectTime')
+        .update({collecttime: collectTime})
         .then((successState) => {
           if (successState !== KNEX_UPDATE_SUCCESS) {
             logerror('could not update collectTime')
@@ -80,8 +83,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
     socket.on('syncCaller', (caller) => {
       socket.broadcast.emit('pushCaller', caller)
       knex('meta')
-        .update({value: caller})
-        .where('key', '=', 'caller')
+        .update({caller: caller})
         .then((successState) => {
           if (successState !== KNEX_UPDATE_SUCCESS) {
             logerror('could not update caller')
@@ -92,8 +94,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
     socket.on('syncCollector', (collector) => {
       socket.broadcast.emit('pushCollector', collector)
       knex('meta')
-        .update({value: collector})
-        .where('key', '=', 'collector')
+        .update({collector: collector})
         .then((successState) => {
           if (successState !== KNEX_UPDATE_SUCCESS) {
             logerror('could not update collector')
@@ -119,19 +120,21 @@ module.exports.panfIO = function(http, sharedSession, config) {
         logdebug('resetting state...')
         global.panf.tableId = 1
         global.panf.orders = []
-        global.panf.meta = {}
         global.panf.paied = []
-        serializer.sync(
-          global.panf.tableId,
-          global.panf.orders,
-          global.panf.meta,
-          global.panf.paied
-        )
+        serializer.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
 
-        io.sockets.emit('destroySession')
-        io.sockets.emit('reloadMeta')
-        io.sockets.emit('reloadOrder')
-        io.sockets.emit('initOrders')
+        knex('meta')
+          .update({caller: '', collector: '', collecttime: '', datestring: ''})
+          .then((successState) => {
+            if (successState !== KNEX_UPDATE_SUCCESS) {
+              logerror('could not update collector')
+            }
+
+            // io.sockets.emit('destroySession')
+            io.sockets.emit('reloadMeta')
+            io.sockets.emit('reloadOrder')
+            io.sockets.emit('initOrders')
+          })
       } else {
         log('we are in order process...')
         socket.emit('trollProtection', {
@@ -142,12 +145,7 @@ module.exports.panfIO = function(http, sharedSession, config) {
     })
 
     socket.on('destroySession', () => {
-      if (
-        socket &&
-        socket.request &&
-        socket.request.session &&
-        socket.request.session.panf
-      ) {
+      if (socket && socket.request && socket.request.session && socket.request.session.panf) {
         socket.request.session.destroy()
         io.sockets.emit('loadSession', {})
       } else {
