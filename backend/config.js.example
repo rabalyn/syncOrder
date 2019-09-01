@@ -1,4 +1,4 @@
-import path from 'path'
+const path = require('path')
 
 let config = {
   app: {
@@ -10,6 +10,22 @@ let config = {
     resave: false,
     saveUninitialized: true
   },
+  postgres: {
+    devel: {
+      connectionString: 'postgres://$DEVUSER:$PASSWORD@127.0.0.1:5432/$DEVDATABASE'
+    },
+    staging: {
+      connectionString: 'postgres://$STAGINGUSER:$PASSWORD@127.0.0.1:5432/$STAGINGDATABASE'
+    },
+    production: {
+      connectionString: 'postgres://$PRODUCTIONUSER:$PASSWORD@127.0.0.1:5432/$PRODUCTIONDATABASE'
+    }
+  },
+  redis: {
+    host: '127.0.0.1',
+    port: 6379,
+    password: '$PASSWORD'
+  },
   serialization: {
     tableIdFilestorepath: path.join(__dirname, '..', 'data', 'tableId.txt'),
     ordersFilestorepath: path.join(__dirname, '..', 'data', 'orders.json'),
@@ -18,7 +34,6 @@ let config = {
     interval: 1000 * 60 * 5
   },
   socket: {
-
   }
 }
 

@@ -5,11 +5,12 @@ import config from './config'
 
 import express from 'express'
 import router from './routes'
-import helmet from 'helmet'
 
+import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 
 import session from 'express-session'
+import redis from 'redis'
 import connectRedis from 'connect-redis'
 
 import http from 'http'
@@ -34,8 +35,19 @@ const SECONDS_IN_ONE_MINUTE = 60
 const MILLI_FACTOR = 1000
 const ONE_YEAR = DAYS_IN_ONE_YEAR * HOURS_IN_ONE_DAY * MINUTES_IN_ONE_HOUR * SECONDS_IN_ONE_MINUTE * MILLI_FACTOR
 
+const client = redis.createClient({
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.password,
+  db: 1
+})
+client.unref()
+client.on('error', logerror)
+
+const store = new RedisStore({client})
+
 const sharedSession = session({
-  store: new RedisStore(),
+  store: store,
   secret: config.cookie.secret,
   resave: config.cookie.resave,
   saveUninitialized: config.cookie.saveUninitialized,

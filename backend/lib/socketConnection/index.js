@@ -1,6 +1,9 @@
 import Moment from 'moment'
 import debug from 'debug'
 
+import knex from '../../knex/knex.js'
+const KNEX_UPDATE_SUCCESS = 1
+
 const log = debug('panf:lib:socket:info')
 const logdebug = debug('panf:lib:socket:debug')
 log.log = console.log.bind(console)
@@ -37,30 +40,66 @@ module.exports.panfIO = function(http, sharedSession, config) {
     /*
         META DATA
     */
-    socket.emit('initMeta', global.panf.meta)
+    knex
+      .first('caller', 'collector', 'collecttime', 'datestring')
+      .from('meta')
+      .then((cols) => {
+        socket.emit('initMeta', cols)
+      })
 
     socket.on('loadMeta', () => {
-      socket.emit('sendMeta', global.panf.meta)
+      knex
+        .first('caller', 'collector', 'collecttime', 'datestring')
+        .from('meta')
+        .then((cols) => {
+          socket.emit('sendMeta', cols)
+        })
     })
 
     socket.on('syncDate', (dateString) => {
-      global.panf.meta.dateString = dateString
-      socket.broadcast.emit('pushDate', dateString)
+      if (dateString) {
+        socket.broadcast.emit('pushDate', dateString)
+        knex('meta')
+          .update({datestring: dateString})
+          .then((successState) => {
+            if (successState !== KNEX_UPDATE_SUCCESS) {
+              logerror('could not update dateString')
+            }
+          })
+      }
     })
 
     socket.on('syncCollectTime', (collectTime) => {
-      global.panf.meta.collectTime = collectTime
       socket.broadcast.emit('pushCollectTime', collectTime)
+      knex('meta')
+        .update({collecttime: collectTime})
+        .then((successState) => {
+          if (successState !== KNEX_UPDATE_SUCCESS) {
+            logerror('could not update collectTime')
+          }
+        })
     })
 
     socket.on('syncCaller', (caller) => {
-      global.panf.meta.caller = caller
       socket.broadcast.emit('pushCaller', caller)
+      knex('meta')
+        .update({caller: caller})
+        .then((successState) => {
+          if (successState !== KNEX_UPDATE_SUCCESS) {
+            logerror('could not update caller')
+          }
+        })
     })
 
     socket.on('syncCollector', (collector) => {
-      global.panf.meta.collector = collector
       socket.broadcast.emit('pushCollector', collector)
+      knex('meta')
+        .update({collector: collector})
+        .then((successState) => {
+          if (successState !== KNEX_UPDATE_SUCCESS) {
+            logerror('could not update collector')
+          }
+        })
     })
     /*
         // META DATA
@@ -81,14 +120,21 @@ module.exports.panfIO = function(http, sharedSession, config) {
         logdebug('resetting state...')
         global.panf.tableId = 1
         global.panf.orders = []
-        global.panf.meta = {}
         global.panf.paied = []
         serializer.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
 
-        io.sockets.emit('destroySession')
-        io.sockets.emit('reloadMeta')
-        io.sockets.emit('reloadOrder')
-        io.sockets.emit('initOrders')
+        knex('meta')
+          .update({caller: '', collector: '', collecttime: '', datestring: ''})
+          .then((successState) => {
+            if (successState !== KNEX_UPDATE_SUCCESS) {
+              logerror('could not update collector')
+            }
+
+            // io.sockets.emit('destroySession')
+            io.sockets.emit('reloadMeta')
+            io.sockets.emit('reloadOrder')
+            io.sockets.emit('initOrders')
+          })
       } else {
         log('we are in order process...')
         socket.emit('trollProtection', {
