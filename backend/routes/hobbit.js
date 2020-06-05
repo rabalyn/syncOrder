@@ -13,6 +13,8 @@ router.get('/', (req, res) => {
   res.render('hobbit')
 })
 
-router.get('/getHobbitMenu', hobbitMenu.getMenu)
+router.get('/getHobbitMenu', (req, res) => {
+  hobbitMenu.getMenu(req, res)
+})
 
 module.exports = router

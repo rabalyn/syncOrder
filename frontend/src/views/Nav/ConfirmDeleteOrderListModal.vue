@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'ConfirmDeleteOrderListModal',
+  name: `ConfirmDeleteOrderListModal`,
   props: {
   },
   data: function () {
@@ -44,8 +44,8 @@ export default {
   computed: {
   },
   methods: {
-    clearOrderList() {
-      this.$socket.emit('clearList')
+    clearOrderList () {
+      this.$socket.emit(`clearList`)
     }
   },
   watch: {

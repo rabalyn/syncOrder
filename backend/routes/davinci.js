@@ -13,6 +13,8 @@ router.get('/', (req, res) => {
   res.render('davinci')
 })
 
-router.get('/getDaVinciMenu', davinciMenu.getMenu)
+router.get('/getDaVinciMenu', (req, res) => {
+  davinciMenu.getMenu(req, res)
+})
 
 module.exports = router

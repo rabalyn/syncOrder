@@ -415,40 +415,40 @@
 import config from '../../config.js'
 
 export default {
-  name: 'DaVinciMenuTable',
+  name: `DaVinciMenuTable`,
   data: function () {
     return {
       fields: {
         'number': {
-          label: 'Nummer',
+          label: `Nummer`,
           sortable: true
         },
         'name': {
-          label: 'Name',
+          label: `Name`,
           sortable: true
         },
         'ingredients': {
-          label: 'Zutaten'
+          label: `Zutaten`
         },
         'price': {
-          label: 'Preis',
+          label: `Preis`,
           sortable: true
         }
       },
       menu: [],
-      captionPizza: 'Pizza',
+      captionPizza: `Pizza`,
       isVisible: true,
-      captionPizzabread: 'Pizzabrote',
-      captionPasta: 'Pasta',
-      captionVariations: 'Variationen',
-      captionAntipasti: 'Antipasti',
-      captionSoup: 'Suppen',
-      captionSalad: 'Salate',
-      captionFish: 'Fisch',
-      captionPork: 'Schweinefleisch',
-      captionVeal: 'Kalbfleisch',
-      captionBeef: 'Rindfleisch',
-      captionExtras: 'Extras'
+      captionPizzabread: `Pizzabrote`,
+      captionPasta: `Pasta`,
+      captionVariations: `Variationen`,
+      captionAntipasti: `Antipasti`,
+      captionSoup: `Suppen`,
+      captionSalad: `Salate`,
+      captionFish: `Fisch`,
+      captionPork: `Schweinefleisch`,
+      captionVeal: `Kalbfleisch`,
+      captionBeef: `Rindfleisch`,
+      captionExtras: `Extras`
     }
   },
   props: {
@@ -456,11 +456,11 @@ export default {
   computed: {
   },
   methods: {
-    formatPrice(value) {
+    formatPrice (value) {
       // eslint-disable-next-line
       const val = (value / 1).toFixed(2).replace('.', ',')
 
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `.`)
     }
   },
   watch: {

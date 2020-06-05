@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'ClearOrderListButton',
+  name: `ClearOrderListButton`,
   props: {
   },
   data: function () {

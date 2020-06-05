@@ -1,10 +1,11 @@
+/* eslint-disable */
+
 module.exports = {
   extends: ['plugin:vue/essential'],
   parser: 'vue-eslint-parser',
   parserOptions: {
     sourceType: 'module',
     parser: 'babel-eslint',
-    sourceType: 'module',
     allowImportExportEverywhere: false
   },
   plugins: ['vue'],
@@ -36,7 +37,7 @@ module.exports = {
     'line-comment-position': 2,
     'linebreak-style': 2,
     'max-depth': 2,
-    'max-len': ['error', { code: 120 }],
+    'max-len': ['error', {code: 120}],
     'max-statements-per-line': 1,
     'multiline-ternary': 2,
     'newline-before-return': 2,
@@ -113,11 +114,12 @@ module.exports = {
     'one-var-declaration-per-line': 2,
     'prefer-const': 2,
     'prefer-destructuring': 2,
-    quotes: [2, 'single'],
+    quotes: [2, 'backtick'],
     'require-atomic-updates': 2,
     'require-await': 2,
-    semi: [2, 'never'],
+    semi: [1, 'never'],
     'spaced-comment': 2,
+    'space-before-function-paren': ['error', 'always'],
     strict: 2,
     'switch-colon-spacing': 2,
     'wrap-iife': 2
