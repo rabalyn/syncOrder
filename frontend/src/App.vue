@@ -2,7 +2,7 @@
   <div>
     <ConfirmDeleteOrderListModal></ConfirmDeleteOrderListModal>
 
-    <b-container id="app">
+    <b-container fluid id="app">
       <b-navbar
         id="nav"
         toggleable="lg"
@@ -46,7 +46,20 @@
             </b-nav-item>
 
             <LanguageSelector :langs="['de', 'en']" />
+
+            <b-nav-item
+              to="/login"
+              exact
+            >
+              <span v-if="!displayname">
+                <font-awesome-icon icon="user" />&nbsp;Login
+              </span>
+              <span v-else>
+                <font-awesome-icon icon="user" />&nbsp;{{displayname}}
+              </span>
+            </b-nav-item>
           </b-navbar-nav>
+
         </b-collapse>
       </b-navbar>
 
@@ -61,6 +74,8 @@
 </template>
 
 <script>
+import config from './config'
+
 import AutoCopyNavItemText from './views/Nav/AutoCopyNavItemText.vue'
 import ConfirmDeleteOrderListModal from './views/Nav/ConfirmDeleteOrderListModal.vue'
 import ClearOrderListButton from './views/Nav/ClearOrderListButton.vue'
@@ -78,14 +93,32 @@ export default {
   data: function () {
     return {}
   },
+  mounted: function () {
+    this.$http(`${config.server.apiUrl}/auth/init`)
+      .then((res) => {
+        const userObj = res.data
+        this.$store.commit(`updateMe`, userObj)
+      })
+      .catch((reason) => {
+        console.error(reason)
+      })
+  },
   computed: {
+    displayname: {
+      get () {
+        return this.$store.state.user.displayname
+      },
+      set (val) {
+        this.$store.commit(`updateMyDisplayname`, val)
+      }
+    }
   },
   methods: {
-    handlePanfNavClick() {
-      if (this.$route.path === '/panf' || this.$route.path === '/panf/') {
+    handlePanfNavClick () {
+      if (this.$route.path === `/panf` || this.$route.path === `/panf/`) {
         this.$router.go()
       } else {
-        this.$router.push('/panf')
+        this.$router.push(`/panf`)
       }
     }
   }

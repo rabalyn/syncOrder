@@ -1,5 +1,5 @@
 <template>
-  <b-container class="mt-4">
+  <b-container fluid class="mt-4">
     <b-row>
 
       <b-col cols="12">
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'PanfFormInfo',
+  name: `PanfFormInfo`,
   props: {
   }
 }

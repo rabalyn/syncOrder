@@ -1,43 +1,60 @@
-import knex from '../knex/knex.js'
-
 import debug from 'debug'
+import order from '../lib/order'
 
 const express = require('express')
 const router = express.Router()
 
 const log = debug('panf:routes:order:info')
 const logdebug = debug('panf:routes:order:debug')
+const logerror = debug('panf:routes:order:error')
 log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
-router.get('/loadMetadata', (req, res) => {
-  knex
-    .select()
-    .from('meta')
-    .then((rows) => {
-      const metaObj = {}
-      for (let i = 0; i < rows.length; i++) {
-        const row = rows[i]
-        const {key} = row
-        const val = row.value
-        metaObj[key] = val
-      }
+module.exports = function(panfIO) {
+  router.get('/loadSession', (req, res) => {
+    return res.json(req.session.panf)
+  })
 
-      return metaObj
-    })
-    .then((rows) => res.json(rows))
-})
+  log('foobar')
+  router.get('/newOrder', async (req, res) => {
+    log('/newOrder')
+    panfIO.emit('reloadMeta')
+    try {
+      await order.prepareNewOrder()
+    } catch (error) {
+      logerror('/newOrder: %O', error)
+      res.statusCode = 500
 
-router.get('/loadSession', (req, res) => {
-  res.json(req.session.panf)
-})
+      return res.end()
+    }
 
-router.get('/getAllOrderList', (req, res) => {
-  res.json(global.panf.orders)
-})
+    return res.json({status: 'success'})
+  })
 
-router.get('/getPrepaidCharges', (req, res) => {
-  res.json(global.panf.paied)
-})
+  router.get('/getAllOrderList', async (req, res) => {
+    try {
+      const orders = await order.getAllOrders()
 
-module.exports = router
+      return res.json(orders)
+    } catch (error) {
+      res.statusCode = 500
+
+      return res.json(error)
+    }
+  })
+
+  router.get('/getPrepaidCharges', async (req, res) => {
+    try {
+      const prepaidCharges = await order.getPrepaidCharges()
+
+      return res.json(prepaidCharges)
+    } catch (error) {
+      res.statusCode = 500
+
+      return res.json(error)
+    }
+  })
+
+  return router
+
+}

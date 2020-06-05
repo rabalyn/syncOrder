@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <b-container fluid>
     <PanfFormInfo />
     <PanfMetaData />
 
@@ -21,7 +21,7 @@ import PanfNewOrder from './PanfNewOrder.vue'
 import PanfOrderTable from './PanfOrderTable.vue'
 
 export default {
-  name: 'panf',
+  name: `panf`,
   components: {
     PanfFormInfo,
     PanfMetaData,
@@ -34,15 +34,19 @@ export default {
   },
   computed: {},
   methods: {
-    destroySession() {
-      this.$socket.emit('destroySession')
+    destroySession () {
+      this.$socket.client.emit(`destroySession`)
     }
   },
   watch: {},
   created: function () { },
-  mounted: function () {
-    this.sockets.subscribe('destroySession', () => {
+  mounted () {
+    this.$socket.$subscribe(`destroySession`, () => {
       this.destroySession()
+    })
+
+    this.$socket.$subscribe(`foo`, (foo) => {
+      console.log(`foo: `, foo)
     })
   }
 }

@@ -17,10 +17,10 @@
 
 <script>
 export default {
-  name: 'LanguageSelector',
+  name: `LanguageSelector`,
   props: {
     langs: {
-      default: [],
+      default: () => [],
       type: Array
     }
   },
@@ -31,7 +31,7 @@ export default {
   computed: {
   },
   methods: {
-    setLanguage(lang) {
+    setLanguage (lang) {
       this.$i18n.locale = lang
     }
   },

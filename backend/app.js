@@ -1,5 +1,4 @@
 import debug from 'debug'
-import fs from 'fs'
 
 import config from './config'
 
@@ -8,6 +7,7 @@ import router from './routes'
 
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
+import bodyParser from 'body-parser'
 
 import session from 'express-session'
 import redis from 'redis'
@@ -16,7 +16,6 @@ import connectRedis from 'connect-redis'
 import http from 'http'
 
 import socket from './lib/socketConnection'
-import SerializeJson from './lib/serializeJson'
 
 const log = debug('panf:app:info')
 const logdebug = debug('panf:app:debug')
@@ -38,7 +37,7 @@ const ONE_YEAR = DAYS_IN_ONE_YEAR * HOURS_IN_ONE_DAY * MINUTES_IN_ONE_HOUR * SEC
 const client = redis.createClient({
   host: config.redis.host,
   port: config.redis.port,
-  password: config.redis.password,
+  // password: config.redis.password,
   db: 1
 })
 client.unref()
@@ -65,83 +64,35 @@ const app = express()
 const COUNT_TRUSTED_PROXIES = 1
 app.set('trust proxy', COUNT_TRUSTED_PROXIES)
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 app.use(cookieParser())
 app.use(sharedSession)
 app.use(helmet({
   hsts: false
 }))
 
-// should be redis instead? or implement postgres store for this + new features like user administration
-const DEFAULT_TABLE_ID = 1
-global.panf = {}
+function isAuthed(req, res, next) {
+  req.session.reload((err) => {
+    if (err) {
+      logerror('isAuthed failed: %O', err)
+    }
 
-fs.readFile(config.serialization.tableIdFilestorepath, 'utf-8', (error, data) => {
-  if (error) {
-    fs.writeFile(config.serialization.tableIdFilestorepath, DEFAULT_TABLE_ID, (err) => {
-      if (err) {
-        logerror('could not initialize tableId: %O', err)
-      } else {
-        global.panf.tableId = DEFAULT_TABLE_ID
+    if (!req.session.user) {
+      req.session.user = {
+        isAuthed: false
       }
-    })
-  } else {
-    global.panf.tableId = JSON.parse(data)
-  }
-})
+    }
+    next()
+  })
+}
 
-fs.readFile(config.serialization.ordersFilestorepath, 'utf-8', (error, data) => {
-  if (error) {
-    fs.writeFile(config.serialization.ordersFilestorepath, '[]', (err) => {
-      if (err) {
-        logerror('could not initialize orders store: %O', err)
-      } else {
-        global.panf.orders = []
-      }
-    })
-  } else {
-    global.panf.orders = JSON.parse(data)
-  }
-})
-
-fs.readFile(config.serialization.metaFilestorepath, 'utf-8', (error, data) => {
-  if (error) {
-    fs.writeFile(config.serialization.metaFilestorepath, '{}', (err) => {
-      if (err) {
-        logerror('could not initialize meta store: %O', err)
-      } else {
-        global.panf.meta = {}
-      }
-    })
-  } else {
-    global.panf.meta = JSON.parse(data)
-  }
-})
-
-fs.readFile(config.serialization.paiedFilestorepath, 'utf-8', (error, data) => {
-  if (error) {
-    fs.writeFile(config.serialization.paiedFilestorepath, '[]', (err) => {
-      if (err) {
-        logerror('could not initialize paied store: %O', err)
-      } else {
-        global.panf.paied = []
-      }
-    })
-  } else {
-    global.panf.paied = JSON.parse(data)
-  }
-})
+app.use(isAuthed)
 
 const myServer = new http.Server(app)
 
-socket.panfIO(myServer, sharedSession, config)
-
-const serializeJson = SerializeJson.Serialize(config)
-
-setInterval(() => {
-  serializeJson.sync(global.panf.tableId, global.panf.orders, global.panf.meta, global.panf.paied)
-}, config.serialization.interval)
-
-app.use(router)
+const panfIO = socket.panfIO(myServer, sharedSession)
+app.use(router(panfIO))
 
 myServer.listen(port, () => {
   log('Listening on port %d', port)

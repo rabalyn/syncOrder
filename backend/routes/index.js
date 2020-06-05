@@ -2,10 +2,12 @@ import express from 'express'
 
 const router = express.Router()
 
-const order = require('./order')
+module.exports = function(panfIO) {
+  router.use('/auth', require('./auth'))
+  router.use('/user', require('./user'))
+  router.use('/order', require('./order')(panfIO))
+  router.use('/hobbit', require('./hobbit'))
+  router.use('/davinci', require('./davinci'))
 
-router.use('/order', order)
-router.use('/hobbit', require('./hobbit'))
-router.use('/davinci', require('./davinci'))
-
-module.exports = router
+  return router
+}

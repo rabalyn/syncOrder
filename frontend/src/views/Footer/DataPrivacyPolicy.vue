@@ -279,7 +279,7 @@
 
 <script>
 export default {
-  name: 'DataPrivacyPolicy',
+  name: `DataPrivacyPolicy`,
   props: {},
   data: function () {
     return {}

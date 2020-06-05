@@ -1,5 +1,5 @@
 <template>
-  <b-container>
+  <footer class="mt-auto">
     <b-row class="justify-content-md-center footer">
       <b-button
         href="https://github.com/rabalyn/syncOrder/"
@@ -21,14 +21,14 @@
     </b-row>
 
     <DataPrivacyPolicy />
-  </b-container>
+  </footer>
 </template>
 
 <script>
 import DataPrivacyPolicy from './DataPrivacyPolicy.vue'
 
 export default {
-  name: 'Footer',
+  name: `Footer`,
   components: {
     DataPrivacyPolicy
   },

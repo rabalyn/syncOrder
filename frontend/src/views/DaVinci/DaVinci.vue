@@ -9,7 +9,7 @@
 import DaVinciMenuTable from './DaVinciMenuTable.vue'
 
 export default {
-  name: 'daVinci',
+  name: `daVinci`,
   components: {
     DaVinciMenuTable
   }
