@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "export DEBUG='app:* serialization:* socketHobbit:* routes:*' ; pm2 start ecosystem.config.js"
+    "start": "export DEBUG='app:* serialization:* socketHobbit:* routes:*' ; pm2 start ecosystem.config.js",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "@rabalyn (Nils Mundhenke)",
   "license": "MIT",
@@ -37,6 +39,8 @@
     "moment": "^2.26.0",
     "pg": "^8.2.1",
     "redis": "^3.0.2",
-    "socket.io": "^2.3.0"
-  }
+    "socket.io": "^2.3.0",
+    "snyk": "^1.336.0"
+  },
+  "snyk": true
 }
