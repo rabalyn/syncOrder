@@ -1,6 +1,7 @@
 import debug from 'debug'
 
 import config from './config'
+import dotenv from 'dotenv'
 
 import express from 'express'
 import router from './routes'
@@ -23,10 +24,12 @@ const logerror = debug('panf:app:error')
 log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
+dotenv.config()
+
 const RedisStore = new connectRedis(session)
 
 const FALLBACK_PORT = 9000
-const port = process.env.PORT || config.app.port || FALLBACK_PORT
+const port = process.env.PORT || FALLBACK_PORT
 const DAYS_IN_ONE_YEAR = 365
 const HOURS_IN_ONE_DAY = 24
 const MINUTES_IN_ONE_HOUR = 60
