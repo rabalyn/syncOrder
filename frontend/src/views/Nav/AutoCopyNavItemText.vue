@@ -1,13 +1,13 @@
 <template>
   <span @click="copyToClipboard">
     <font-awesome-icon :icon="iconName" />
-    &nbsp;<span ref="autoCopyElement">{{text}}</span>
+    &nbsp;<span ref="autoCopyElement">{{ text }}</span>
   </span>
 </template>
 
 <script>
 export default {
-  name: `AutoCopyNavItemText`,
+  name: 'AutoCopyNavItemText',
   props: {
     text: {
       default: null,
@@ -23,21 +23,21 @@ export default {
   },
   computed: {
   },
+  watch: {
+  },
+  created: function () {
+  },
+  mounted: function () {
+  },
   methods: {
     copyToClipboard () {
       const range = document.createRange()
       range.selectNode(this.$refs.autoCopyElement)
       window.getSelection().removeAllRanges()
       window.getSelection().addRange(range)
-      document.execCommand(`copy`)
+      document.execCommand('copy')
       window.getSelection().removeAllRanges()
     }
-  },
-  watch: {
-  },
-  created: function () {
-  },
-  mounted: function () {
   }
 }
 </script>

@@ -1,49 +1,58 @@
 <template>
   <b-container fluid>
     <b-button
-      @click="setupNewOrder"
       variant="outline-success"
+      @click="setupNewOrder"
     >
       Setup New Order
     </b-button>
 
-    <h4>{{$t('panf.metaData.title')}}</h4>
+    <h4>{{ $t('panf.metaData.title') }}</h4>
     <b-row>
-      <b-col sm="12" lg="6">
+      <b-col
+        sm="12"
+        lg="6"
+      >
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
             <font-awesome-icon icon="calendar-alt" />&nbsp;
           </b-input-group-text>
           <b-form-input
-            @update="syncDateString"
             v-model="dateString"
             type="date"
-          ></b-form-input>
+            @update="syncDateString"
+          />
         </b-input-group>
       </b-col>
-      <b-col sm="12" lg="6">
+      <b-col
+        sm="12"
+        lg="6"
+      >
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
             <font-awesome-icon icon="clock" />&nbsp;
           </b-input-group-text>
           <b-form-input
-            @update="syncCollectTime"
             v-model="collectTime"
             type="time"
-          ></b-form-input>
+            @update="syncCollectTime"
+          />
         </b-input-group>
       </b-col>
     </b-row>
     <b-row>
-      <b-col sm="12" lg="6">
+      <b-col
+        sm="12"
+        lg="6"
+      >
         <b-input-group class="mt-3">
           <b-input-group-text slot="prepend">
             <font-awesome-icon icon="phone" />&nbsp;
           </b-input-group-text>
           <b-form-input
-            @update="syncCaller"
             v-model="caller"
-          ></b-form-input>
+            @update="syncCaller"
+          />
         </b-input-group>
       </b-col>
       <b-col
@@ -55,9 +64,9 @@
             <font-awesome-icon icon="people-carry" />&nbsp;
           </b-input-group-text>
           <b-form-input
-            @update="syncCollector"
             v-model="collector"
-          ></b-form-input>
+            @update="syncCollector"
+          />
         </b-input-group>
       </b-col>
     </b-row>
@@ -68,7 +77,7 @@
 import config from '../../config'
 
 export default {
-  name: `PanfMetaData`,
+  name: 'PanfMetaData',
   props: {},
   data: function () {
     return {
@@ -80,7 +89,7 @@ export default {
         return this.$store.state.metaInfo.collector
       },
       set (val) {
-        this.$store.commit(`updateCollector`, val)
+        this.$store.commit('updateCollector', val)
       }
     },
     dateString: {
@@ -88,7 +97,7 @@ export default {
         return this.$store.state.metaInfo.dateString
       },
       set (val) {
-        this.$store.commit(`updateDate`, val)
+        this.$store.commit('updateDate', val)
       }
     },
     collectTime: {
@@ -96,7 +105,7 @@ export default {
         return this.$store.state.metaInfo.collectTime
       },
       set (val) {
-        this.$store.commit(`updateCollectTime`, val)
+        this.$store.commit('updateCollectTime', val)
       }
     },
     caller: {
@@ -104,9 +113,75 @@ export default {
         return this.$store.state.metaInfo.caller
       },
       set (val) {
-        this.$store.commit(`updateCaller`, val)
+        this.$store.commit('updateCaller', val)
       }
     }
+  },
+  watch: {},
+  created () { },
+  mounted () {
+    this.$socket.client.emit('loadOrdermeta')
+
+    this.$socket.$subscribe('sendOrdermeta', (activeOrder) => {
+      console.log('sendordermeta: ', activeOrder)
+      if (!activeOrder) {
+        activeOrder = {}
+      }
+
+      this.caller = activeOrder.caller
+        ? activeOrder.caller
+        : null
+      this.collector = activeOrder.collector
+        ? activeOrder.collector
+        : null
+      this.collectTime = activeOrder.collecttime
+        ? activeOrder.collecttime
+        : null
+      this.dateString = activeOrder.datestring
+        ? activeOrder.datestring
+        : null
+    })
+
+    this.$socket.$subscribe('initMeta', (meta) => {
+      this.updateMeta(meta)
+    })
+
+    this.$socket.$subscribe('pushDate', (dateString) => {
+      this.dateString = dateString
+    })
+
+    this.$socket.$subscribe('pushCollectTime', (collectTime) => {
+      this.collectTime = collectTime
+    })
+
+    this.$socket.$subscribe('pushCaller', (caller) => {
+      this.caller = caller
+    })
+
+    this.$socket.$subscribe('pushCollector', (collector) => {
+      this.collector = collector
+    })
+
+    this.$socket.$subscribe('reloadMeta', () => {
+      console.log('loadmeta')
+      this.$socket.client.emit('loadMeta')
+    })
+
+    this.$socket.$subscribe('sendMeta', (meta) => {
+      this.updateMeta(meta)
+    })
+
+    this.$socket.$subscribe('trollProtection', () => {
+      this.$bvToast.toast(
+        this.$t('panf.metaData.trollProtectionText'),
+        {
+          title: this.$t('panf.metaData.orderActive'),
+          variant: 'danger',
+          solid: true,
+          autoHideDelay: 7500
+        }
+      )
+    })
   },
   methods: {
     setupNewOrder () {
@@ -131,88 +206,22 @@ export default {
       } else {
         this.dateString = meta.datestring
       }
-      this.collectTime = meta.collecttime || ``
-      this.caller = meta.caller || ``
-      this.collector = meta.collector || ``
+      this.collectTime = meta.collecttime || ''
+      this.caller = meta.caller || ''
+      this.collector = meta.collector || ''
     },
     syncDateString (val) {
-      this.$socket.client.emit(`syncDate`, val)
+      this.$socket.client.emit('syncDate', val)
     },
     syncCollectTime (val) {
-      this.$socket.client.emit(`syncCollectTime`, val)
+      this.$socket.client.emit('syncCollectTime', val)
     },
     syncCaller (val) {
-      this.$socket.client.emit(`syncCaller`, val)
+      this.$socket.client.emit('syncCaller', val)
     },
     syncCollector (val) {
-      this.$socket.client.emit(`syncCollector`, val)
+      this.$socket.client.emit('syncCollector', val)
     }
-  },
-  watch: {},
-  created () { },
-  mounted () {
-    this.$socket.client.emit(`loadOrdermeta`)
-
-    this.$socket.$subscribe(`sendOrdermeta`, (activeOrder) => {
-      console.log(`sendordermeta: `, activeOrder)
-      if (!activeOrder) {
-        activeOrder = {}
-      }
-
-      this.caller = activeOrder.caller
-        ? activeOrder.caller
-        : null
-      this.collector = activeOrder.collector
-        ? activeOrder.collector
-        : null
-      this.collectTime = activeOrder.collecttime
-        ? activeOrder.collecttime
-        : null
-      this.dateString = activeOrder.datestring
-        ? activeOrder.datestring
-        : null
-    })
-
-    this.$socket.$subscribe(`initMeta`, (meta) => {
-      this.updateMeta(meta)
-    })
-
-    this.$socket.$subscribe(`pushDate`, (dateString) => {
-      this.dateString = dateString
-    })
-
-    this.$socket.$subscribe(`pushCollectTime`, (collectTime) => {
-      this.collectTime = collectTime
-    })
-
-    this.$socket.$subscribe(`pushCaller`, (caller) => {
-      this.caller = caller
-    })
-
-    this.$socket.$subscribe(`pushCollector`, (collector) => {
-      this.collector = collector
-    })
-
-    this.$socket.$subscribe(`reloadMeta`, () => {
-      console.log(`loadmeta`)
-      this.$socket.client.emit(`loadMeta`)
-    })
-
-    this.$socket.$subscribe(`sendMeta`, (meta) => {
-      this.updateMeta(meta)
-    })
-
-    this.$socket.$subscribe(`trollProtection`, () => {
-      this.$bvToast.toast(
-        this.$t(`panf.metaData.trollProtectionText`),
-        {
-          title: this.$t(`panf.metaData.orderActive`),
-          variant: `danger`,
-          solid: true,
-          autoHideDelay: 7500
-        }
-      )
-    })
   }
 }
 </script>

@@ -6,13 +6,13 @@
     size="sm"
   >
     <font-awesome-icon icon="trash" />&nbsp;
-    {{$t('nav.clearOrders')}}
+    {{ $t('nav.clearOrders') }}
   </b-button>
 </template>
 
 <script>
 export default {
-  name: `ClearOrderListButton`,
+  name: 'ClearOrderListButton',
   props: {
   },
   data: function () {
@@ -28,13 +28,13 @@ export default {
       return listClearable
     }
   },
-  methods: {
-  },
   watch: {
   },
   created: function () {
   },
   mounted: function () {
+  },
+  methods: {
   }
 }
 </script>

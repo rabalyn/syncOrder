@@ -1,8 +1,13 @@
 module.exports = {
   devServer: {
-    host: `localhost`,
+    host: 'localhost',
     port: 8080,
     disableHostCheck: true,
-    public: `panf-dev.übersprung.de`
-  }
+    public: 'panf-dev.übersprung.de',
+    overlay: {
+      warnings: true,
+      errors: true
+    }
+  },
+  lintOnSave: true
 }

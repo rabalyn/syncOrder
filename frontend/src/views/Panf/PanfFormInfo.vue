@@ -1,7 +1,9 @@
 <template>
-  <b-container fluid class="mt-4">
+  <b-container
+    fluid
+    class="mt-4"
+  >
     <b-row>
-
       <b-col cols="12">
         <b-alert
           show
@@ -11,8 +13,8 @@
           <font-awesome-icon
             size="3x"
             icon="exclamation-triangle"
-          ></font-awesome-icon>
-          {{$t('panf.formInfo.text')}}
+          />
+          {{ $t('panf.formInfo.text') }}
         </b-alert>
       </b-col>
     </b-row>
@@ -21,7 +23,7 @@
 
 <script>
 export default {
-  name: `PanfFormInfo`,
+  name: 'PanfFormInfo',
   props: {
   }
 }

@@ -1,16 +1,16 @@
 <template>
   <b-container fluid>
-    <h4>{{$t('panf.orderTable.order')}}</h4>
+    <h4>{{ $t('panf.orderTable.order') }}</h4>
     <b-table
+      v-if="showOrderList.length > 1"
       show-empty
       responsive
       striped
       hover
-      v-if="showOrderList.length > 1"
       :items="showOrderList"
-    ></b-table>
+    />
     <p v-else>
-      {{$t('panf.orderTable.noOrdersText')}}
+      {{ $t('panf.orderTable.noOrdersText') }}
     </p>
   </b-container>
 </template>
@@ -19,11 +19,11 @@
 import config from '../../config'
 
 export default {
-  name: `PanfOrderTable`,
+  name: 'PanfOrderTable',
   props: {},
   data: function () {
     return {
-      fields: [`orderid`, `name`, `meal`, `extras`, `mealPrice`, `prepaid`],
+      fields: ['orderid', 'name', 'meal', 'extras', 'mealPrice', 'prepaid'],
       orders: [],
       prepaidCharges: [],
       prepaidSum: 0
@@ -62,55 +62,6 @@ export default {
       return newShowOrderList || []
     }
   },
-  methods: {
-    formatPrice (value) {
-      // eslint-disable-next-line
-      const val = (value / 1).toFixed(2).replace('.', ',')
-
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `.`)
-    },
-    updatePrepaidSum () {
-      this.prepaidSum = this.prepaidCharges.reduce((prev, curr) => {
-        if (curr) {
-          return prev + parseFloat(curr)
-        } else {
-          return prev
-        }
-        // eslint-disable-next-line
-      }, 0.0)
-
-      this.$socket.client.emit(`syncPrepaid`, this.showOrderList)
-    },
-    makeToast (opts) {
-      const title = opts.title || ``
-      const content = opts.content || ``
-      const variant = opts.variant || null
-      this.$bvToast.toast(content, {
-        title: title,
-        variant: variant,
-        solid: true,
-        autoHideDelay: 7500
-      })
-    },
-    loadOrders () {
-      this.$http.get(`${config.server.apiUrl}/order/getAllOrderList`)
-        .then((res) => {
-          this.orders = res.data
-        })
-        .catch((error) => {
-          console.error(`could not fetch orders: `, error)
-        })
-    },
-    loadPrepaidCharges () {
-      this.$http.get(`${config.server.apiUrl}/order/getPrepaidCharges`)
-        .then((res) => {
-          this.prepaidCharges = res.data
-        })
-        .catch((error) => {
-          console.error(`could not fetch prepaid charges: `, error)
-        })
-    }
-  },
   watch: {
     orders: {
       handler: function (newVal) {
@@ -143,38 +94,38 @@ export default {
     this.loadOrders()
     this.loadPrepaidCharges()
 
-    this.$socket.$subscribe(`initOrders`, (orders) => {
+    this.$socket.$subscribe('initOrders', (orders) => {
       this.orders = orders
     })
 
-    this.$socket.$subscribe(`GETorder`, (order) => {
+    this.$socket.$subscribe('GETorder', (order) => {
       this.orders.push(order)
     })
 
-    this.$socket.$subscribe(`UPDATEorder`, (order) => {
+    this.$socket.$subscribe('UPDATEorder', (order) => {
       // eslint-disable-next-line
       this.$set(this.orders, parseInt(order.orderId) - 1, order)
     })
 
-    this.$socket.$subscribe(`showOrderReceiption`, (order) => {
+    this.$socket.$subscribe('showOrderReceiption', (order) => {
       this.makeToast({
-        title: `Bestellung erhalten`,
+        title: 'Bestellung erhalten',
         content: `Hey ${order.name} ! \n ${order.meal} wurde zur Liste der Bestellungen hinzugefügt: -) \n
         Guten Hunger!`,
-        variant: `info`
+        variant: 'info'
       })
     })
 
-    this.$socket.$subscribe(`FAILorder`, (order) => {
+    this.$socket.$subscribe('FAILorder', (order) => {
       this.makeToast({
-        title: `Bestellung abgelehnt`,
+        title: 'Bestellung abgelehnt',
         content: `Hey ${order.name} ! \n
         Dein Name steht leider schon auf der Liste.Du musst einen anderen wählen.`,
-        variant: `danger`
+        variant: 'danger'
       })
     })
 
-    this.$socket.$subscribe(`initPaied`, (paiedList) => {
+    this.$socket.$subscribe('initPaied', (paiedList) => {
       for (let i = 0; i < this.showOrderList.length; i++) {
         if (paiedList[i] !== null) {
           this.showOrderList[i].prepaid = parseFloat(paiedList[i])
@@ -182,7 +133,7 @@ export default {
       }
     })
 
-    this.$socket.$subscribe(`updatePrepaid`, (paiedList) => {
+    this.$socket.$subscribe('updatePrepaid', (paiedList) => {
       for (let i = 0; i < this.showOrderList.length; i++) {
         if (paiedList[i] !== null) {
           this.showOrderList[i].prepaid = parseFloat(paiedList[i])
@@ -198,6 +149,55 @@ export default {
         // eslint-disable-next-line
       }, 0.0)
     })
+  },
+  methods: {
+    formatPrice (value) {
+      // eslint-disable-next-line
+      const val = (value / 1).toFixed(2).replace('.', ',')
+
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    },
+    updatePrepaidSum () {
+      this.prepaidSum = this.prepaidCharges.reduce((prev, curr) => {
+        if (curr) {
+          return prev + parseFloat(curr)
+        } else {
+          return prev
+        }
+        // eslint-disable-next-line
+      }, 0.0)
+
+      this.$socket.client.emit('syncPrepaid', this.showOrderList)
+    },
+    makeToast (opts) {
+      const title = opts.title || ''
+      const content = opts.content || ''
+      const variant = opts.variant || null
+      this.$bvToast.toast(content, {
+        title: title,
+        variant: variant,
+        solid: true,
+        autoHideDelay: 7500
+      })
+    },
+    loadOrders () {
+      this.$http.get(`${config.server.apiUrl}/order/getAllOrderList`)
+        .then((res) => {
+          this.orders = res.data
+        })
+        .catch((error) => {
+          console.error('could not fetch orders: ', error)
+        })
+    },
+    loadPrepaidCharges () {
+      this.$http.get(`${config.server.apiUrl}/order/getPrepaidCharges`)
+        .then((res) => {
+          this.prepaidCharges = res.data
+        })
+        .catch((error) => {
+          console.error('could not fetch prepaid charges: ', error)
+        })
+    }
   }
 }
 </script>

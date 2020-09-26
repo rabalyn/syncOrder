@@ -1,8 +1,11 @@
 <template>
   <div>
-    <ConfirmDeleteOrderListModal></ConfirmDeleteOrderListModal>
+    <ConfirmDeleteOrderListModal />
 
-    <b-container fluid id="app">
+    <b-container
+      id="app"
+      fluid
+    >
       <b-navbar
         id="nav"
         toggleable="lg"
@@ -14,10 +17,10 @@
           @click="handlePanfNavClick"
         >
           🍕&nbsp;
-          {{$t('header')}}
+          {{ $t('header') }}
         </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse-routes"></b-navbar-toggle>
+        <b-navbar-toggle target="nav-collapse-routes" />
 
         <b-collapse
           id="nav-collapse-routes"
@@ -30,13 +33,19 @@
             >
               <font-awesome-icon icon="file-alt" />&nbsp;Da-Vinci
             </b-nav-item>
+
+            <b-nav-item
+              to="/meal-manager"
+              exact
+            >
+              <font-awesome-icon icon="file-alt" />&nbsp;Mahlzeitmanager
+            </b-nav-item>
           </b-navbar-nav>
 
           <b-navbar-nav class="ml-auto">
-
             <b-nav-item>
               <AutoCopyNavItemText
-                iconName="phone"
+                icon-name="phone"
                 text="06151 29 28 27"
               />
             </b-nav-item>
@@ -55,20 +64,18 @@
                 <font-awesome-icon icon="user" />&nbsp;Login
               </span>
               <span v-else>
-                <font-awesome-icon icon="user" />&nbsp;{{displayname}}
+                <font-awesome-icon icon="user" />&nbsp;{{ displayname }}
               </span>
             </b-nav-item>
           </b-navbar-nav>
-
         </b-collapse>
       </b-navbar>
 
       <router-view />
 
-      <hr />
+      <hr>
 
       <Footer />
-
     </b-container>
   </div>
 </template>
@@ -93,32 +100,32 @@ export default {
   data: function () {
     return {}
   },
-  mounted: function () {
-    this.$http(`${config.server.apiUrl}/auth/init`)
-      .then((res) => {
-        const userObj = res.data
-        this.$store.commit(`updateMe`, userObj)
-      })
-      .catch((reason) => {
-        console.error(reason)
-      })
-  },
   computed: {
     displayname: {
       get () {
         return this.$store.state.user.displayname
       },
       set (val) {
-        this.$store.commit(`updateMyDisplayname`, val)
+        this.$store.commit('updateMyDisplayname', val)
       }
     }
   },
+  mounted: function () {
+    this.$http(`${config.server.apiUrl}/auth/init`)
+      .then((res) => {
+        const userObj = res.data
+        this.$store.commit('updateMe', userObj)
+      })
+      .catch((reason) => {
+        console.error(reason)
+      })
+  },
   methods: {
     handlePanfNavClick () {
-      if (this.$route.path === `/panf` || this.$route.path === `/panf/`) {
+      if (this.$route.path === '/panf' || this.$route.path === '/panf/') {
         this.$router.go()
       } else {
-        this.$router.push(`/panf`)
+        this.$router.push('/panf')
       }
     }
   }

@@ -18,7 +18,7 @@ import de from './locales/de/locales.json'
 import en from './locales/en/locales.json'
 import VueI18n from 'vue-i18n'
 
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import config from './config.js'
 const connectionString = config.server.baseUrl
@@ -26,7 +26,7 @@ const connectionString = config.server.baseUrl
 
 const socket = io(connectionString)
 
-Vue.component(`font-awesome-icon`, FontAwesomeIcon)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(VueSocketIOExt, socket)
 
@@ -37,7 +37,7 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 const i18n = new VueI18n({
-  locale: `de`,
+  locale: 'de',
   messages: {
     en: en,
     de: de
@@ -51,7 +51,7 @@ new Vue({
   render: (h) => h(App),
   sockets: {
     connect: function () {
-      console.info(`socket connected`)
+      console.info('socket connected')
     }
   }
-}).$mount(`#app`)
+}).$mount('#app')

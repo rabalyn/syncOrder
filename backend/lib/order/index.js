@@ -5,231 +5,109 @@ import debug from 'debug'
 const log = debug('panf:lib:order:info')
 log.log = console.log.bind(console)
 
-function _readActiveOrderId() {
-  return new Promise(async (resolve, reject) => {
-    const dbQuery = knex('config')
+async function _readActiveOrderId () {
+  try {
+    const configActiveOrder = await knex('config')
       .select('active_order')
       .first()
 
-    try {
-      const row = await dbQuery
-      log('_readActiveOrderId - row: %O', row)
-      const activeOrderId = (row && row.active_order)
-        ? row.active_order
-        : null
-
-      return resolve(activeOrderId)
-    } catch (error) {
-      return reject(error)
-    }
-  })
-}
-
-function _setupNewOrder() {
-  return new Promise(async (resolve, reject) => {
-    const activeOrderId = await _readActiveOrderId()
-    const dbQuery = knex('orders')
-      .where('active_order', '=', activeOrderId)
-      .first()
-
-    try {
-      const activeOrder = await dbQuery
-      log('_setupNewOrder - activeOrder: %s', activeOrder)
-      // everything is setup, nothing to do
-      if (activeOrder && activeOrder.id) {
-        return resolve(true)
-      }
-    } catch (error) {
-      return reject(error)
-    }
-
-    const insertNewOrder = knex('orders')
-      // eslint-disable-next-line
-      .insert({active_order: activeOrderId, open: true})
-
-    log('_setupNewOrder SQL: %s', insertNewOrder.toString())
-
-    try {
-      await insertNewOrder
-    } catch (error) {
-      return reject(error)
-    }
-
-    return resolve(true)
-  })
-}
-
-function _initNewOrderId() {
-  return new Promise(async (resolve, reject) => {
-    log('_initNewOrder')
-    const dbQuery = knex('config')
-      .select('active_order')
-      .first()
-
-    let activeOrderId = null
-    const START_INDEX = 0
-    const INCREMENT = 1
-    try {
-      const row = await dbQuery
-      activeOrderId = (row && row.active_order)
-        ? row.active_order
-        : START_INDEX
-    } catch (error) {
-      return reject(error)
-    }
-
-    const newActiveOrderId = (parseInt(activeOrderId) || START_INDEX) + INCREMENT
-    const incrementActiveOrderIdQuery = knex('config')
-      // eslint-disable-next-line
-      .update({active_order: newActiveOrderId})
-
-    log('_initNewOrderId - SQL: %s', incrementActiveOrderIdQuery.toString())
-
-    try {
-      await incrementActiveOrderIdQuery
-    } catch (error) {
-      return reject(error)
-    }
-
-    try {
-      const activeOrderIdDb = await _readActiveOrderId()
-      if (!activeOrderIdDb) {
-        const insertConfigRow = knex('config')
-          // eslint-disable-next-line
-          .insert({active_order: newActiveOrderId})
-
-        await insertConfigRow
-      }
-    } catch (error) {
-      return reject(error)
-    }
-
-    return resolve(true)
-  })
-}
-
-module.exports.prepareNewOrder = function() {
-  log('prepareNewOrder')
-
-  return new Promise(async (resolve, reject) => {
-    try {
-      await _initNewOrderId()
-    } catch (error) {
-      return reject(error)
-    }
-
-    try {
-      const result = await _setupNewOrder()
-
-      return resolve(result)
-    } catch (error) {
-      return reject(error)
-    }
-  })
-}
-
-async function _readOrder(activeOrderId, cb) {
-  const dbQuery = knex.table('orders').innerJoin('config', 'config.active_order', '=', 'orders.id')
-    .where('config.active_order', '=', activeOrderId)
-    .first()
-
-  try {
-    const row = await dbQuery
-
-    return cb(null, row)
+    return configActiveOrder.active_order
   } catch (error) {
-    return cb(error, null)
+    return new Error(error)
   }
 }
 
-async function _updateActiveOrder(updateObj, cb) {
-  log(updateObj)
-  const activeOrderId =  await _readActiveOrderId()
-  const dbQuery = knex('orders')
-    .update(updateObj)
-    .where('active_order', '=', activeOrderId)
-
+async function _readOrderById (orderId) {
   try {
-    await dbQuery
+    const order = knex('orders')
+      .where({ id: orderId })
 
-    return cb(null, true)
+    return order
   } catch (error) {
-    return cb(error, null)
+    return new Error(error)
   }
 }
 
-async function _getAllOrders(cb) {
-  const dbQuery = knex('orders')
-    .select()
-
+async function _readClosedOrders () {
   try {
-    const rows = await dbQuery
+    const closedOrders = knex('orders')
+      .where({ open: false })
 
-    return cb(null, rows)
+    return closedOrders
   } catch (error) {
-    return cb(error, null)
+    return new Error(error)
   }
 }
 
-async function _getPrepaidCharges(cb) {
-  const dbQuery = knex('orders')
-    .select()
-
+async function _readOpenOrders () {
   try {
-    const prepaidCharges = await dbQuery
+    const openOrders = knex('orders')
+      .where({ open: true })
 
-    return cb(null, prepaidCharges)
+    return openOrders
   } catch (error) {
-    return cb(error, null)
+    return new Error(error)
   }
 }
 
-module.exports.readActiveOrderId = _readActiveOrderId
+async function _closeOrderById (orderId) {
+  try {
+    await knex('orders')
+      .update({ open: false })
+      .where({ id: orderId })
 
-module.exports.readOrder = function(activeOrderId) {
-  return new Promise((resolve, reject) => {
-    _readOrder(activeOrderId, (error, order) => {
-      if (error) {
-        return reject(error)
-      }
-
-      return resolve(order)
-    })
-  })
+    return true
+  } catch (error) {
+    return new Error(error)
+  }
 }
 
-module.exports.updateActiveOrder = function(updateObj) {
-  return new Promise((resolve, reject) => {
-    _updateActiveOrder(updateObj, (error, order) => {
-      if (error) {
-        return reject(error)
-      }
+async function _closeAllOrders () {
+  try {
+    const openOrders = await _readOpenOrders()
 
-      return resolve(order)
-    })
-  })
+    for (let i = 0; i < openOrders.length; i++) {
+      const order = openOrders[i]
+      _closeOrderById(order.id)
+    }
+  } catch (error) {
+    return new Error(error)
+  }
 }
 
-module.exports.getAllOrders = function() {
-  return new Promise((resolve, reject) => {
-    _getAllOrders((error, orderlist) => {
-      if (error) {
-        return reject(error)
-      }
+async function _createNewOrder () {
+  try {
+    const currentOrderId = await _readActiveOrderId()
+    log('currentOrderId: %s', currentOrderId)
+    await _closeOrderById(currentOrderId)
+  } catch (error) {
+    return new Error(error)
+  }
 
-      return resolve(orderlist)
-    })
-  })
+  try {
+    const newCurrentOrderId = await knex('orders')
+      .insert({ open: true })
+      .returning('id')
+
+    await knex('config')
+      .update({ active_order: newCurrentOrderId[0] })
+  } catch (error) {
+    return new Error(error)
+  }
 }
 
-module.exports.getPrepaidCharges = function() {
-  return new Promise((resolve, reject) => {
-    _getPrepaidCharges((error, prepaidCharges) => {
-      if (error) {
-        return reject(error)
-      }
+(async function () {
+  try {
+    log('activeOrderId: %s', await _readActiveOrderId())
 
-      return resolve(prepaidCharges)
-    })
-  })
+    log('order: %O', await _readOrderById(await _readActiveOrderId()))
+
+    log('open order count: %O', (await _readOpenOrders()).length)
+  } catch (error) {
+    console.error(error)
+  }
+})()
+
+module.exports = {
+
 }

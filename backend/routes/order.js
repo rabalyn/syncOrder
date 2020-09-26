@@ -10,12 +10,11 @@ const logerror = debug('panf:routes:order:error')
 log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
-module.exports = function(panfIO) {
+module.exports = function (panfIO) {
   router.get('/loadSession', (req, res) => {
-    return res.json(req.session.panf)
+    res.json(req.session.panf)
   })
 
-  log('foobar')
   router.get('/newOrder', async (req, res) => {
     log('/newOrder')
     panfIO.emit('reloadMeta')
@@ -25,21 +24,21 @@ module.exports = function(panfIO) {
       logerror('/newOrder: %O', error)
       res.statusCode = 500
 
-      return res.end()
+      res.end()
     }
 
-    return res.json({status: 'success'})
+    res.json({ status: 'success' })
   })
 
   router.get('/getAllOrderList', async (req, res) => {
     try {
       const orders = await order.getAllOrders()
 
-      return res.json(orders)
+      res.json(orders)
     } catch (error) {
       res.statusCode = 500
 
-      return res.json(error)
+      res.json(error)
     }
   })
 
@@ -47,14 +46,13 @@ module.exports = function(panfIO) {
     try {
       const prepaidCharges = await order.getPrepaidCharges()
 
-      return res.json(prepaidCharges)
+      res.json(prepaidCharges)
     } catch (error) {
       res.statusCode = 500
 
-      return res.json(error)
+      res.json(error)
     }
   })
 
   return router
-
 }

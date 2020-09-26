@@ -273,22 +273,24 @@
       class="mt-3"
       block
       @click="$bvModal.hide('dataPrivacyPolicy')"
-    >Schließen</b-button>
+    >
+      Schließen
+    </b-button>
   </b-modal>
 </template>
 
 <script>
 export default {
-  name: `DataPrivacyPolicy`,
+  name: 'DataPrivacyPolicy',
   props: {},
   data: function () {
     return {}
   },
   computed: {},
-  methods: {},
   watch: {},
   created: function () { },
-  mounted: function () { }
+  mounted: function () { },
+  methods: {}
 }
 </script>
 

@@ -20,6 +20,7 @@ module.exports.panfIO = function(http, sharedSession) {
 
     require('./userorder')(io, socket)
     require('./ordermeta')(io, socket)
+    require('./order')(io, socket)
   })
 
   return io

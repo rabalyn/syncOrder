@@ -3,11 +3,11 @@
     <PanfFormInfo />
     <PanfMetaData />
 
-    <hr />
+    <hr>
 
     <PanfNewOrder />
 
-    <hr />
+    <hr>
 
     <PanfOrderTable />
   </b-container>
@@ -21,7 +21,7 @@ import PanfNewOrder from './PanfNewOrder.vue'
 import PanfOrderTable from './PanfOrderTable.vue'
 
 export default {
-  name: `panf`,
+  name: 'Panf',
   components: {
     PanfFormInfo,
     PanfMetaData,
@@ -33,21 +33,21 @@ export default {
     return {}
   },
   computed: {},
-  methods: {
-    destroySession () {
-      this.$socket.client.emit(`destroySession`)
-    }
-  },
   watch: {},
   created: function () { },
   mounted () {
-    this.$socket.$subscribe(`destroySession`, () => {
+    this.$socket.$subscribe('destroySession', () => {
       this.destroySession()
     })
 
-    this.$socket.$subscribe(`foo`, (foo) => {
-      console.log(`foo: `, foo)
+    this.$socket.$subscribe('foo', (foo) => {
+      console.log('foo: ', foo)
     })
+  },
+  methods: {
+    destroySession () {
+      this.$socket.client.emit('destroySession')
+    }
   }
 }
 </script>

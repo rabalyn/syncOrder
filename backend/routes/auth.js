@@ -8,6 +8,7 @@ const router = express.Router()
 
 const log = debug('panf:routes:auth:info')
 const logdebug = debug('panf:routes:auth:debug')
+const logerror = debug('panf:routes:auth:error')
 log.log = console.log.bind(console)
 logdebug.log = console.log.bind(console)
 
@@ -23,20 +24,20 @@ router.get('/init', (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-  const {body} = req
-  const {username, password} = body
+  const { body } = req
+  const { username, password } = body
 
   const user = await knex
     .first('username')
     .from('users')
     .where({
-      'username': username
+      username: username
     })
 
   if (user) {
     log('username already exists')
 
-    return res.json({status: 'username already exists', register: false})
+    return res.json({ status: 'username already exists', register: false })
   }
 
   log('generating hash')
@@ -57,7 +58,7 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-  const {username, password} = req.body
+  const { username, password } = req.body
 
   const user = await knex
     .from('users')
@@ -77,7 +78,6 @@ router.post('/login', async (req, res) => {
   const loginValid = await bcrypt.compare(password, userPassword)
   log(user)
   if (loginValid) {
-    // eslint-disable-next-line
     req.session.user = {
       id: user.id,
       username: user.username,

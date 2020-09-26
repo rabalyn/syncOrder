@@ -10,14 +10,14 @@
       :value="lang"
       @click="setLanguage(lang)"
     >
-      {{ $t(`langs.${lang}`)}}
+      {{ $t(`langs.${lang}`) }}
     </b-dropdown-item>
   </b-nav-item-dropdown>
 </template>
 
 <script>
 export default {
-  name: `LanguageSelector`,
+  name: 'LanguageSelector',
   props: {
     langs: {
       default: () => [],
@@ -30,16 +30,16 @@ export default {
   },
   computed: {
   },
-  methods: {
-    setLanguage (lang) {
-      this.$i18n.locale = lang
-    }
-  },
   watch: {
   },
   created: function () {
   },
   mounted: function () {
+  },
+  methods: {
+    setLanguage (lang) {
+      this.$i18n.locale = lang
+    }
   }
 }
 </script>

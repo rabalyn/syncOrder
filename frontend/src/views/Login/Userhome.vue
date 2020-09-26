@@ -3,16 +3,19 @@
     <ul>
       <li>Username: {{ displayusername }}</li>
       <li>
-        <b-input-group prepend="Anzeigename" class="mt-3">
+        <b-input-group
+          prepend="Anzeigename"
+          class="mt-3"
+        >
           <b-form-input
+            v-model="displayname"
             type="text"
             placeholder="Anzeigename"
-            v-model="displayname"
-          ></b-form-input>
+          />
           <b-input-group-append>
             <b-button
-              @click="saveDisplayname"
               variant="outline-success"
+              @click="saveDisplayname"
             >
               Anzeigenamen speichern
             </b-button>
@@ -21,16 +24,19 @@
       </li>
 
       <li>
-        <b-input-group prepend="E-Mail" class="mt-3">
+        <b-input-group
+          prepend="E-Mail"
+          class="mt-3"
+        >
           <b-form-input
+            v-model="displayemail"
             type="text"
             placeholder="E-Mail"
-            v-model="displayemail"
-          ></b-form-input>
+          />
           <b-input-group-append>
             <b-button
-              @click="saveEmail"
               variant="outline-success"
+              @click="saveEmail"
             >
               E-Mail speichern
             </b-button>
@@ -41,25 +47,32 @@
       <li>
         Neues Passwort:
         <b-input
-            type="password"
-            placeholder="Passwort"
-            :v-model="passwordInput"
-          ></b-input>
+          type="password"
+          placeholder="Passwort"
+          :v-model="passwordInput"
+        />
       </li>
 
       <li>
         Neues Passwort bestätigen:
         <div>
           <b-input
-              type="password"
-              placeholder="Password bestätigen"
-              :v-model="passwordReenterInput"
-            ></b-input>
-            <b-button @click="savePassword">Neues Passwort speichern</b-button>
+            type="password"
+            placeholder="Password bestätigen"
+            :v-model="passwordReenterInput"
+          />
+          <b-button @click="savePassword">
+            Neues Passwort speichern
+          </b-button>
         </div>
       </li>
     </ul>
-    <b-button @click="logout" variant="danger">Logout</b-button>
+    <b-button
+      variant="danger"
+      @click="logout"
+    >
+      Logout
+    </b-button>
   </b-container>
 </template>
 
@@ -68,9 +81,9 @@ import config from '../../config'
 
 import debug from 'debug'
 
-const log = debug(`Login:Userhome:info`)
-const logerror = debug(`Login:Userhome:error`)
-localStorage.debug = ` Login:Userhome:* `
+const log = debug('Login:Userhome:info')
+const logerror = debug('Login:Userhome:error')
+localStorage.debug = ' Login:Userhome:* '
 
 export default {
   componentes: {
@@ -89,7 +102,7 @@ export default {
         return this.$store.state.user.username
       },
       set (val) {
-        this.$store.commit(`updateMyUsername`, val)
+        this.$store.commit('updateMyUsername', val)
       }
     },
     displayname: {
@@ -97,7 +110,7 @@ export default {
         return this.$store.state.user.displayname
       },
       set (val) {
-        this.$store.commit(`updateMyDisplayname`, val)
+        this.$store.commit('updateMyDisplayname', val)
       }
     },
     displayemail: {
@@ -105,21 +118,21 @@ export default {
         return this.$store.state.user.email
       },
       set (val) {
-        this.$store.commit(`updateMyEmail`, val)
+        this.$store.commit('updateMyEmail', val)
       }
     }
   },
   methods: {
     logout () {
-      this.$store.commit(`updateMe`, {})
+      this.$store.commit('updateMe', {})
       this.$http
         .post(`${config.server.apiUrl}/auth/logout`)
         .then((res) => {
-          log(`logout: %O`, res)
-          this.$store.commit(`updateMe`, {})
+          log('logout: %O', res)
+          this.$store.commit('updateMe', {})
         })
         .catch((reason) => {
-          logerror(`logout: %O`, reason)
+          logerror('logout: %O', reason)
         })
     },
     updateMe (updateObj) {
@@ -128,33 +141,33 @@ export default {
           updateObj
         })
         .then((res) => {
-          log(`logout: %O`, res)
+          log('logout: %O', res)
           const updatedUserAttrs = (res.data && res.data.user)
             ? res.data.user
             : null
 
           if (updatedUserAttrs) {
-            this.$store.commit(`updateMe`, updatedUserAttrs)
+            this.$store.commit('updateMe', updatedUserAttrs)
           }
         })
         .catch((reason) => {
-          logerror(`saveEmail: %O`, reason)
+          logerror('saveEmail: %O', reason)
         })
     },
     saveDisplayname () {
-      const updateObj = {displayname: this.displayname}
+      const updateObj = { displayname: this.displayname }
       this.updateMe(updateObj)
     },
     saveEmail () {
       if (!this.emailRegEx.test(this.displayemail)) {
-        log(`Please Enter Correct Email`)
+        log('Please Enter Correct Email')
       } else {
-        const updateObj = {email: this.displayemail}
+        const updateObj = { email: this.displayemail }
         this.updateMe(updateObj)
       }
     },
     savePassword () {
-      const updateObj = {password: this.passwordInput}
+      const updateObj = { password: this.passwordInput }
       this.updateMe(updateObj)
     }
   }

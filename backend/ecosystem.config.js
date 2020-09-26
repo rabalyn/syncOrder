@@ -4,7 +4,7 @@ module.exports = {
       name: 'panf-dev',
       script: './app.js',
       watch: ['lib', 'app.js', 'routes', 'src/locales', 'ecosystem.config.js'],
-      interpreter: 'babel-node',
+      interpreter: 'node_modules/.bin/babel-node',
       env: {
         NODE_ENV: 'development',
         DEBUG: 'panf:*'

@@ -6,13 +6,15 @@
     footer-text-variant="light"
     @ok="clearOrderList"
   >
-    <p class="my-4">Soll die aktuelle Bestellliste wirklich gelöscht werden?</p>
+    <p class="my-4">
+      Soll die aktuelle Bestellliste wirklich gelöscht werden?
+    </p>
 
     <template
       slot="modal-footer"
+      slot-scope="{ ok, cancel }"
       footer-bg-variant="dark"
       footer-text-variant="light"
-      slot-scope="{ ok, cancel }"
     >
       <b-button
         size="sm"
@@ -34,7 +36,7 @@
 
 <script>
 export default {
-  name: `ConfirmDeleteOrderListModal`,
+  name: 'ConfirmDeleteOrderListModal',
   props: {
   },
   data: function () {
@@ -43,16 +45,16 @@ export default {
   },
   computed: {
   },
-  methods: {
-    clearOrderList () {
-      this.$socket.emit(`clearList`)
-    }
-  },
   watch: {
   },
   created: function () {
   },
   mounted: function () {
+  },
+  methods: {
+    clearOrderList () {
+      this.$socket.client.emit('clearList')
+    }
   }
 }
 </script>

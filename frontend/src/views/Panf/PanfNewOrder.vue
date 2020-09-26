@@ -3,7 +3,7 @@
     id="orderContent"
     fluid
   >
-    <h4>{{$t('panf.newOrder.order')}}</h4>
+    <h4>{{ $t('panf.newOrder.order') }}</h4>
     <b-row>
       <b-col
         xs="12"
@@ -19,7 +19,7 @@
           <b-form-input
             v-model="name"
             :placeholder="$t('panf.newOrder.name')"
-          ></b-form-input>
+          />
         </b-input-group>
       </b-col>
     </b-row>
@@ -29,7 +29,7 @@
         <b-input-group class="mt-3">
           <template slot="prepend">
             <div class="input-group-text">
-              <font-awesome-icon icon="box"></font-awesome-icon>
+              <font-awesome-icon icon="box" />
             </div>
           </template>
           <b-dropdown
@@ -40,7 +40,9 @@
             dropright
             @shown="menulistDropdownClicked"
           >
-            <template slot="button-content">{{$t('panf.newOrder.meal')}}</template>
+            <template slot="button-content">
+              {{ $t('panf.newOrder.meal') }}
+            </template>
 
             <b-input-group
               id="menulistFilterContainer"
@@ -53,19 +55,19 @@
                 ref="menulistFilterInput"
                 v-model="menulistFilter"
                 :placeholder="$t('panf.newOrder.filterNameOrIngredient')"
-              ></b-form-input>
+              />
             </b-input-group>
 
             <div
-              v-bind:key="category"
               v-for="(categoryMealList, category) in filteredMenulist"
+              :key="category"
             >
-              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-divider />
               <b-dropdown-header>{{ $t(`panf.newOrder.categories.${category}`) }}</b-dropdown-header>
               <b-dropdown-item
-                @click="chooseMeal(meal)"
-                v-bind:key="idx"
                 v-for="(meal, idx) in categoryMealList"
+                :key="idx"
+                @click="chooseMeal(meal)"
               >
                 {{ $t(`panf.newOrder.meals.${meal.name}`) + `&nbsp;${formatPrice(meal.price)}€` }}
                 <small v-if="meal.ingredients[0]">
@@ -96,7 +98,7 @@
         <b-input-group class="mt-3">
           <template slot="prepend">
             <div class="input-group-text">
-              <font-awesome-icon icon="comment"></font-awesome-icon>
+              <font-awesome-icon icon="comment" />
             </div>
           </template>
 
@@ -107,7 +109,9 @@
             dropright
             @shown="extrasDropdownClicked"
           >
-            <template slot="button-content">{{$t('panf.newOrder.extra')}}</template>
+            <template slot="button-content">
+              {{ $t('panf.newOrder.extra') }}
+            </template>
 
             <b-input-group
               id="extralistFilterContainer"
@@ -119,15 +123,15 @@
               <b-form-input
                 ref="extralistFilterInput"
                 v-model="extralistFilter"
-                @keyup="manualEnterIngredient"
                 placeholder="Extrazutat filtern..."
-              ></b-form-input>
+                @keyup="manualEnterIngredient"
+              />
             </b-input-group>
 
             <b-dropdown-item
-              @click="choseExtra(extra)"
-              v-bind:key="extraIndex"
               v-for="(extra, extraIndex) in filteredExtralist"
+              :key="extraIndex"
+              @click="choseExtra(extra)"
             >
               <small>{{ $t(`panf.newOrder.extras.${extra.name}`) + `&nbsp;${formatPrice(extra.price)}€` }}</small>
             </b-dropdown-item>
@@ -137,8 +141,8 @@
 
       <b-col cols="12">
         <span
-          v-bind:key="idx"
           v-for="(extra, idx) in extrasChosen"
+          :key="idx"
         >
           <b-badge
             v-if="extra.name.match(/ohne|Ohne|kein|Kein|^-|^ -|^- |^ - /)"
@@ -149,7 +153,7 @@
             <font-awesome-icon
               icon="times"
               @click="removeExtra(idx, extra)"
-            ></font-awesome-icon>
+            />
           </b-badge>
 
           <b-badge
@@ -161,7 +165,7 @@
             <font-awesome-icon
               icon="times"
               @click="removeExtra(idx, extra)"
-            ></font-awesome-icon>
+            />
           </b-badge>&nbsp;
         </span>
         <span v-if="extrasChosen.length === 0">&nbsp;</span>
@@ -181,9 +185,9 @@
             <font-awesome-icon icon="money-bill-alt" />
           </b-input-group-text>
           <b-form-input
-            disabled
             v-model="sumPrice"
-          ></b-form-input>
+            disabled
+          />
         </b-input-group>
       </b-col>
     </b-row>
@@ -202,14 +206,18 @@
           variant="success"
           :disabled="isPlaceOrderDisabled"
           @click="placeOrder"
-        >{{$t('panf.newOrder.btnOrder')}}</b-button>&nbsp;&nbsp;
+        >
+          {{ $t('panf.newOrder.btnOrder') }}
+        </b-button>&nbsp;&nbsp;
         <b-button
           class="mt-3"
           size="sm"
           variant="danger"
           :disabled="isResetOrderDisabled"
           @click="resetOrder"
-        >{{$t('panf.newOrder.btnReset')}}</b-button>
+        >
+          {{ $t('panf.newOrder.btnReset') }}
+        </b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -219,18 +227,18 @@
 import config from '../../config.js'
 
 import debug from 'debug'
-const log = debug(`panf:newOrder:info`)
-localStorage.debug += ` panf:newOrder:* `
+const log = debug('panf:newOrder:info')
+localStorage.debug += ' panf:newOrder:* '
 
 export default {
-  name: `PanfNewOrder`,
+  name: 'PanfNewOrder',
   props: {},
   data: function () {
     return {
       menulist: {},
       extralist: [],
-      menulistFilter: ``,
-      extralistFilter: ``,
+      menulistFilter: '',
+      extralistFilter: '',
       name: null,
       meal: null,
       mealIngredients: [],
@@ -239,7 +247,7 @@ export default {
       extrasPrice: 0.0,
       orderId: null,
       show: false,
-      title: `Bestellung aufgeben - DaVinci`
+      title: 'Bestellung aufgeben - DaVinci'
     }
   },
   computed: {
@@ -251,7 +259,7 @@ export default {
       return !this.name && !this.meal && !this.extrasChosen[0]
     },
     filteredMenulist () {
-      if (this.menulistFilter === ``) {
+      if (this.menulistFilter === '') {
         return this.menulist
       } else {
         const filteredMenuList = {}
@@ -263,7 +271,7 @@ export default {
               .toLowerCase()
               .includes(this.menulistFilter.toLowerCase()) ||
             item.ingredients
-              .join(``)
+              .join('')
               .toLowerCase()
               .includes(this.menulistFilter.toLowerCase()))
           filteredMenuList[category] = filteredMealList
@@ -273,7 +281,7 @@ export default {
       }
     },
     filteredExtralist () {
-      if (this.extralistFilter === ``) {
+      if (this.extralistFilter === '') {
         return this.extralist
       } else {
         const filteredExtraList = this.extralist.filter((item) =>
@@ -281,7 +289,7 @@ export default {
             .toLowerCase()
             .includes(this.extralistFilter.toLowerCase()) ||
           item.ingredients
-            .join(``)
+            .join('')
             .toLowerCase()
             .includes(this.extralistFilter.toLowerCase()))
 
@@ -291,6 +299,38 @@ export default {
     sumPrice () {
       return `${this.formatPrice(this.mealPrice + this.extrasPrice)}€`
     }
+  },
+  watch: {},
+  created: function () { },
+  mounted: function () {
+    this.$http
+      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`, {
+        credentials: true
+      })
+      .then((res) => {
+        this.extralist = res.data.extras
+        delete res.data.extras
+        this.menulist = res.data
+      })
+
+    this.$socket.$subscribe('loadSession', (session) => {
+      if (session && session.order) {
+        this.name = session.order.name
+        this.meal = session.order.meal
+        this.mealIngredients = session.order.ingredients || []
+        this.mealPrice = session.order.mealPrice
+        this.extrasChosen = session.order.extras || []
+        // eslint-disable-next-line
+        this.extrasPrice = session.order.extrasPrice || 0.0
+        this.orderId = session.order.orderId || null
+      }
+    })
+
+    this.$socket.$subscribe('reloadOrder', () => {
+      this.resetOrder()
+    })
+
+    this.loadSession()
   },
   methods: {
     loadSession () {
@@ -314,7 +354,7 @@ export default {
       // eslint-disable-next-line
       const val = (value / 1).toFixed(2).replace('.', ',')
 
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `.`)
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
     },
     getExtra (extraName) {
       const searchedExtra = this.extralist.filter((item) =>
@@ -328,14 +368,14 @@ export default {
         : null
     },
     chooseMeal (meal) {
-      this.menulistFilter = ``
+      this.menulistFilter = ''
       this.meal = meal.name
       this.mealPrice = meal.price
       this.mealIngredients = meal.ingredients
     },
     choseExtra (extra) {
-      this.extralistFilter = ``
-      extra.type = `add`
+      this.extralistFilter = ''
+      extra.type = 'add'
       this.extrasChosen.push(extra)
       this.extrasPrice += extra.price
     },
@@ -350,21 +390,21 @@ export default {
         // Enter was released
         const inputValue = e.target.value
         if (
-          inputValue.toLowerCase().includes(`ohne`) ||
-          inputValue.includes(`-`)
+          inputValue.toLowerCase().includes('ohne') ||
+          inputValue.includes('-')
         ) {
-          this.extralistFilter = ``
+          this.extralistFilter = ''
           log(e.target)
           this.extrasChosen.push({
             name: inputValue,
-            price: ``,
-            type: `remove`
+            price: '',
+            type: 'remove'
           })
         } else {
           const chosenExtra = this.getExtra(inputValue)
           if (chosenExtra !== null) {
             this.choseExtra(chosenExtra)
-            this.extralistFilter = ``
+            this.extralistFilter = ''
           }
         }
       }
@@ -380,16 +420,16 @@ export default {
 
       if (!this.name || !this.meal || !this.mealPrice) {
         this.$bvToast.toast(
-          `Dein Name und eine Mahlzeit sind für eine Bestellung obligatorisch.`,
+          'Dein Name und eine Mahlzeit sind für eine Bestellung obligatorisch.',
           {
-            title: `Ungültige Bestellung!`,
-            variant: `danger`,
+            title: 'Ungültige Bestellung!',
+            variant: 'danger',
             solid: true,
             autoHideDelay: 7500
           }
         )
       } else {
-        this.$socket.client.emit(`POSTorder`, {
+        this.$socket.client.emit('POSTorder', {
           name: this.name,
           meal: this.meal,
           ingredients: this.mealIngredients,
@@ -411,39 +451,6 @@ export default {
       this.extrasChosen = []
       this.extrasPrice = 0
     }
-  },
-  watch: {},
-  created: function () { },
-  mounted: function () {
-    this.$http
-      .get(`${config.server.apiUrl}/davinci/getDaVinciMenu`, {
-        credentials: true
-      })
-      .then((res) => {
-        this.extralist = res.data.extras
-        delete res.data.extras
-        this.menulist = res.data
-      })
-
-    this.$socket.$subscribe(`loadSession`, (session) => {
-      if (session && session.order) {
-        this.name = session.order.name
-        this.meal = session.order.meal
-        this.mealIngredients = session.order.ingredients || []
-        this.mealPrice = session.order.mealPrice
-        this.extrasChosen = session.order.extras || []
-        // eslint-disable-next-line
-        this.extrasPrice = session.order.extrasPrice || 0.0
-        this.orderId = session.order.orderId || null
-      }
-    })
-
-    this.$socket.$subscribe(`reloadOrder`, () => {
-      this.resetOrder()
-    })
-
-
-    this.loadSession()
   }
 }
 </script>

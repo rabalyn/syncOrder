@@ -10,9 +10,12 @@ import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 
+import morgan from 'morgan'
+import cors from 'cors'
+
 import session from 'express-session'
 import redis from 'redis'
-import connectRedis from 'connect-redis'
+import ConnectRedis from 'connect-redis'
 
 import http from 'http'
 
@@ -26,7 +29,7 @@ logdebug.log = console.log.bind(console)
 
 dotenv.config()
 
-const RedisStore = new connectRedis(session)
+const RedisStore = new ConnectRedis(session)
 
 const FALLBACK_PORT = 9000
 const port = process.env.PORT || FALLBACK_PORT
@@ -46,7 +49,7 @@ const client = redis.createClient({
 client.unref()
 client.on('error', logerror)
 
-const store = new RedisStore({client})
+const store = new RedisStore({ client })
 
 const sharedSession = session({
   store: store,
@@ -68,14 +71,25 @@ const COUNT_TRUSTED_PROXIES = 1
 app.set('trust proxy', COUNT_TRUSTED_PROXIES)
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(sharedSession)
+
 app.use(helmet({
   hsts: false
 }))
 
-function isAuthed(req, res, next) {
+app.use(morgan('dev'))
+
+var corsOptions = {
+  origin: ['https://panf-dev.übersprung.de', 'https://panf.übersprung.de'],
+  methods: 'GET,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}
+app.use(cors(corsOptions))
+
+function isAuthed (req, res, next) {
   req.session.reload((err) => {
     if (err) {
       logerror('isAuthed failed: %O', err)
@@ -96,6 +110,22 @@ const myServer = new http.Server(app)
 
 const panfIO = socket.panfIO(myServer, sharedSession)
 app.use(router(panfIO))
+
+app.use((req, res, next) => {
+  res.status(404)
+  const error = new Error(`🔍 - Not Found - ${req.originalUrl}`)
+  next(error)
+})
+
+app.use((err, req, res, next) => {
+  /* eslint-enable no-unused-vars */
+  const statusCode = res.statusCode !== 200 ? res.statusCode : 500
+  res.status(statusCode)
+  res.json({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
+  })
+})
 
 myServer.listen(port, () => {
   log('Listening on port %d', port)

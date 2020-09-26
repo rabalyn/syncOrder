@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DaVinciMenuTable></DaVinciMenuTable>
+    <DaVinciMenuTable />
   </div>
 </template>
 
@@ -9,7 +9,7 @@
 import DaVinciMenuTable from './DaVinciMenuTable.vue'
 
 export default {
-  name: `daVinci`,
+  name: 'DaVinci',
   components: {
     DaVinciMenuTable
   }

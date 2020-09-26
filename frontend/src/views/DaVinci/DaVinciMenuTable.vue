@@ -1,14 +1,16 @@
 <template>
   <div>
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapsePizza
       size="lg"
       variant="info"
-      v-b-toggle.collapsePizza
-    >{{ captionPizza }}</b-button>
+    >
+      {{ captionPizza }}
+    </b-button>
     <b-collapse
-      visible
       id="collapsePizza"
+      visible
       class="mt-2"
     >
       <b-table
@@ -34,15 +36,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapsePizzabread
       size="lg"
       variant="info"
-      v-b-toggle.collapsePizzabread
-    >{{ captionPizzabread }}</b-button>
+    >
+      {{ captionPizzabread }}
+    </b-button>
     <b-collapse
-      visible
       id="collapsePizzabread"
+      visible
       class="mt-2"
     >
       <b-table
@@ -68,15 +72,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapsePasta
       size="lg"
       variant="info"
-      v-b-toggle.collapsePasta
-    >{{ captionPasta }}</b-button>
+    >
+      {{ captionPasta }}
+    </b-button>
     <b-collapse
-      visible
       id="collapsePasta"
+      visible
       class="mt-2"
     >
       <b-table
@@ -102,15 +108,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseVariations
       size="lg"
       variant="info"
-      v-b-toggle.collapseVariations
-    >{{ captionVariations }}</b-button>
+    >
+      {{ captionVariations }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseVariations"
+      visible
       class="mt-2"
     >
       <b-table
@@ -136,15 +144,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseAntipasti
       size="lg"
       variant="info"
-      v-b-toggle.collapseAntipasti
-    >{{ captionAntipasti }}</b-button>
+    >
+      {{ captionAntipasti }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseAntipasti"
+      visible
       class="mt-2"
     >
       <b-table
@@ -170,15 +180,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseSoup
       size="lg"
       variant="info"
-      v-b-toggle.collapseSoup
-    >{{ captionSoup }}</b-button>
+    >
+      {{ captionSoup }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseSoup"
+      visible
       class="mt-2"
     >
       <b-table
@@ -204,15 +216,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseSalad
       size="lg"
       variant="info"
-      v-b-toggle.collapseSalad
-    >{{ captionSalad }}</b-button>
+    >
+      {{ captionSalad }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseSalad"
+      visible
       class="mt-2"
     >
       <b-table
@@ -238,15 +252,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseFish
       size="lg"
       variant="info"
-      v-b-toggle.collapseFish
-    >{{ captionFish }}</b-button>
+    >
+      {{ captionFish }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseFish"
+      visible
       class="mt-2"
     >
       <b-table
@@ -272,15 +288,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapsePork
       size="lg"
       variant="info"
-      v-b-toggle.collapsePork
-    >{{ captionPork }}</b-button>
+    >
+      {{ captionPork }}
+    </b-button>
     <b-collapse
-      visible
       id="collapsePork"
+      visible
       class="mt-2"
     >
       <b-table
@@ -306,15 +324,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapsVeal
       size="lg"
       variant="info"
-      v-b-toggle.collapsVeal
-    >{{ captionVeal }}</b-button>
+    >
+      {{ captionVeal }}
+    </b-button>
     <b-collapse
-      visible
       id="collapsVeal"
+      visible
       class="mt-2"
     >
       <b-table
@@ -340,15 +360,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseBeef
       size="lg"
       variant="info"
-      v-b-toggle.collapseBeef
-    >{{ captionBeef }}</b-button>
+    >
+      {{ captionBeef }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseBeef"
+      visible
       class="mt-2"
     >
       <b-table
@@ -374,15 +396,17 @@
       </b-table>
     </b-collapse>
 
-    <br />
+    <br>
     <b-button
+      v-b-toggle.collapseExtras
       size="lg"
       variant="info"
-      v-b-toggle.collapseExtras
-    >{{ captionExtras }}</b-button>
+    >
+      {{ captionExtras }}
+    </b-button>
     <b-collapse
-      visible
       id="collapseExtras"
+      visible
       class="mt-2"
     >
       <b-table
@@ -407,7 +431,6 @@
         </template>
       </b-table>
     </b-collapse>
-
   </div>
 </template>
 
@@ -415,53 +438,45 @@
 import config from '../../config.js'
 
 export default {
-  name: `DaVinciMenuTable`,
+  name: 'DaVinciMenuTable',
+  props: {
+  },
   data: function () {
     return {
       fields: {
-        'number': {
-          label: `Nummer`,
+        number: {
+          label: 'Nummer',
           sortable: true
         },
-        'name': {
-          label: `Name`,
+        name: {
+          label: 'Name',
           sortable: true
         },
-        'ingredients': {
-          label: `Zutaten`
+        ingredients: {
+          label: 'Zutaten'
         },
-        'price': {
-          label: `Preis`,
+        price: {
+          label: 'Preis',
           sortable: true
         }
       },
       menu: [],
-      captionPizza: `Pizza`,
+      captionPizza: 'Pizza',
       isVisible: true,
-      captionPizzabread: `Pizzabrote`,
-      captionPasta: `Pasta`,
-      captionVariations: `Variationen`,
-      captionAntipasti: `Antipasti`,
-      captionSoup: `Suppen`,
-      captionSalad: `Salate`,
-      captionFish: `Fisch`,
-      captionPork: `Schweinefleisch`,
-      captionVeal: `Kalbfleisch`,
-      captionBeef: `Rindfleisch`,
-      captionExtras: `Extras`
+      captionPizzabread: 'Pizzabrote',
+      captionPasta: 'Pasta',
+      captionVariations: 'Variationen',
+      captionAntipasti: 'Antipasti',
+      captionSoup: 'Suppen',
+      captionSalad: 'Salate',
+      captionFish: 'Fisch',
+      captionPork: 'Schweinefleisch',
+      captionVeal: 'Kalbfleisch',
+      captionBeef: 'Rindfleisch',
+      captionExtras: 'Extras'
     }
-  },
-  props: {
   },
   computed: {
-  },
-  methods: {
-    formatPrice (value) {
-      // eslint-disable-next-line
-      const val = (value / 1).toFixed(2).replace('.', ',')
-
-      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, `.`)
-    }
   },
   watch: {
   },
@@ -473,6 +488,14 @@ export default {
       .then((res) => {
         this.menu = res.data
       })
+  },
+  methods: {
+    formatPrice (value) {
+      // eslint-disable-next-line
+      const val = (value / 1).toFixed(2).replace('.', ',')
+
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+    }
   }
 }
 </script>
