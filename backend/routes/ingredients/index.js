@@ -1,18 +1,12 @@
-import debug from 'debug'
-import meals from '../lib/meals'
+import ingredients from '../../lib/ingredients'
 
 const express = require('express')
 const router = express.Router()
 
-const log = debug('panf:routes:meal:info')
-const logdebug = debug('panf:routes:meal:debug')
-log.log = console.log.bind(console)
-logdebug.log = console.log.bind(console)
-
 module.exports = function (panfIO) {
   router.get('/', async (req, res) => {
     try {
-      const mealList = await meals.read(req.query)
+      const mealList = await ingredients.read(req.query)
       res.json(mealList)
     } catch (error) {
       res.status(500).json(error.toString())
@@ -21,7 +15,7 @@ module.exports = function (panfIO) {
 
   router.get('/:id', async (req, res) => {
     try {
-      const meal = await meals.readOne(req.params.id)
+      const meal = await ingredients.readOne(req.params.id)
       res.json(meal)
     } catch (error) {
       res.status(500).json(error.toString())
@@ -30,7 +24,7 @@ module.exports = function (panfIO) {
 
   router.post('/', async (req, res) => {
     try {
-      await meals.create(req.body)
+      await ingredients.create(req.body)
       res.json({ status: 'created' })
     } catch (error) {
       res.status(500).json(error.toString())
@@ -39,7 +33,7 @@ module.exports = function (panfIO) {
 
   router.put('/:id', async (req, res) => {
     try {
-      await meals.update(req.params.id, req.body)
+      await ingredients.update(req.params.id, req.body)
       res.json({ status: 'updated' })
     } catch (error) {
       res.status(500).json(error.toString())
@@ -48,7 +42,7 @@ module.exports = function (panfIO) {
 
   router.delete('/:id', async (req, res) => {
     try {
-      await meals.delete(req.params.id)
+      await ingredients.delete(req.params.id)
       res.json({ status: 'deleted' })
     } catch (error) {
       res.status(500).json(error.toString())

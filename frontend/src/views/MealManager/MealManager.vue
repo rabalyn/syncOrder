@@ -34,6 +34,24 @@
 
             <b-form-group
               label-cols-sm="3"
+              label="Zutaten:"
+              label-align-sm="right"
+              label-for="ingredient-list"
+            >
+              <b-form-select id ="ingredient-list" v-model="meal.ingredients" :options="mealIngredientOptions" size="sm" multiple :select-size="10"></b-form-select>
+            </b-form-group>
+
+            <b-form-group
+              label-cols-sm="3"
+              label="Ausgewählte Zutaten:"
+              label-align-sm="right"
+              label-for="chosen-ingredient-list"
+            >
+              <b-form-input id ="chosen-ingredient-list" v-model="chosenIngredients" disabled></b-form-input>
+            </b-form-group>
+
+            <b-form-group
+              label-cols-sm="3"
               label="Preis:"
               label-align-sm="right"
               label-for="meal-price"
@@ -123,6 +141,7 @@ export default {
       meals: [],
       meal: {
         name: '',
+        ingredients: [],
         price: null
       },
       ingredients: [],
@@ -133,7 +152,22 @@ export default {
       }
     }
   },
-  computed: {},
+  computed: {
+    mealIngredientOptions () {
+      return this.ingredients.map((x) => {
+        return {
+          value: x.id,
+          text: x.name
+        }
+      })
+    },
+    chosenIngredients () {
+      return this.mealIngredientOptions
+        .filter((x) => this.meal.ingredients.includes(x.value))
+        .map((x) => x.text)
+        .join(', ')
+    }
+  },
   watch: {},
   created: function () {
     this.readMeals()
@@ -186,6 +220,7 @@ export default {
       this.meal = {
         id: null,
         name: '',
+        ingredients: [],
         price: null
       }
     },
@@ -228,6 +263,7 @@ export default {
         .then((res) => res.json())
         .then((jsonResponse) => {
           this.readIngredients()
+          this.resetIngredient()
         })
     },
     updateIngridient (id) {

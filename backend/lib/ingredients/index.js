@@ -4,8 +4,7 @@ async function _create (ingridient) {
   const { name, price } = ingridient
 
   if (!name) throw Error('name missing')
-  if (!price) throw Error('price missing')
-  if (!parseFloat(price)) throw Error('price not parsable')
+  if (price && !parseFloat(price)) throw Error('price not parsable')
 
   try {
     await knex('ingredients')

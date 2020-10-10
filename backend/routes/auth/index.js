@@ -1,27 +1,5 @@
-import knex from '../knex/knex.js'
-import bcrypt from 'bcrypt'
-
-import debug from 'debug'
-
 const express = require('express')
 const router = express.Router()
-
-const log = debug('panf:routes:auth:info')
-const logdebug = debug('panf:routes:auth:debug')
-const logerror = debug('panf:routes:auth:error')
-log.log = console.log.bind(console)
-logdebug.log = console.log.bind(console)
-
-const HASHROUNDS = 10
-
-router.get('/init', (req, res) => {
-  log('/init - req.session', req.session)
-  if (req.session.user) {
-    res.json(req.session.user)
-  } else {
-    res.json({})
-  }
-})
 
 router.post('/register', async (req, res) => {
   const { body } = req

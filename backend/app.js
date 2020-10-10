@@ -79,7 +79,7 @@ app.use(helmet({
   hsts: false
 }))
 
-app.use(morgan('dev'))
+app.use(morgan(':date[iso] :method :url :status :res[content-length] - :response-time ms'))
 
 var corsOptions = {
   origin: ['https://panf-dev.übersprung.de', 'https://panf.übersprung.de'],
