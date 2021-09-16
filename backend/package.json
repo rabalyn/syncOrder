@@ -21,7 +21,7 @@
     "connect-redis": "^4.0.4",
     "cookie-parser": "^1.4.5",
     "debug": "^4.1.1",
-    "eslint": "^7.1.0",
+    "eslint": "^7.16.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -40,7 +40,7 @@
     "pg": "^8.2.1",
     "redis": "^3.1.1",
     "socket.io": "^2.3.0",
-    "snyk": "^1.336.0"
+    "snyk": "^1.465.0"
   },
   "snyk": true
 }
